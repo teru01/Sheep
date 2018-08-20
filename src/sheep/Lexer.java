@@ -23,7 +23,7 @@ public class Lexer {
     }
 
     public Token read() throws ParseException {
-        if (this.fillQueue(0)) {
+        if (this.DoesQueueHaveSpecificElement(0)) {
             return queue.remove(0);
         } else {
             return Token.EOF;
@@ -31,14 +31,14 @@ public class Lexer {
     }
 
     public Token peek(int i) throws ParseException {
-        if (this.fillQueue(i)) {
+        if (this.DoesQueueHaveSpecificElement(i)) {
             return queue.get(i);
         } else {
             return Token.EOF;
         }
     }
 
-    private boolean fillQueue(int i) throws ParseException {
+    private boolean DoesQueueHaveSpecificElement(int i) throws ParseException {
         while (i >= queue.size()) {
             if (this.hasMore) {
                 this.readLine();
@@ -49,17 +49,7 @@ public class Lexer {
         return true;
     }
 
-    protected void readLine() throws ParseExceptin {
-        String line;
-        try {
-            line = this.reader.readLine();
-        } catch (IOException e) {
-            throw new ParseException(e);
-        }
-        if (line == null) {
-            this.hasMore = false;
-            return;
-        }
+    private void fillQueue(String line) {
         int lineNo = this.reader.getLineNumber();
         Matcher matcher = pattern.matcher(line);
         matcher.useTransparentBounds(true).useAnchoringBounds(false);
@@ -75,6 +65,20 @@ public class Lexer {
             }
         }
         this.queue.add(new IdToken(lineNo, Token.EOL));
+    }
+
+    protected void readLine() throws ParseExceptin {
+        String line;
+        try {
+            line = this.reader.readLine();
+        } catch (IOException e) {
+            throw new ParseException(e);
+        }
+        if (line == null) {
+            this.hasMore = false;
+            return;
+        }
+        this.fillQueue(line);
     }
 
     protected void addToken(int lineNo, Matcher matcher) {
@@ -117,8 +121,8 @@ public class Lexer {
     protected static class NumToken extends Token {
         private int value;
         
-        protected NumToken(int lineNum, int v) {
-            super(lineNum);
+        protected NumToken(int lineNo, int v) {
+            super(lineNo);
             this.value = v;
         }
 
@@ -134,8 +138,8 @@ public class Lexer {
     protected class IdToken extends Token {
         private String text;
         
-        protected IdToken(int lineNum, String identifier) {
-            super(lineNum);
+        protected IdToken(int lineNo, String identifier) {
+            super(lineNo);
             this.text = identifier;
         }
 
@@ -146,8 +150,8 @@ public class Lexer {
 
     protected static class StrToken extends Token {
         private String literal;
-        StrToken(int lineNum, String str) {
-            super(lineNum);
+        StrToken(int lineNo, String str) {
+            super(lineNo);
             this.literal = str;
         }
 
