@@ -1,0 +1,1 @@
+javac -d ../build sheep/*.java sheep/ast/*.java tests/*.java
