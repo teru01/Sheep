@@ -23,23 +23,23 @@ public class Lexer {
     }
 
     public Token read() throws ParseException {
-        if (this.DoesQueueHaveSpecificElement(0)) {
-            return queue.remove(0);
+        if (this.parseSourceCode(0)) {
+            return this.queue.remove(0);
         } else {
             return Token.EOF;
         }
     }
 
     public Token peek(int i) throws ParseException {
-        if (this.DoesQueueHaveSpecificElement(i)) {
-            return queue.get(i);
+        if (this.parseSourceCode(i)) {
+            return this.queue.get(i);
         } else {
             return Token.EOF;
         }
     }
 
-    private boolean DoesQueueHaveSpecificElement(int i) throws ParseException {
-        while (i >= queue.size()) {
+    private boolean parseSourceCode(int i) throws ParseException {
+        while (i >= this.queue.size()) {
             if (this.hasMore) {
                 this.readLine();
             } else {
@@ -49,14 +49,14 @@ public class Lexer {
         return true;
     }
 
-    private void fillQueue(String line) {
+    private void fillQueue(String line) throws ParseException{
         int lineNo = this.reader.getLineNumber();
-        Matcher matcher = pattern.matcher(line);
+        Matcher matcher = this.pattern.matcher(line);
         matcher.useTransparentBounds(true).useAnchoringBounds(false);
         int pos = 0;
         int endPos = line.length();
         while (pos < endPos) {
-            matcher.region(pow, endPos);
+            matcher.region(pos, endPos);
             if (matcher.lookingAt()) {
                 this.addToken(lineNo, matcher);
                 pos = matcher.end();
@@ -67,7 +67,7 @@ public class Lexer {
         this.queue.add(new IdToken(lineNo, Token.EOL));
     }
 
-    protected void readLine() throws ParseExceptin {
+    protected void readLine() throws ParseException {
         String line;
         try {
             line = this.reader.readLine();
