@@ -30,7 +30,7 @@ public class ASTLeaf extends ASTree {
     }
 
     public String location() {
-        return "at line " + token.getLineNumber();
+        return "at line " + this.token.getLineNumber();
     }
 
     public Token getToken() {
