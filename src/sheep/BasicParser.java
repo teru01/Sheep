@@ -10,34 +10,51 @@ public class BasicParser {
     Operators operators = new Operators();
     Parser expr0 = rule();
     Parser primary = rule(PrimaryExpr.class)
-            .or(rule().sep("(").ast(expr0).sep(")"),
+            .or(rule().sep("(").ast(this.expr0).sep(")"),
                 rule().number(NumberLiteral.class),
                 rule().identifier(Name.class, reserved),
                 rule().string(StringLiteral.class)
                );
     
-    Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(primary));
+    Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(this.primary));
     
-    Parser expr = expr0.expression(BinaryExpr.class, factor, operators);
+    Parser expr = this.expr0.expression(BinaryExpr.class, this.factor, this.operators);
 
     Parser statement0 = rule();
+
     Parser block = rule(BlockStmnt.class)
-            .sep("{").option(statement0)
-            .repeat(rule().sep(";", Token.EOL).option(statement0))
+            .sep("{").option(this.statement0)
+            .repeat(rule().sep(";", Token.EOL).option(this.statement0))
             .sep("}");
     
-    Parser simple = rule(PrimaryExpr.class).ast(expr);
+    Parser simple = rule(PrimaryExpr.class).ast(this.expr);
     
-    Parser statement = statement0.or(
-            rule(IfStmnt.class).sep("if").ast(expr).ast(block)
-                               .option(rule().sep("else").ast(block)),
-            rule(WhileStmnt.class).sep("while").ast(expr).ast(block),
-            simple);
-    
-            Parser program = rule().or(statement, rule(NullStmnt.class))
-                                   .sep(";", Token.EOL);
+    Parser statement = this.statement0
+            .or(rule(IfStmnt.class).sep("if").ast(this.expr).ast(this.block)
+                                   .option(rule().sep("else").ast(this.block)),
+                rule(WhileStmnt.class).sep("while").ast(this.expr).ast(this.block),
+                this.simple
+               );
 
-    
+   Parser program = rule().or(this.statement, rule(NullStmnt.class)).sep(";", Token.EOL);
 
+    public BasicParser() {
+        this.reserved.add(";");
+        this.reserved.add("}");
+        this.reserved.add(Token.EOL);
 
+        this.operators.add("=", 1, Operators.RIGHT);
+        this.operators.add("==", 2, Operators.LEFT);
+        this.operators.add(">", 2, Operators.LEFT);
+        this.operators.add("<", 2, Operators.LEFT);
+        this.operators.add("+", 3, Operators.LEFT);
+        this.operators.add("-", 3, Operators.LEFT);
+        this.operators.add("*", 4, Operators.LEFT);
+        this.operators.add("/", 4, Operators.LEFT);
+        this.operators.add("%", 4, Operators.LEFT);
+    }
+
+    public ASTree parse(Lexer lexer) throws ParseException {
+        return program.parse(lexer);
+    }
 }
