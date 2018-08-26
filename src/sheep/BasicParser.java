@@ -36,7 +36,7 @@ public class BasicParser {
                 this.simple
                );
 
-   Parser program = rule().or(this.statement, rule(NullStmnt.class)).sep(";", Token.EOL);
+    Parser program = rule().or(this.statement, rule(NullStmnt.class)).sep(";", Token.EOL);
 
     public BasicParser() {
         this.reserved.add(";");

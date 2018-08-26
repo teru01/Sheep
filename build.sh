@@ -1,0 +1,1 @@
+javac -Xlint:all,-serial -d ./build src/sheep/*.java src/sheep/ast/*.java src/tests/*.java
