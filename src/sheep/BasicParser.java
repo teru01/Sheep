@@ -55,6 +55,6 @@ public class BasicParser {
     }
 
     public ASTree parse(Lexer lexer) throws ParseException {
-        return program.parse(lexer);
+        return this.program.parse(lexer);
     }
 }

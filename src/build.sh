@@ -1,1 +1,1 @@
-javac -d ../build sheep/*.java sheep/ast/*.java tests/*.java
+javac -Xlint:all,-serial -d ../build sheep/*.java sheep/ast/*.java tests/*.java
