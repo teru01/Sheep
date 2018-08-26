@@ -10,14 +10,17 @@ public class ASTList extends ASTree {
         this.children = list;
     }
 
+    @Override
     public ASTree child(int i) {
         return this.children.get(i);
     }
 
+    @Override
     public int numChildren() {
         return this.children.size();
     }
 
+    @Override
     public Iterator<ASTree> children() {
         return this.children.iterator();
     }
@@ -34,6 +37,7 @@ public class ASTList extends ASTree {
         return sb.append(')').toString();
     }
 
+    @Override
     public String location() {
         for (ASTree t: this.children) {
             String s = t.location();

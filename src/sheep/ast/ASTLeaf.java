@@ -13,14 +13,17 @@ public class ASTLeaf extends ASTree {
         this.token = t; 
     }
 
+    @Override
     public ASTree child(int i) {
         throw new IndexOutOfBoundsException(); 
     }
 
+    @Override
     public int numChildren() {
         return 0; 
     }
     
+    @Override
     public Iterator<ASTree> children() {
         return empty.iterator();
     }
@@ -29,6 +32,7 @@ public class ASTLeaf extends ASTree {
         return token.getText();
     }
 
+    @Override
     public String location() {
         return "at line " + this.token.getLineNumber();
     }
