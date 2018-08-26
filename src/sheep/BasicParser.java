@@ -16,7 +16,7 @@ public class BasicParser {
                 rule().string(StringLiteral.class)
                );
     
-    Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(this.primary));
+    Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(this.primary), this.primary);
     
     Parser expr = this.expr0.expression(BinaryExpr.class, this.factor, this.operators);
 
