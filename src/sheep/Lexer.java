@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class Lexer {
     // string used by matching methods. backslash must be escaped.
-    // this matches comments(begin with "//"), number, string(wrapped by ") and identifier.
+    // this matches comment(begin with "//"), number, string(wrapped by ") and identifier.
     public static String regexPat
         = "\\s*((//.*)|([0-9]+)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")"
         + "|[A-Z_a-z][A-Z_a-z0-9]*|==|<=|>=|&&|\\|\\||\\p{Punct})?";
@@ -22,23 +22,32 @@ public class Lexer {
         this.reader = new LineNumberReader(r);
     }
 
+    /**
+     * 先頭のトークンをDequeueする。
+     */
     public Token read() throws ParseException {
-        if (this.parseSourceCode(0)) {
+        if (this.canDequeueElement(0)) {
             return this.queue.remove(0);
         } else {
             return Token.EOF;
         }
     }
 
+    /**
+     * 任意のインデックスのトークンを返す。queueから削除はしない。
+     */
     public Token peek(int i) throws ParseException {
-        if (this.parseSourceCode(i)) {
+        if (this.canDequeueElement(i)) {
             return this.queue.get(i);
         } else {
             return Token.EOF;
         }
     }
 
-    private boolean parseSourceCode(int i) throws ParseException {
+    /**
+     * i番目のqueueが用意できるなら、queueに値を詰めてからtrueを返す
+     */
+    private boolean canDequeueElement(int i) throws ParseException {
         while (i >= this.queue.size()) {
             if (this.hasMore) {
                 this.readLine();
@@ -49,6 +58,9 @@ public class Lexer {
         return true;
     }
 
+    /**
+     * 正規表現マッチを行い、パースされたトークンをqueueに入れる
+     */
     private void fillQueue(String line) throws ParseException{
         int lineNo = this.reader.getLineNumber();
         Matcher matcher = this.pattern.matcher(line);
@@ -67,6 +79,33 @@ public class Lexer {
         this.queue.add(new IdToken(lineNo, Token.EOL));
     }
 
+    /**
+     * トークンを生成しqueueに入れる。
+     * @param lineNo
+     * @param matcher
+     */
+    protected void addToken(int lineNo, Matcher matcher) {
+        // group(0):entire pattern
+        String m = matcher.group(1);
+        // space or comment
+        if (m == null || matcher.group(2) != null)
+            return;
+
+        Token token;
+        if (matcher.group(3) != null) {
+            token = new NumToken(lineNo, Integer.parseInt(m));
+        } else if (matcher.group(4) != null) {
+            token = new StrToken(lineNo, toStringLiteral(m));
+        } else {
+            token = new IdToken(lineNo, m);
+        }
+        this.queue.add(token);
+    }
+
+    /**
+     * 1行読み込み
+     * @throws ParseException
+     */
     protected void readLine() throws ParseException {
         String line;
         try {
@@ -79,23 +118,6 @@ public class Lexer {
             return;
         }
         this.fillQueue(line);
-    }
-
-    protected void addToken(int lineNo, Matcher matcher) {
-        //group(0):entire pattern
-        String m = matcher.group(1);
-        // space or comment
-        if (m == null || matcher.group(2) != null) return;
-        
-        Token token;
-        if (matcher.group(3) != null) {
-            token = new NumToken(lineNo, Integer.parseInt(m));
-        } else if (matcher.group(4) != null) {
-            token = new StrToken(lineNo, toStringLiteral(m));
-        } else {
-            token = new IdToken(lineNo, m);
-        }
-        this.queue.add(token);
     }
 
     protected String toStringLiteral(String s) {
@@ -120,16 +142,16 @@ public class Lexer {
 
     protected static class NumToken extends Token {
         private int value;
-        
+
         protected NumToken(int lineNo, int v) {
             super(lineNo);
             this.value = v;
         }
 
         public boolean isNumber() { return true; }
-        
+
         public String getText() {
-             return Integer.toString(this.value); 
+             return Integer.toString(this.value);
         }
 
         public int getNumber() { return this.value; }
@@ -137,7 +159,7 @@ public class Lexer {
 
     protected class IdToken extends Token {
         private String text;
-        
+
         protected IdToken(int lineNo, String identifier) {
             super(lineNo);
             this.text = identifier;

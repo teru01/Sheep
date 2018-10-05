@@ -8,21 +8,21 @@ import sheep.*;
 public class ASTLeaf extends ASTree {
     private static ArrayList<ASTree> empty = new ArrayList<>();
     protected Token token;
-    
+
     public ASTLeaf(Token t) {
-        this.token = t; 
+        this.token = t;
     }
 
     @Override
     public ASTree child(int i) {
-        throw new IndexOutOfBoundsException(); 
+        throw new IndexOutOfBoundsException();
     }
 
     @Override
     public int numChildren() {
-        return 0; 
+        return 0;
     }
-    
+
     @Override
     public Iterator<ASTree> children() {
         return empty.iterator();

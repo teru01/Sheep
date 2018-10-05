@@ -15,9 +15,9 @@ public class BasicParser {
                 rule().identifier(Name.class, reserved),
                 rule().string(StringLiteral.class)
                );
-    
+
     Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(this.primary), this.primary);
-    
+
     Parser expr = this.expr0.expression(BinaryExpr.class, this.factor, this.operators);
 
     Parser statement0 = rule();
@@ -26,9 +26,9 @@ public class BasicParser {
             .sep("{").option(this.statement0)
             .repeat(rule().sep(";", Token.EOL).option(this.statement0))
             .sep("}");
-    
+
     Parser simple = rule(PrimaryExpr.class).ast(this.expr);
-    
+
     Parser statement = this.statement0
             .or(rule(IfStmnt.class).sep("if").ast(this.expr).ast(this.block)
                                    .option(rule().sep("else").ast(this.block)),
