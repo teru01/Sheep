@@ -22,7 +22,7 @@ public class Function {
     }
 
     public Environment makeEnv() {
-        return new NestedEnv();
+        return new NestedEnv(this.env);
     }
 
     @Override

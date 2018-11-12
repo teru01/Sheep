@@ -11,7 +11,7 @@
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
-            "mainClass": "sheep.chap6.Runner",
+            "mainClass": "sheep.chap7.FuncRunner",
             "args": ""
         },
         {
