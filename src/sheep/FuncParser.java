@@ -1,6 +1,6 @@
 package sheep;
 import static sheep.Parser.rule;
-
+import sheep.ast.Arguments;
 import sheep.ast.DefStmnt;
 import sheep.ast.ParameterList;
 
@@ -14,6 +14,7 @@ public class FuncParser extends BasicParser {
                     .sep("def").identifier(this.reserved)
                     .ast(this.paramList)
                     .ast(this.block);
+    Parser args = rule(Arguments.class).ast(expr).repeat(rule().sep(",").ast(expr));
     Parser postfix = rule().sep("(").maybe(this.args).sep(")");
 
     public FuncParser() {
