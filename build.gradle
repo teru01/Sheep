@@ -39,6 +39,6 @@ repositories {
 sourceSets {
     main {
         java.srcDirs = ['src']
-        java.outputDir = file('build')
+        java.outputDir = file('bin/build')
     }
 }
