@@ -1,6 +1,7 @@
 package sheep.ast;
 import java.util.List;
 
+//2項演算子のクラス
 public class BinaryExpr extends ASTList {
     public BinaryExpr(List<ASTree> c) { super(c); }
 

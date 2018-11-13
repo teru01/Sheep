@@ -25,14 +25,20 @@ public class Parser {
         {
             res.add(parser.parse(lexer));
         }
-        protected boolean match(Lexer lexer) throws ParseException { 
+        protected boolean match(Lexer lexer) throws ParseException {
             return parser.match(lexer);
         }
     }
 
     protected static class OrTree extends Element {
         protected Parser[] parsers;
+        //orで繋がれるparserが配列になる
         protected OrTree(Parser[] p) { parsers = p; }
+
+        /**
+         * @param Lexer lexer
+         * @param List<ASTree> res: 結果を格納するリスト
+         */
         protected void parse(Lexer lexer, List<ASTree> res)
             throws ParseException
         {
@@ -45,11 +51,14 @@ public class Parser {
         protected boolean match(Lexer lexer) throws ParseException {
             return choose(lexer) != null;
         }
+
+        /**
+         * lexerから1つ先読みをしてorで繋がれているparserに対して妥当なものを選択している
+         */
         protected Parser choose(Lexer lexer) throws ParseException {
             for (Parser p: parsers)
                 if (p.match(lexer))
                     return p;
-
             return null;
         }
         protected void insert(Parser p) {
@@ -101,7 +110,7 @@ public class Parser {
         protected boolean match(Lexer lexer) throws ParseException {
             return test(lexer.peek(0));
         }
-        protected abstract boolean test(Token t); 
+        protected abstract boolean test(Token t);
     }
 
     protected static class IdToken extends AToken {
@@ -288,13 +297,12 @@ public class Parser {
     protected List<Element> elements;
     protected Factory factory;
 
-    public Parser(Class<? extends ASTree> clazz) {
-        reset(clazz);
-    }
-    protected Parser(Parser p) {
-        elements = p.elements;
-        factory = p.factory;
-    }
+    /**
+     * 最初にmain関数から呼び出される。
+     * @param lexer
+     * @return
+     * @throws ParseException
+     */
     public ASTree parse(Lexer lexer) throws ParseException {
         ArrayList<ASTree> results = new ArrayList<ASTree>();
         for (Element e: elements)
@@ -310,6 +318,20 @@ public class Parser {
             return e.match(lexer);
         }
     }
+
+    public Parser(Class<? extends ASTree> clazz) {
+        reset(clazz);
+    }
+
+    protected Parser(Parser p) {
+        elements = p.elements;
+        factory = p.factory;
+    }
+
+    /**
+     * .*Parserから呼び出される。
+     * @return Parser
+     */
     public static Parser rule() { return rule(null); }
     public static Parser rule(Class<? extends ASTree> clazz) {
         return new Parser(clazz);
@@ -323,6 +345,11 @@ public class Parser {
         factory = Factory.getForASTList(clazz);
         return this;
     }
+
+    /********************************
+     * 以下のメソッドは.*Parserクラスがnewされる際に呼び出される
+     ********************************/
+
     public Parser number() {
         return number(null);
     }
