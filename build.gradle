@@ -15,7 +15,7 @@ plugins {
 }
 
 // Define the main class for the application
-mainClassName = 'sheep.chap7.FuncRunner'
+mainClassName = 'sheep.chap7.ClosureRunner'
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
