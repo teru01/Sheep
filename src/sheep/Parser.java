@@ -258,6 +258,7 @@ public class Parser {
             Factory f = get(clazz, List.class);
             if (f == null)
                 f = new Factory() {
+                    @Override
                     protected ASTree make0(Object arg) throws Exception {
                         List<ASTree> results = (List<ASTree>)arg;
                         if (results.size() == 1)
