@@ -10,9 +10,10 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
-            "stopOnEntry": false,
+            "stopOnEntry": true,
             "mainClass": "sheep.chap7.FuncRunner",
-            "args": ""
+            "args": "",
+            "classPaths": ["lib", "build"]
         },
         {
             "type": "java",

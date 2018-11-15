@@ -29,8 +29,7 @@ public class NativeEvaluator {
             Object[] args = new Object[nparams];
             int num = 0;
             for(ASTree a: this) {
-                ASTreeEx ae = (ASTreeEx)a;
-                args[num++] = ae.eval(callerEnv);
+                args[num++] = ((ASTreeEx)a).eval(callerEnv);
             }
             return func.invoke(args, this);
         }

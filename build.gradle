@@ -16,6 +16,7 @@ plugins {
 
 // Define the main class for the application
 mainClassName = 'sheep.chap8.NativeRunner'
+sourceCompatibility = 1.8
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
