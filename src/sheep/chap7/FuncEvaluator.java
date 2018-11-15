@@ -38,14 +38,17 @@ public class FuncEvaluator {
             return numChildren() - nest > 1;
         }
 
+        //実引数列があればそれを返す
         public Postfix postfix(int nest) {
             return (Postfix)child(numChildren() - nest - 1);
         }
 
+        // 関数呼び出しの式
         public Object eval(Environment env) {
             return evalSubExpr(env, 0);
         }
 
+        // foo(2)(3)のような式呼び出しに対応している。
         public Object evalSubExpr(Environment env, int nest) {
             if(hasPostfix(nest)) {
                 Object target = evalSubExpr(env, nest+1);
@@ -65,7 +68,12 @@ public class FuncEvaluator {
     @Reviser
     public static class ArgumentsEx extends Arguments {
         public ArgumentsEx(List<ASTree> c) { super(c); }
-        // callerEnvを使って実引数を計算し、受け取った関数オブジェクトのnewEnvに仮引数として追加する。
+        /**
+         * callerEnvを使って実引数を計算し、受け取った関数オブジェクトのnewEnvに仮引数として追加する。
+         * @param callerEnv 呼び出し元の環境オブジェクト
+         * @param value     呼び出す関数オブジェクト
+         * @return　関数の返り値
+         */
         public Object eval(Environment callerEnv, Object value) {
             if(!(value instanceof Function)) {
                 throw new SheepException("bad function", this);
@@ -77,6 +85,7 @@ public class FuncEvaluator {
             }
             Environment newEnv = func.makeEnv();
             int num = 0;
+            // 実引数の計算（呼び出し元の環境を用いる）
             for(ASTree a: this) {
                 ((ParamsEx)params).eval(newEnv, num++, ((ASTreeEx)a).eval(callerEnv));
             }
@@ -87,6 +96,7 @@ public class FuncEvaluator {
     @Reviser
     public static class ParamsEx extends ParameterList {
         public ParamsEx(List<ASTree> c) { super(c); }
+        // 仮引数の計算（代入）。関数ブロック内の環境に追加する
         public void eval(Environment env, int index, Object value) {
             ((EnvEx)env).putNew(name(index), value);
         }

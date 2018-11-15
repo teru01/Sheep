@@ -56,6 +56,7 @@ import java.util.List;
         }
     }
 
+    // 式の中に含まれる変数を表す。環境を調べてその名前のついた値を取り出す
     @Reviser
     public static class NameEx extends Name {
         public NameEx(Token t) {
@@ -86,11 +87,13 @@ import java.util.List;
         }
     }
 
+    // 2項演算式
     @Reviser
     public static class BinaryEx extends BinaryExpr {
         public BinaryEx(List<ASTree> c) { super(c); }
         public Object eval(Environment env) {
             String op = operator();
+            // 代入式に対しては左辺値にevalを呼んではならない
             if("=".equals(op)) {
                 Object right = ((ASTreeEx)right()).eval(env);
                 return computeAssign(env, right);
@@ -103,6 +106,7 @@ import java.util.List;
 
         protected Object computeAssign(Environment env, Object rvalue) {
             ASTree l = left();
+            // 左辺値は変数でなくてはならない
             if(l instanceof Name) {
                 env.put(((Name)l).name(), rvalue);
                 return rvalue;
@@ -185,6 +189,7 @@ import java.util.List;
         public WhileEx(List<ASTree> c) { super(c); }
         public Object eval(Environment env) {
             Object result = 0;
+            // While文を抜ける直前の最後に評価された値を返す
             for(;;) {
                 Object c = ((ASTreeEx)condition()).eval(env);
                 if(c instanceof Integer && ((Integer)c).intValue() == FALSE) {

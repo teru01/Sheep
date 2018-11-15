@@ -8,6 +8,9 @@ public class BasicInterpreter {
         run(new BasicParser(), new BasicEnv());
     }
 
+    /**
+     * bp: 複数の部分構文木(factorやexpr)の情報をelementsの中にもつ
+     */
     public static void run(BasicParser bp, Environment env) throws ParseException {
         Lexer lexer = new Lexer(new CodeDialog());
         while(lexer.peek(0) != Token.EOF) {

@@ -91,11 +91,13 @@ public class Parser {
 
     protected static abstract class AToken extends Element {
         protected Factory factory;
+        // typeにはStringLiteralやWhileStmntなどのclassクラスが入る
         protected AToken(Class<? extends ASTLeaf> type) {
             if (type == null)
                 type = ASTLeaf.class;
             factory = Factory.get(type, Token.class);
         }
+        //numやstringにマッチする前提で呼び出される。解析された字句を読み出す。
         protected void parse(Lexer lexer, List<ASTree> res)
             throws ParseException
         {
@@ -271,6 +273,7 @@ public class Parser {
         {
             if (clazz == null)
                 return null;
+            //factoryName（createメソッド）が定義されているクラス（primaryExpr）
             try {
                 final Method m = clazz.getMethod(factoryName,
                                                  new Class<?>[] { argType });
@@ -280,6 +283,7 @@ public class Parser {
                     }
                 };
             } catch (NoSuchMethodException e) {}
+            // createメソッドが定義されていないクラス（StringLiteralやWhileStmntなど）
             try {
                 final Constructor<? extends ASTree> c
                     = clazz.getConstructor(argType);
@@ -294,11 +298,14 @@ public class Parser {
         }
     }
 
+    // レールロードダイアグラムを表現するリスト
     protected List<Element> elements;
+
     protected Factory factory;
 
     /**
-     * 最初にmain関数から呼び出される。
+     * 最初にmain関数から呼び出される.elementsとして表現されたレールロードダイアグラムを辿って入れ子クラス
+     * のparseメソッドを呼び出し、正しく構文解析されると構文木を返す
      * @param lexer
      * @return
      * @throws ParseException
@@ -348,6 +355,7 @@ public class Parser {
 
     /********************************
      * 以下のメソッドは.*Parserクラスがnewされる際に呼び出される
+     * elementsフィールドにレールロードダイアグラム要素のインスタンスが格納される
      ********************************/
 
     public Parser number() {

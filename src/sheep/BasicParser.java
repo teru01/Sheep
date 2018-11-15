@@ -7,6 +7,12 @@ import sheep.ast.*;
 
 public class BasicParser {
     HashSet<String> reserved = new HashSet<>();
+
+    /**
+     * インタプリタが以下のプロパティを初期化する。
+     * Parserのelementsに追加される
+     * rule()でParserがnewされて新たな木（部分木）が作成される
+     **/
     Operators operators = new Operators();
     // exprの定義が循環しているため。
     Parser expr0 = rule();
