@@ -26,6 +26,7 @@ public class ClassEvaluator {
     @Reviser
     public static class ClassBodyEx extends ClassBody {
         public ClassBodyEx(List<ASTree> c) { super(c); }
+        // 
         public Object eval(Environment env) {
             for (ASTree t : this)
                 ((ASTreeEx)t).eval(env);
@@ -60,7 +61,8 @@ public class ClassEvaluator {
         }
 
         /**
-         * ciの親クラスの本体を頂点からevalする.フィールド、メソッドの登録など
+         * ciの親クラスの本体を頂点からevalする.フィールド、メソッドの登録など。overrideも問題なくされる
+         * TODO: 親クラスのフィールドに触れるよう、superの実装
          */
         protected void initObject(ClassInfo ci, Environment env) {
             if (ci.superClass() != null) {

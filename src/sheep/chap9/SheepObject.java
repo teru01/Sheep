@@ -22,8 +22,15 @@ public class SheepObject {
         ((EnvEx)this.getEnv(member)).putNew(member, value);
     }
 
+    /**
+     * read, writeの時にインスタンスフィールドしか参照できないようにする。
+     * @param member
+     * @return
+     * @throws AccessException
+     */
     protected Environment getEnv(String member) throws AccessException {
         Environment e = ((EnvEx)this.env).where(member);
+        // e == this.envを確認しないと大域変数もp.hogeの形で参照できてしまう
         if(e != null && e == this.env) {
             return e;
         } else {

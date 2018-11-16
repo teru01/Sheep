@@ -15,7 +15,7 @@ plugins {
 }
 
 // Define the main class for the application
-mainClassName = 'sheep.chap8.NativeRunner'
+mainClassName = 'sheep.chap9.ClassRunner'
 sourceCompatibility = 1.8
 
 dependencies {

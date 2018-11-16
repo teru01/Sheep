@@ -54,7 +54,8 @@ public class NestedEnv implements Environment {
         if(this.values.get(name) != null) {
             return this;
         } else if(this.outer != null) {
-            return ((EnvEx) this.outer).where(name);
+            return ((EnvEx)this.outer).where(name);
         }
+        return null;
     }
 }
