@@ -46,18 +46,15 @@ public class NestedEnv implements Environment {
     }
 
     /**
-     * 渡された名前がどの環境にあるかを再帰的に検索してそれを返す。
+     * 渡された名前がどの環境にあるかを外側に再帰的に検索してそれを返す。
      * @param name
-     * @return
+     * @return Environment
      */
     public Environment where(String name) {
         if(this.values.get(name) != null) {
             return this;
-        } else if(this.outer == null) {
-            return null;
-        } else {
-            return ((EnvEx)this.outer).where(name);
+        } else if(this.outer != null) {
+            return ((EnvEx) this.outer).where(name);
         }
     }
-
 }

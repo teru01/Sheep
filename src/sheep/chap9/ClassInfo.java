@@ -3,9 +3,13 @@ import sheep.*;
 import sheep.ast.ClassBody;
 import sheep.ast.ClassStmnt;
 import sheep.chap6.*;
-
+/**
+ * クラスの情報を保持する
+ */
 public class ClassInfo {
+    // クラス文の本体
     protected ClassStmnt definition;
+    // クラス定義された時の環境
     protected Environment environment;
     protected ClassInfo superClass;
 
