@@ -1,0 +1,27 @@
+class Animal {
+    type = "animal"
+    name = "undefined"
+    def getType() {
+        type
+    }
+
+    def getName() {
+        name
+    }
+}
+
+class Sheep extends Animal {
+    name = "sheep"
+    def eat() {
+        print "eating grass"
+    }
+}
+
+hitsuji = Sheep.new
+print ("name: " + hitsuji.getName())
+hitsuji.eat()
+
+a = [1, 2, 3, 4]
+print a
+a[1] = "hoge"
+print a
