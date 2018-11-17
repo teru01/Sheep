@@ -21,5 +21,16 @@ public class BasicInterpreter {
             }
         }
     }
+
+    /**
+     * 生成される構文木をチェックする
+     */
+    public static void checkAst(BasicParser bp, Environment env) throws ParseException {
+        Lexer l = new Lexer(new CodeDialog());
+        while (l.peek(0) != Token.EOF) {
+            ASTree ast = bp.parse(l);
+            System.out.println("=> " + ast.toString());
+        }
+    }
 }
 

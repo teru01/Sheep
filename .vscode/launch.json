@@ -10,10 +10,10 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
-            "stopOnEntry": true,
-            "mainClass": "sheep.chap7.FuncRunner",
+            "stopOnEntry": false,
+            "mainClass": "sheep.chap10.ArrayRunner",
             "args": "",
-            "classPaths": ["lib", "build"]
+            "classPaths": ["lib/gluonj.jar", "bin/build"]
         },
         {
             "type": "java",
