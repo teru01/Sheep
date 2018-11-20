@@ -1,6 +1,9 @@
 package sheep.chap11;
 import java.util.*;
 
+/**
+ * 大域変数のためのハッシュテーブル
+ */
 public class Symbols {
     public static class Location {
         public int nest;
