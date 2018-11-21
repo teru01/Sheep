@@ -57,12 +57,12 @@ public class EnvOptimizer {
         }
 
         public void lookup(Symbols syms) {
-            index = syms.putNew(name());
-            size = FunEx.lookup(syms, parameters(), body());
+            this.index = syms.putNew(name());
+            this.size = FunEx.lookup(syms, parameters(), body());
         }
 
         public Object eval(Environment env) {
-            ((EnvEx2) env).put(0, index, new OptFunction(parameters(), body(), env, size));
+            ((EnvEx2) env).put(0, this.index, new OptFunction(parameters(), body(), env, this.size));
             return name();
         }
     }
