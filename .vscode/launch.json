@@ -11,7 +11,7 @@
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
-            "mainClass": "sheep.chap10.ArrayRunner",
+            "mainClass": "sheep.chap11.EnvOptRunner",
             "args": "",
             "classPaths": ["lib/gluonj.jar", "bin/build"]
         },

@@ -60,6 +60,7 @@ public class EnvOptimizer {
             super(c);
         }
 
+        // グローバルな関数の情報（関数名、evalで書き込まれる配列のインデックス）がシンボルテーブルに書き込まれる。
         public void lookup(Symbols syms) {
             this.index = syms.putNew(name());
             this.size = FunEx.lookup(syms, parameters(), body());
@@ -146,7 +147,7 @@ public class EnvOptimizer {
         }
 
         /**
-         * 事前にbinaryExpによりlookupForAssignなどが呼びだれている必要がある。
+         *
          * 変数のNameオブジェクトにSymbolから取り出した位置情報を記録する。
          * @param syms
          */
