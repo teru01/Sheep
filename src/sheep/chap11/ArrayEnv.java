@@ -5,7 +5,7 @@ import sheep.chap11.EnvOptimizer.EnvEx2;
 import sheep.chap6.Environment;
 
 /**
- * 配列で変数を管理するための環境。外側のスコープに対する参照を持つ
+ * 配列で変数を管理するための環境。外側のスコープに対する参照を持つ(Envと同じ)
  */
 public class ArrayEnv implements Environment {
     protected Object[] values;
@@ -20,6 +20,9 @@ public class ArrayEnv implements Environment {
         throw new SheepException("no symbols");
     }
 
+    /**
+     * 外側の環境がもつ配列のあるインデックスを返す
+     */
     public Object get(int nest, int index) {
         if(nest == 0) {
             return values[index];

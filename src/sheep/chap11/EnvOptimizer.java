@@ -13,6 +13,7 @@ import sheep.chap7.ClosureEvaluator;
 
 /**
  * 変数の値を配列で管理するためのクラス。ここにはハッシュテーブルは出てこない
+ * lookupメソッドは構文木の根から葉に向かって降りていく。
  */
 @Require(ClosureEvaluator.class)
 @Reviser
@@ -48,6 +49,9 @@ public class EnvOptimizer {
         }
     }
 
+    /**
+     * 関数宣言のlookupはdefがある環境のシンボルにその関数を書き込んで、あとはFunに丸投げ
+     */
     @Reviser
     public static class DefStmntEx extends DefStmnt {
         protected int index, size;
@@ -67,6 +71,9 @@ public class EnvOptimizer {
         }
     }
 
+    /**
+     * クロージャと関数。新たなSymbolをスコープとして作成
+     */
     @Reviser
     public static class FunEx extends Fun {
         protected int size = -1;
@@ -79,10 +86,16 @@ public class EnvOptimizer {
             this.size = this.lookup(syms, parameters(), body());
         }
 
+        /**
+         * 実行時には
+         */
         public Object eval(Environment env) {
             return new OptFunction(parameters(), body(), env, size);
         }
 
+        /**
+         * 新たなSymbolを作成して関数内部のシンボル数を返す。
+         */
         public static int lookup(Symbols syms, ParameterList params, BlockStmnt body) {
             Symbols newSyms = new Symbols(syms);
             ((ParamsEx)params).lookup(newSyms);
@@ -93,6 +106,7 @@ public class EnvOptimizer {
 
     @Reviser
     public static class ParamsEx extends ParameterList {
+        // 環境中の変数配列のインデックスを格納する。
         protected int[] offsets = null;
 
         public ParamsEx(List<ASTree> c) {
@@ -107,13 +121,19 @@ public class EnvOptimizer {
             }
         }
 
+        /**
+         * 仮引数が環境に書き込まれる。環境における位置などはすでにlookup()でSymbolにより決定されている。
+         * @param env
+         * @param index
+         * @param value
+         */
         public void eval(Environment env, int index, Object value) {
             ((EnvEx2)env).put(0, this.offsets[index], value);
         }
     }
 
     /**
-     * シンボルに値を追加したり取り出したりしている
+     * 変数が利用される部分。構文木の末端に当たる。シンボルに値を追加したり取り出したりしている
      */
     @Reviser
     public static class NameEx extends Name {
@@ -125,6 +145,11 @@ public class EnvOptimizer {
             this.index = UNKNOWN;
         }
 
+        /**
+         * 事前にbinaryExpによりlookupForAssignなどが呼びだれている必要がある。
+         * 変数のNameオブジェクトにSymbolから取り出した位置情報を記録する。
+         * @param syms
+         */
         public void lookup(Symbols syms) {
             Location loc = syms.get(name());
             if(loc == null) {
@@ -158,6 +183,9 @@ public class EnvOptimizer {
         }
     }
 
+    /**
+     * 基本Nameよりも根寄りに位置している。
+     */
     @Reviser
     public static class BinaryEx2 extends BasicEvaluator.BinaryEx {
         public BinaryEx2(List<ASTree> c) {
@@ -165,6 +193,7 @@ public class EnvOptimizer {
         }
         public void lookup(Symbols syms) {
             ASTree left = left();
+            // 代入文の時は左辺の値をシンボルに追加する。
             if("=".equals(operator()) && left instanceof Name) {
                 ((NameEx)left).lookupForAssign(syms);
                 ((ASTreeOptEx)right()).lookup(syms);

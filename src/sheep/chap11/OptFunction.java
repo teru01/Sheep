@@ -13,6 +13,10 @@ public class OptFunction extends Function {
         this.size = memorySize;
     }
 
+    /**
+     * Argumentのeval()で作成される.
+     * 呼出される関数用に作られる環境を返す。
+     */
     @Override
     public Environment makeEnv() {
         return new ArrayEnv(this.size, env);
