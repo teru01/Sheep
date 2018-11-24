@@ -2,6 +2,7 @@ package sheep.chap12;
 import java.util.*;
 import sheep.ast.*;
 import sheep.chap11.*;
+import sheep.chap11.EnvOptimizer.DefStmntEx;
 import sheep.chap12.ObjOptimizer.DefStmntEx2;
 import sheep.chap6.*;
 import sheep.chap9.*;
@@ -44,7 +45,7 @@ public class OptClassInfo extends ClassInfo {
 
     public Object method(OptSheepObject self, int index) {
         DefStmnt def = methodDefs[index];
-        return new OptMethod();
+        return new OptMethod(def.parameters(), def.body(), environment(), ((DefStmntEx2)def).locals(), self);
     }
 
     public void setMethods(ArrayList<DefStmnt> methods) {
