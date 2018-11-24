@@ -8,6 +8,7 @@ import sheep.chap9.*;
 
 public class OptClassInfo extends ClassInfo {
     protected Symbols methods, fields;
+    // 共有されるインスタンスメソッド
     protected DefStmnt[] methodDefs;
     public OptClassInfo(ClassStmnt cs, Environment env, Symbols methods, Symbols fields) {
         super(cs, env);

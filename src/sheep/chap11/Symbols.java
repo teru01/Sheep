@@ -2,7 +2,7 @@ package sheep.chap11;
 import java.util.*;
 
 /**
- * 大域変数のためのハッシュテーブル
+ * lookupのためのハッシュテーブル
  */
 public class Symbols {
     public static class Location {
