@@ -3,7 +3,14 @@ package sheep.chap12;
 import static org.junit.Assume.assumeNoException;
 
 public class OptSheepObject {
-    public static class AccessException extends Exception {}
+    public static class AccessException extends Exception {
+        AccessException() {
+            this(null);
+        }
+        AccessException(String m) {
+            super(m);
+        }
+    }
     protected OptClassInfo classInfo;
     // インスタンスが持つのはフィールドのみ。メソッドは持たない。
     protected Object[] fields;

@@ -1,6 +1,9 @@
 package sheep.chap12;
 import sheep.chap11.*;
 
+/**
+ * lookupの時classブロック内部にあるフィールド、メソッドの位置を決めるためのシンボルテーブル
+ */
 public class MemberSymbols extends Symbols {
     public static int METHOD = -1;
     public static int FIELD = -2;

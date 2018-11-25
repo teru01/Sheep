@@ -27,6 +27,9 @@ public class OptClassInfo extends ClassInfo {
         return (OptClassInfo)this.superClass;
     }
 
+    /**
+     * ClassStmntがevalされた時に渡されたオブジェクトに
+     */
     public void copyTo(Symbols f, Symbols m, ArrayList<DefStmnt> mlist) {
         f.append(this.fields);
         m.append(this.methods);
