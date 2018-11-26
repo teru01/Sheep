@@ -136,4 +136,41 @@ public class ObjOptimizer {
             ((ClassBodyEx)ci.body()).eval(env);
         }
     }
+
+    @Reviser
+    public static class NameEx2 extends EnvOptimizer.NameEx {
+        public NameEx2(Token t) {
+            super(t);
+        }
+
+        @Override
+        public Object eval(Environment env) {
+            if(this.index == UNKNOWN) {
+                return env.get(name());
+            } else if(this.nest == MemberSymbols.FIELD) {
+                return this.getThis(env).read(this.index);
+            } else if(this.nest == MemberSymbols.METHOD) {
+                return this.getThis(env).method(this.index);
+            } else {
+                return ((EnvEx2)env).get(this.nest, this.index);
+            }
+        }
+
+        @Override
+        public void evalForAssign(Environment env, Object value) {
+            if(this.index == UNKNOWN) {
+                env.put(name(), value);
+            } else if(this.nest == MemberSymbols.FIELD) {
+                this.getThis(env).write(this.index, value);
+            } else if(this.nest == MemberSymbols.METHOD) {
+                throw new SheepException("cannot update a method: " + name(), this);
+            } else {
+                ((EnvEx2)env).put(this.nest, this.index, value);
+            }
+        }
+
+        protected OptSheepObject getThis(Environment env) {
+            return (OptSheepObject)((EnvEx2)env).get(0, 0);
+        }
+    }
 }
