@@ -1,7 +1,5 @@
 package sheep.chap12;
 
-import static org.junit.Assume.assumeNoException;
-
 public class OptSheepObject {
     public static class AccessException extends Exception {
         AccessException() {

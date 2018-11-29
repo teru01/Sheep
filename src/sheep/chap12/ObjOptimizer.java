@@ -173,4 +173,38 @@ public class ObjOptimizer {
             return (OptSheepObject)((EnvEx2)env).get(0, 0);
         }
     }
+
+    @Reviser
+    public static class AssignEx extends BasicEvaluator.BinaryEx {
+        public AssignEx(List<ASTree> c) {
+            super(c);
+        }
+
+        @Override
+        protected Object computeAssign(Environment env, Object rvalue) {
+            ASTree le = left();
+            if (!(le instanceof PrimaryExpr)) {
+                return super.computeAssign(env, rvalue);
+            }
+            PrimaryEx p = (PrimaryEx) le;
+            if (!(p.hasPostfix(0) && p.postfix(0) instanceof Dot)) {
+                return super.computeAssign(env, rvalue);
+            }
+            Object t = ((PrimaryEx) le).evalSubExpr(env, 1);
+            if (!(t instanceof OptSheepObject)) {
+                return super.computeAssign(env, rvalue);
+            }
+            return this.setField((OptSheepObject) t, (Dot) p.postfix(0), rvalue);
+        }
+
+        protected Object setField(OptSheepObject obj, Dot expr, Object rvalue) {
+            String name = expr.name();
+            try {
+                obj.write(name, rvalue);
+                return rvalue;
+            } catch (AccessException e) {
+                throw new SheepException("bad member access: " + name, this);
+            }
+        }
+    }
 }
