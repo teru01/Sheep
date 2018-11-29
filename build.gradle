@@ -17,6 +17,7 @@ plugins {
 // Define the main class for the application
 // mainClassName = 'sheep.chap11.EnvOptRunner'
 mainClassName = 'sheep.chap12.ObjOptRunner'
+
 sourceCompatibility = 1.8
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
@@ -28,6 +29,10 @@ dependencies {
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
+}
+
+run {
+    args = ['/Users/mirai/works/sheep/test_script.sheep']
 }
 
 // In this section you declare where to find the dependencies of your project
