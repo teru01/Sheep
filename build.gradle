@@ -18,7 +18,6 @@ plugins {
 // mainClassName = 'sheep.chap11.EnvOptRunner'
 mainClassName = 'sheep.chap12.ObjOptRunner'
 sourceCompatibility = 1.8
-
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.google.guava:guava:23.0'
@@ -42,5 +41,11 @@ sourceSets {
     main {
         java.srcDirs = ['src']
         java.outputDir = file('bin/build')
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'sheep.chap12.ObjOptRunner'
     }
 }

@@ -19,9 +19,9 @@ public class SymbolThis extends Symbols {
     @Override
     public Location put(String key) {
         Location loc = this.outer.put(key);
-        if(loc.nest >= 0) {
-            loc.nest++;
-        }
+        // if(loc.nest >= 0) {
+        //     loc.nest++;
+        // }
         return loc;
     }
 }
