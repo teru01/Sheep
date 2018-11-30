@@ -61,4 +61,5 @@ gradle-app.setting
 
 # End of https://www.gitignore.io/api/macos,gradle,visualstudiocode
 
-test_script.sheep
+./tests
+./tests/*.sheep

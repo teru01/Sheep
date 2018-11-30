@@ -299,7 +299,7 @@ public class Parser {
         }
     }
 
-    // レールロードダイアグラムを表現するリスト
+    // レールロードダイアグラム、文法規則を表現するリスト
     protected List<Element> elements;
 
     protected Factory factory;
@@ -328,7 +328,7 @@ public class Parser {
     }
 
     public Parser(Class<? extends ASTree> clazz) {
-        reset(clazz);
+        this.reset(clazz);
     }
 
     protected Parser(Parser p) {
