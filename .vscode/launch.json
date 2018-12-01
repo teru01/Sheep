@@ -17,6 +17,20 @@
         },
         {
             "type": "java",
+            "name": "Array_ClassRunner",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "sheep.chap10.ArrayRunner",
+            "args": ["${workspaceFolder}/tests/class_test.sheep"],
+            "classPaths": [
+                "lib/gluonj.jar",
+                "bin/build"
+            ]
+        },
+        {
+            "type": "java",
             "name": "parsetest",
             "request": "launch",
             "cwd": "${workspaceFolder}",

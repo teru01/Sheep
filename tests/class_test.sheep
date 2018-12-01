@@ -12,4 +12,6 @@ class Sheep extends Animal {
 }
 
 s = Sheep.new
-s.eat(4)
+s.name = "pppp"
+q = [1,2,3]
+q[2] = 7
