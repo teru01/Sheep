@@ -305,8 +305,7 @@ public class Parser {
     protected Factory factory;
 
     /**
-     * 最初にmain関数から呼び出される.elementsとして表現されたレールロードダイアグラムを辿って入れ子クラス
-     * のparseメソッドを呼び出し、正しく構文解析されると構文木を返す
+     * programがもつelementsから要素を取得し、適切なクラスのparseを呼び出し、resultに格納する。
      * @param lexer
      * @return
      * @throws ParseException

@@ -32,7 +32,7 @@ dependencies {
 }
 
 run {
-    args = ['/Users/mirai/works/sheep/test_script.sheep']
+    args = ['/Users/mirai/works/sheep/tests/plain_test.sheep']
 }
 
 // In this section you declare where to find the dependencies of your project
