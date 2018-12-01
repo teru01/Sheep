@@ -17,6 +17,7 @@ plugins {
 // Define the main class for the application
 // mainClassName = 'sheep.chap11.EnvOptRunner'
 mainClassName = 'sheep.chap10.ArrayRunner'
+// mainClassName = 'sheep.chap6.Runner'
 
 sourceCompatibility = 1.8
 dependencies {
@@ -31,9 +32,13 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+ext.mode = project.hasProperty('mode') ? project.getProperty('mode') : 'undefined'
 run {
-    args = ['tests/class_test.sheep',
-            'tests/if_test.sheep',
+    args = [
+            mode,
+            // 'tests/assign.sheep',
+            // 'tests/class_test.sheep',
+            // 'tests/if_test.sheep',
             'tests/while_test.sheep',
            ]
 }

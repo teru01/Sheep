@@ -420,6 +420,11 @@ public class Parser {
         elements.add(new Expr(clazz, subexp, operators));
         return this;
     }
+
+    /**
+     * 後から構文木に対してorTreeを追加する。
+     *  @return: 追加された構文木
+     */
     public Parser insertChoice(Parser p) {
         Element e = elements.get(0);
         if (e instanceof OrTree)

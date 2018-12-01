@@ -22,8 +22,25 @@
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
+            "mainClass": "sheep.chap10.ArrayRunner",
+            "args": ["${workspaceFolder}/tests/assign.sheep"],
+            "classPaths": [
+                "lib/gluonj.jar",
+                "bin/build"
+            ]
+        },
+
+        {
+            "type": "java",
+            "name": "assigntest",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
             "mainClass": "sheep.chap6.Runner",
-            "args": ["${workspaceFolder}/tests/plain_test.sheep"],
+            "args": [
+                "${workspaceFolder}/tests/assign.sheep"
+            ],
             "classPaths": [
                 "lib/gluonj.jar",
                 "bin/build"

@@ -14,15 +14,14 @@ import sheep.ast.NullStmnt;
 public class BasicInterpreter {
     public static void main(String[] args) throws Exception {
         String fileName = args[0];
-        run(new BasicParser(), new BasicEnv());
+        run(new BasicParser(), new BasicEnv(), fileName);
     }
 
     /**
      * bp: 複数の部分構文木(factorやexpr)の情報をelementsの中にもつ
      */
-    public static void run(BasicParser bp, Environment env, String fileName) throws ParseException, FileNotFoundException {
+    public static void run(BasicParser bp, Environment env, String fileName) throws ParseException {
         Reader reader = null;
-        reader = new FileReader(fileName);
         try {
             reader = new FileReader(fileName);
         } catch(FileNotFoundException e) {
@@ -58,6 +57,28 @@ public class BasicInterpreter {
         while (l.peek(0) != Token.EOF) {
             ASTree ast = bp.parse(l);
             System.out.println("=> " + ast.toString());
+        }
+    }
+
+    public static void checkAst(BasicParser bp, Environment env, String fileName) throws ParseException {
+        Reader reader = null;
+        try {
+            reader = new FileReader(fileName);
+        } catch (FileNotFoundException e) {
+            System.out.println("file not found");
+            System.exit(-1);
+        }
+        Lexer l = new Lexer(reader);
+        while (l.peek(0) != Token.EOF) {
+            ASTree ast = bp.parse(l);
+            System.out.println("=> " + ast.toString());
+        }
+    }
+
+    public static void checkLexer() throws ParseException{
+        Lexer l = new Lexer(new CodeDialog());
+        for(Token t; (t = l.read()) != Token.EOF;) {
+            System.out.println("=> " + t.getText());
         }
     }
 }
