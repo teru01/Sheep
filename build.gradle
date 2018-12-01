@@ -16,7 +16,7 @@ plugins {
 
 // Define the main class for the application
 // mainClassName = 'sheep.chap11.EnvOptRunner'
-mainClassName = 'sheep.chap7.FuncRunner'
+mainClassName = 'sheep.chap10.ArrayRunner'
 
 sourceCompatibility = 1.8
 dependencies {
@@ -32,7 +32,10 @@ dependencies {
 }
 
 run {
-    args = ['/Users/mirai/works/sheep/tests/plain_test.sheep']
+    args = ['tests/plain_test.sheep',
+            'tests/if_test.sheep',
+            'tests/while_test.sheep',
+           ]
 }
 
 // In this section you declare where to find the dependencies of your project

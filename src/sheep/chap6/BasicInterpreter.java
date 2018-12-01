@@ -12,16 +12,17 @@ import sheep.ast.ASTree;
 import sheep.ast.NullStmnt;
 
 public class BasicInterpreter {
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws Exception {
         String fileName = args[0];
-        run(new BasicParser(), new BasicEnv(), fileName);
+        run(new BasicParser(), new BasicEnv());
     }
 
     /**
      * bp: 複数の部分構文木(factorやexpr)の情報をelementsの中にもつ
      */
-    public static void run(BasicParser bp, Environment env, String fileName) throws ParseException {
+    public static void run(BasicParser bp, Environment env, String fileName) throws ParseException, FileNotFoundException {
         Reader reader = null;
+        reader = new FileReader(fileName);
         try {
             reader = new FileReader(fileName);
         } catch(FileNotFoundException e) {
@@ -33,7 +34,7 @@ public class BasicInterpreter {
             ASTree t = bp.parse(lexer);
             if(!(t instanceof NullStmnt)) {
                 Object r = ((BasicEvaluator.ASTreeEx)t).eval(env);
-                System.out.println("=> " + r);
+                //System.out.println("=> " + r);
             }
         }
     }

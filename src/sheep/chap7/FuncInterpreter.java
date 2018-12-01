@@ -7,8 +7,9 @@ import sheep.ParseException;
 import sheep.chap6.BasicInterpreter;
 
 public class FuncInterpreter extends BasicInterpreter {
-    public static void main(String[] args) throws ParseException {
-        String fileName = args[0];
-        run(new FuncParser(), new NestedEnv(), fileName);
+    public static void main(String[] args) throws ParseException, FileNotFoundException {
+        for (String fileName : args) {
+            run(new FuncParser(), new NestedEnv(), fileName);
+        }
     }
 }
