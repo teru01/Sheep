@@ -1,0 +1,15 @@
+class Animal {
+    name = "undefined"
+    def getName() {
+        name
+    }
+}
+class Sheep extends Animal {
+    name = "sheep"
+    def eat(n) {
+        print(getName() + " eats " + n + " times")
+    }
+}
+
+s = Sheep.new
+s.eat(4)

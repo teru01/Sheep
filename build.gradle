@@ -32,7 +32,7 @@ dependencies {
 }
 
 run {
-    args = ['tests/plain_test.sheep',
+    args = ['tests/class_test.sheep',
             'tests/if_test.sheep',
             'tests/while_test.sheep',
            ]
