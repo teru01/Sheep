@@ -16,7 +16,7 @@ plugins {
 
 // Define the main class for the application
 // mainClassName = 'sheep.chap11.EnvOptRunner'
-mainClassName = 'sheep.chap12.ObjOptRunner'
+mainClassName = 'sheep.chap7.FuncRunner'
 
 sourceCompatibility = 1.8
 dependencies {

@@ -29,6 +29,22 @@ public class FuncEvaluator {
     }
 
     @Reviser
+    public static class BlockEx extends BlockStmnt {
+        public BlockEx(List<ASTree> c) { super(c); }
+        public Object eval(Environment env) {
+            NestedEnv newEnv = new NestedEnv(env);
+            Object result = 0;
+            for(ASTree t: this) {
+                if(!(t instanceof NullStmnt)) {
+                    result = ((ASTreeEx)t).eval(newEnv);
+                }
+            }
+            return result;
+        }
+    }
+
+
+    @Reviser
     public static class PrimaryEx extends PrimaryExpr {
         public PrimaryEx(List<ASTree> c) { super(c); }
         // 関数の名前を返す
