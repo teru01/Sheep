@@ -38,12 +38,8 @@ public class VarEvaluator {
         @Override
         public Object eval(Environment env) {
             String op = operator();
-            // 代入式に対しては左辺値にevalを呼んではならない
             if ("=".equals(op)) {
                 Object right = ((ASTreeEx) right()).eval(env);
-                if (left() instanceof VarExpr) {
-                    return this.computeAssignForBlockScope(env, right);
-                }
                 return computeAssign(env, right);
             } else {
                 Object left = ((ASTreeEx) left()).eval(env);
@@ -52,13 +48,18 @@ public class VarEvaluator {
             }
         }
 
-        protected Object computeAssignForBlockScope(Environment env, Object rvalue) {
-            VarExpr left = (VarExpr)left();
-            if(!(left.getAssignExpr() instanceof Name)) {
-                throw new SheepException("bad assignment", this);
+        @Override
+        protected Object computeAssign(Environment env, Object right) {
+            ASTree left = this.left();
+            if(this.left() instanceof VarExpr) {
+                VarExpr leftVar = (VarExpr)left;
+                if (!(leftVar.getAssignExpr() instanceof Name)) {
+                    throw new SheepException("bad assignment", this);
+                }
+                ((EnvEx) env).putNew(((Name) leftVar.getAssignExpr()).name(), right);
+                return right;
             }
-            ((EnvEx)env).putNew(((Name)left.getAssignExpr()).name(), rvalue);
-            return rvalue;
+            return super.computeAssign(env, right);
         }
     }
 }
