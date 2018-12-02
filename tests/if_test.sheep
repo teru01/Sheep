@@ -1,5 +1,7 @@
+print "beginning of if_test"
 a = 10
+j = 1
 if a > 0 {
     j = 5
 }
-//print j
+print j

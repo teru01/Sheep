@@ -23,7 +23,7 @@
             "console": "internalConsole",
             "stopOnEntry": false,
             "mainClass": "sheep.chap10.ArrayRunner",
-            "args": ["${workspaceFolder}/tests/assign.sheep"],
+            "args": ["run", "${workspaceFolder}/tests/assign.sheep"],
             "classPaths": [
                 "lib/gluonj.jar",
                 "bin/build"

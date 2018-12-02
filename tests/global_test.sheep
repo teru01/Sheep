@@ -1,3 +1,4 @@
+print "beginning of global_test"
 var a = 10
 def hoge(n) {
     a = 2 // 外部スコープへの参照

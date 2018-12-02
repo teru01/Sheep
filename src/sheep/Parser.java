@@ -197,9 +197,9 @@ public class Parser {
         protected Expr(Class<? extends ASTree> clazz, Parser exp,
                        Operators map)
         {
-            factory = Factory.getForASTList(clazz);
-            ops = map;
-            factor = exp;
+            this.factory = Factory.getForASTList(clazz);
+            this.ops = map;
+            this.factor = exp;
         }
         public void parse(Lexer lexer, List<ASTree> res) throws ParseException {
             ASTree right = factor.parse(lexer);

@@ -1,3 +1,4 @@
+print "beginning of class_test"
 class Animal {
     name = "undefined"
     def getName() {

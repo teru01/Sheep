@@ -8,7 +8,7 @@ import sheep.VarParser;
 import sheep.ast.ASTree;
 import sheep.ast.Name;
 import sheep.ast.PrimaryExpr;
-import sheep.ast.VarStmnt;
+import sheep.ast.VarExpr;
 import sheep.chap6.BasicEvaluator.ASTreeEx;
 import sheep.chap6.BasicEvaluator.BinaryEx;
 import sheep.chap6.Environment;
@@ -19,14 +19,14 @@ import sheep.chap7.FuncEvaluator.EnvEx;
 @Reviser
 public class VarEvaluator {
     @Reviser
-    public static class VarStmntEx extends VarStmnt {
-        public VarStmntEx(List<ASTree> c) {
+    public static class VarExprEx extends VarExpr {
+        public VarExprEx(List<ASTree> c) {
             super(c);
         }
 
-        // public Object eval(Environment env) {
-        //     return ((ASTreeEx)this).eval(env);
-        // }
+        public Object eval(Environment env) {
+            return ((ASTreeEx)getAssignExpr()).eval(env);
+        }
     }
 
     @Reviser
@@ -35,22 +35,30 @@ public class VarEvaluator {
             super(c);
         }
 
-        // @Override
-        // protected Object computeAssign(Environment env, Object rvalue) {
-        //     ASTree left = left();
-        //     if(!(left instanceof PrimaryExpr)) {
-        //         return super.computeAssign(env, rvalue);
-        //     }
-        //     PrimaryExpr p = (PrimaryExpr)left;
-        //     if(!(p.hasVar())) {
-        //         return super.computeAssign(env, rvalue);
-        //     }
-        //     if(left instanceof Name) {
-        //         ((EnvEx)env).putNew(((Name) l).name(), rvalue);
-        //         return rvalue;
-        //     } else {
-        //         throw new SheepException("bad assignment", this);
-        //     }
-        // }
+        @Override
+        public Object eval(Environment env) {
+            String op = operator();
+            // 代入式に対しては左辺値にevalを呼んではならない
+            if ("=".equals(op)) {
+                Object right = ((ASTreeEx) right()).eval(env);
+                if (left() instanceof VarExpr) {
+                    return this.computeAssignForBlockScope(env, right);
+                }
+                return computeAssign(env, right);
+            } else {
+                Object left = ((ASTreeEx) left()).eval(env);
+                Object right = ((ASTreeEx) right()).eval(env);
+                return computeOp(left, op, right);
+            }
+        }
+
+        protected Object computeAssignForBlockScope(Environment env, Object rvalue) {
+            VarExpr left = (VarExpr)left();
+            if(!(left.getAssignExpr() instanceof Name)) {
+                throw new SheepException("bad assignment", this);
+            }
+            ((EnvEx)env).putNew(((Name)left.getAssignExpr()).name(), rvalue);
+            return rvalue;
+        }
     }
 }
