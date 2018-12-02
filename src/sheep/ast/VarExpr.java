@@ -7,12 +7,12 @@ public class VarExpr extends ASTList {
     /**
      * var shep = 10　と言う文のshepを取得する
      */
-    public ASTree getAssignExpr() {
-        return child(0);
+    public ASTree getVariable() {
+        return this.child(0);
     }
 
     @Override
     public String toString() {
-        return "var " + getAssignExpr();
+        return "var " + this.getVariable();
     }
 }

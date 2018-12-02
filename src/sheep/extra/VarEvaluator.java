@@ -25,7 +25,12 @@ public class VarEvaluator {
         }
 
         public Object eval(Environment env) {
-            return ((ASTreeEx)getAssignExpr()).eval(env);
+            ASTree symbol = this.getVariable();
+            if(!(symbol instanceof Name)) {
+                throw new SheepException("bad definition", this);
+            }
+            ((EnvEx) env).putNew(((Name)symbol).name(), null);
+            return null;
         }
     }
 
@@ -53,10 +58,10 @@ public class VarEvaluator {
             ASTree left = this.left();
             if(this.left() instanceof VarExpr) {
                 VarExpr leftVar = (VarExpr)left;
-                if (!(leftVar.getAssignExpr() instanceof Name)) {
+                if (!(leftVar.getVariable() instanceof Name)) {
                     throw new SheepException("bad assignment", this);
                 }
-                ((EnvEx) env).putNew(((Name) leftVar.getAssignExpr()).name(), right);
+                ((EnvEx) env).putNew(((Name) leftVar.getVariable()).name(), right);
                 return right;
             }
             return super.computeAssign(env, right);
