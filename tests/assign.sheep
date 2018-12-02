@@ -1,0 +1,14 @@
+var b = 32
+def hoge() {
+    var b = 2
+    if(1) {
+        var b = 21
+        print b
+        b = 8
+    }
+    print b
+    b = 9
+    print b
+}
+hoge()
+print b
