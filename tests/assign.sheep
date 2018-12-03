@@ -1,13 +1,13 @@
-print "beginning of assign"
-var b = 0
-//b = 1
+var b = 32
 def hoge() {
-    b = 2
+    var b = 2
+    if(1) {
+        var b = 21
+        print b
+        b = 8
+    }
     print b
-}
-
-if(1) {
-    var b = 8
+    b = 9
     print b
 }
 hoge()
