@@ -91,6 +91,7 @@ import java.util.List;
     @Reviser
     public static class BinaryEx extends BinaryExpr {
         public BinaryEx(List<ASTree> c) { super(c); }
+
         public Object eval(Environment env) {
             String op = operator();
             // 代入式に対しては左辺値にevalを呼んではならない

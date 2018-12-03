@@ -8,9 +8,16 @@ import sheep.chap8.*;
 
 public class ClassInterpreter extends BasicInterpreter {
     public static void main(String[] args) throws ParseException, FileNotFoundException{
-        for (String fileName : args) {
-            run(new ClassParser(), new Natives().environment(new NestedEnv()), fileName);
+        if(args[0].equals("parser")) {
+            for (int i = 1; i < args.length; i++) {
+                checkAst(new ClassParser(), new Natives().environment(new NestedEnv()), args[i]);
+            }
+        } else if(args[0].equals("lexer")) {
+            checkLexer();
+        } else {
+            for (int i=1; i<args.length; i++) {
+                run(new ClassParser(), new Natives().environment(new NestedEnv()), args[i]);
+            }
         }
-        //checkAst(new ClassParser(), new Natives().environment(new NestedEnv()));
     }
 }

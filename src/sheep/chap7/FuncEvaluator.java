@@ -16,6 +16,7 @@ public class FuncEvaluator {
         void putNew(String name, Object value);
         Environment where(String name);
         void setOuter(Environment e);
+        Environment getOutermostEnv();
     }
 
     @Reviser
@@ -23,7 +24,7 @@ public class FuncEvaluator {
         public DefStmntEx(List<ASTree> c) { super(c); }
         // Functionオブジェクトを作成し、関数名とオブジェクトを環境に追加する
         public Object eval(Environment env) {
-            ((EnvEx)env).putNew(name(), new Function(parameters(), body(), env));
+            ((EnvEx)env).putNew(name(), new Function(this.parameters(), this.body(), env));
             return name();
         }
     }

@@ -32,15 +32,21 @@ public class NestedEnv implements Environment {
         }
     }
 
+    /**
+     * 現在の環境に新規追加/上書きを行う。
+     */
     public void putNew(String name, Object value) {
         this.values.put(name, value);
     }
 
+    /**
+     * 現在の外側の環境まで探索して上書きを行う。見つからなければグローバルスコープに書き込む。
+     */
     @Override
     public void put(String name, Object value) {
         Environment e = this.where(name);
         if(e == null) {
-            e = this;
+            e = getOutermostEnv();
         }
         ((EnvEx)e).putNew(name, value);
     }
@@ -57,5 +63,12 @@ public class NestedEnv implements Environment {
             return ((EnvEx)this.outer).where(name);
         }
         return null;
+    }
+
+    public Environment getOutermostEnv() {
+        if(this.outer == null) {
+            return this;
+        }
+        return ((EnvEx)this.outer).getOutermostEnv();
     }
 }

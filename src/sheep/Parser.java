@@ -197,9 +197,9 @@ public class Parser {
         protected Expr(Class<? extends ASTree> clazz, Parser exp,
                        Operators map)
         {
-            factory = Factory.getForASTList(clazz);
-            ops = map;
-            factor = exp;
+            this.factory = Factory.getForASTList(clazz);
+            this.ops = map;
+            this.factor = exp;
         }
         public void parse(Lexer lexer, List<ASTree> res) throws ParseException {
             ASTree right = factor.parse(lexer);
@@ -420,6 +420,11 @@ public class Parser {
         elements.add(new Expr(clazz, subexp, operators));
         return this;
     }
+
+    /**
+     * 後から構文木に対してorTreeを追加する。
+     *  @return: 追加された構文木
+     */
     public Parser insertChoice(Parser p) {
         Element e = elements.get(0);
         if (e instanceof OrTree)
