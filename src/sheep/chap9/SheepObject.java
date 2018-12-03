@@ -6,7 +6,7 @@ import sheep.chap7.FuncEvaluator.EnvEx;
 // インスタンスオブジェクトを表す
 public class SheepObject {
     public static class AccessException extends Exception {}
-    // インスタンスがnewされた時の環境
+    // インスタンスフィールドの環境
     protected Environment env;
     public SheepObject(Environment e) { this.env = e; }
 

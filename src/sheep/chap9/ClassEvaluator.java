@@ -26,7 +26,6 @@ public class ClassEvaluator {
     @Reviser
     public static class ClassBodyEx extends ClassBody {
         public ClassBodyEx(List<ASTree> c) { super(c); }
-        // 
         public Object eval(Environment env) {
             for (ASTree t : this)
                 ((ASTreeEx)t).eval(env);

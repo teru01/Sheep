@@ -21,13 +21,20 @@ testfiles = [
     "tests/class_test.sheep",
     "tests/if_test.sheep",
     "tests/while_test.sheep",
+    "tests/closure_test.sheep",
 ]
 answer = [
     "21\n2\n9\n32\n",
-    "sheep eats 4 times\n",
+    "21\n",
     "5\n",
-    "1\n2\n3\n"
+    "1\n2\n3\n",
+    "5\n3\n8\n",
 ]
+
+
+if not subprocess.run(["gradle", "compileJava"]):
+    print("compile error")
+    exit()
 
 for f, ans in zip(testfiles, answer):
     try:
@@ -37,4 +44,4 @@ for f, ans in zip(testfiles, answer):
         else:
             print(f"{f} : " + Color.RED + "TEST FAILED!!" + Color.END)
     except:
-        print(f"{f} : EXCEPTION")
+        print(f"{f} : " + Color.YELLOW + "EXCEPTION" + Color.END)

@@ -1,0 +1,10 @@
+def hoge(r) {
+    var b = 2
+    var cl = fun(n){ var b = -3; r = n+b+r }
+    cl
+}
+var cl = hoge(3)
+print(cl(5))
+print(cl(1))
+print(cl(8))
+

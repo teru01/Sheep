@@ -1,17 +1,6 @@
-class Animal {
-    name = "undefined"
-    def getName() {
-        name
-    }
+class hoge {
+    var name = 3
 }
-class Sheep extends Animal {
-    name = "sheep"
-    def eat(n) {
-        print(getName() + " eats " + n + " times")
-    }
-}
-
-s = Sheep.new
-s.name = "pppp"
-q = [1,2,3]
-q[2] = 7
+s = hoge.new
+s.name = 21
+print s.name
