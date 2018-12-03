@@ -12,8 +12,8 @@ public class DefStmnt extends ASTList {
         return (ParameterList)child(1);
     }
 
-    public BlockStmnt body() {
-        return (BlockStmnt)child(2);
+    public FuncBody body() {
+        return (FuncBody)child(2);
     }
 
     public String toString() {

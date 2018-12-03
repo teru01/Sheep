@@ -1,14 +1,14 @@
 package sheep.chap7;
-import sheep.ast.BlockStmnt;
-import sheep.ast.ParameterList;
+import sheep.ast.*;
 import sheep.chap6.Environment;
+
 
 public class Function {
     protected ParameterList parameters;
-    protected BlockStmnt body;
+    protected FuncBody body;
     protected Environment env;
 
-    public Function(ParameterList parameters, BlockStmnt body, Environment env) {
+    public Function(ParameterList parameters, FuncBody body, Environment env) {
         this.parameters = parameters;
         this.body = body;
         this.env = env;
@@ -17,7 +17,7 @@ public class Function {
         return this.parameters;
     }
 
-    public BlockStmnt body() {
+    public FuncBody body() {
         return body;
     }
 

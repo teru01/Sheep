@@ -1,7 +1,6 @@
 package sheep;
 import static sheep.Parser.rule;
-import sheep.ast.Arguments;
-import sheep.ast.DefStmnt;
+import sheep.ast.*;
 import sheep.ast.ParameterList;
 
 public class FuncParser extends BasicParser {
@@ -10,10 +9,15 @@ public class FuncParser extends BasicParser {
                         .ast(this.param)
                         .repeat(rule().sep(",").ast(this.param));
     Parser paramList = rule().sep("(").maybe(this.params).sep(")");
+    Parser funcBody = rule(FuncBody.class)
+                        .sep("{")
+                        .option(this.statement0)
+                        .repeat(rule().sep(";", Token.EOL).option(this.statement0))
+                        .sep("}");
     Parser def = rule(DefStmnt.class)
                     .sep("def").identifier(this.reserved)
                     .ast(this.paramList)
-                    .ast(this.block);
+                    .ast(this.funcBody);
     Parser args = rule(Arguments.class).ast(expr).repeat(rule().sep(",").ast(expr));
     Parser postfix = rule().sep("(").maybe(this.args).sep(")");
 

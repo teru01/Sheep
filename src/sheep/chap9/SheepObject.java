@@ -1,6 +1,5 @@
 package sheep.chap9;
 import sheep.chap6.*;
-import sheep.chap7.*;
 import sheep.chap7.FuncEvaluator.EnvEx;
 
 // インスタンスオブジェクトを表す

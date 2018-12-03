@@ -3,7 +3,6 @@ package sheep.chap9;
 import javassist.gluonj.util.Loader;
 import sheep.chap7.ClosureEvaluator;
 import sheep.chap8.NativeEvaluator;
-import sheep.extra.BlockScopeEvaluator;
 
 public class ClassRunner {
     public static void main(String[] args) throws Throwable {

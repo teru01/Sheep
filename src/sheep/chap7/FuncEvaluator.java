@@ -22,6 +22,7 @@ public class FuncEvaluator {
     @Reviser
     public static class DefStmntEx extends DefStmnt {
         public DefStmntEx(List<ASTree> c) { super(c); }
+
         // Functionオブジェクトを作成し、関数名とオブジェクトを環境に追加する
         public Object eval(Environment env) {
             ((EnvEx)env).putNew(name(), new Function(this.parameters(), this.body(), env));
@@ -67,6 +68,20 @@ public class FuncEvaluator {
     }
 
     @Reviser
+    public static class FuncBodyEx extends FuncBody {
+        public FuncBodyEx(List<ASTree> c) { super(c); }
+
+        public Object eval(Environment env) {
+            Object result = 0;
+            for (ASTree t : this) {
+                if (!(t instanceof NullStmnt))
+                    result = ((ASTreeEx) t).eval(env);
+            }
+            return result;
+        }
+    }
+
+    @Reviser
     public static class ArgumentsEx extends Arguments {
         public ArgumentsEx(List<ASTree> c) { super(c); }
         /**
@@ -90,7 +105,7 @@ public class FuncEvaluator {
             for(ASTree a: this) {
                 ((ParamsEx)params).eval(newEnv, num++, ((ASTreeEx)a).eval(callerEnv));
             }
-            return ((BlockEx)func.body()).eval(newEnv);
+            return ((FuncBodyEx)func.body()).eval(newEnv);
         }
     }
 

@@ -7,7 +7,6 @@ import sheep.SheepException;
 import sheep.VarParser;
 import sheep.ast.ASTree;
 import sheep.ast.Name;
-import sheep.ast.PrimaryExpr;
 import sheep.ast.VarExpr;
 import sheep.chap6.BasicEvaluator.ASTreeEx;
 import sheep.chap6.BasicEvaluator.BinaryEx;
