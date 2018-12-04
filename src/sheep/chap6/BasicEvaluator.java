@@ -171,6 +171,22 @@ import java.util.List;
     }
 
     @Reviser
+    public static class NonScopedBlockEx extends NonScopedBlock {
+        public NonScopedBlockEx(List<ASTree> c) {
+            super(c);
+        }
+
+        public Object eval(Environment env) {
+            Object result = 0;
+            for (ASTree t : this) {
+                if (!(t instanceof NullStmnt))
+                    result = ((ASTreeEx) t).eval(env);
+            }
+            return result;
+        }
+    }
+
+    @Reviser
     public static class IfEx extends IfStmnt {
         public IfEx(List<ASTree> c) { super(c); }
         public Object eval(Environment env) {

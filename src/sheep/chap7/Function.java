@@ -5,10 +5,10 @@ import sheep.chap6.Environment;
 
 public class Function {
     protected ParameterList parameters;
-    protected FuncBody body;
+    protected NonScopedBlock body;
     protected Environment env;
 
-    public Function(ParameterList parameters, FuncBody body, Environment env) {
+    public Function(ParameterList parameters, NonScopedBlock body, Environment env) {
         this.parameters = parameters;
         this.body = body;
         this.env = env;
@@ -17,7 +17,7 @@ public class Function {
         return this.parameters;
     }
 
-    public FuncBody body() {
+    public NonScopedBlock body() {
         return body;
     }
 

@@ -5,7 +5,7 @@ import sheep.chap6.*;
 
 public class OptMethod extends OptFunction {
     OptSheepObject self;
-    public OptMethod(ParameterList parameters, FuncBody body, Environment env, int memorySize, OptSheepObject self) {
+    public OptMethod(ParameterList parameters, NonScopedBlock body, Environment env, int memorySize, OptSheepObject self) {
         super(parameters, body, env, memorySize);
         this.self = self;
     }

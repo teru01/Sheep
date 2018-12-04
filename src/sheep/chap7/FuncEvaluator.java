@@ -68,8 +68,8 @@ public class FuncEvaluator {
     }
 
     @Reviser
-    public static class FuncBodyEx extends FuncBody {
-        public FuncBodyEx(List<ASTree> c) { super(c); }
+    public static class NonScopedBlockEx extends NonScopedBlock {
+        public NonScopedBlockEx(List<ASTree> c) { super(c); }
 
         public Object eval(Environment env) {
             Object result = 0;
@@ -105,7 +105,7 @@ public class FuncEvaluator {
             for(ASTree a: this) {
                 ((ParamsEx)params).eval(newEnv, num++, ((ASTreeEx)a).eval(callerEnv));
             }
-            return ((FuncBodyEx)func.body()).eval(newEnv);
+            return ((NonScopedBlockEx)func.body()).eval(newEnv);
         }
     }
 
