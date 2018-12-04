@@ -12,10 +12,11 @@ import sheep.ast.ForIterExpr;
 import sheep.ast.ForStmnt;
 import sheep.chap6.BasicEvaluator.*;
 import static sheep.chap6.BasicEvaluator.FALSE;
+import static sheep.chap6.BasicEvaluator.TRUE;
 import sheep.chap6.Environment;
-import sheep.chap7.FuncEvaluator;
+import sheep.chap7.*;
 
-@Require({ VarEvaluator.class, FuncEvaluator.class, ForParser.class })
+@Require({ClosureEvaluator.class, ForParser.class })
 @Reviser
 public class ForEvaluator {
     @Reviser
@@ -25,11 +26,9 @@ public class ForEvaluator {
         }
 
         public Object eval(Environment env) {
-            Object result = 0;
-            Environment newEnv = this.makeEnv();
+            Environment newEnv = this.makeEnv(env);
             ((ForIterExprEx) this.iterExpr()).init(env, newEnv);
-            return ((ForIterExprEx) this.iterExpr()).eval(env);
-
+            return ((ForIterExprEx) this.iterExpr()).eval(newEnv, this.iterBody());
         }
     }
 
@@ -43,19 +42,28 @@ public class ForEvaluator {
          * for文の外の環境で初期化式を評価し返す。
          */
         public void init(Environment env, Environment newEnv) {
-            ((BinaryEx) this.initExpr()).evalToinitFor(env, newEnv);
+            if((this.initExpr().numChildren()) != 0){
+                ((BinaryEx) this.initExpr()).evalToinitFor(env, newEnv);
+            }
         }
 
-        public Object eval(Environment env, Environment newEnv, Object body) {
+        public Object eval(Environment newEnv, Object body) {
             Object result = 0;
+            Object c = TRUE;
+            boolean conditionExists = (this.conditionExpr().numChildren()) != 0;
+            boolean updateExists = (this.updateExpr().numChildren()) != 0;
             while (true) {
-                Object c = ((ASTreeEx) this.contitionExpr()).eval(newEnv);
+                if(conditionExists) {
+                    c = ((ASTreeEx) this.conditionExpr()).eval(newEnv);
+                }
                 if (c instanceof Integer && ((Integer) c).intValue() == FALSE) {
                     return result;
                 } else {
-                    result = ((ASTreeEx) body).eval(env);
+                    result = ((ASTreeEx) body).eval(newEnv);
                 }
-                ((ASTreeEx) this.updateExpr()).eval(newEnv);
+                if(updateExists) {
+                    ((ASTreeEx)this.updateExpr()).eval(newEnv);
+                }
             }
         }
     }

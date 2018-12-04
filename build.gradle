@@ -36,10 +36,10 @@ ext.mode = project.hasProperty('mode') ? project.getProperty('mode') : 'undefine
 run {
     args = [
             mode,
-            'tests/assign.sheep',
-            'tests/class_test.sheep',
-            'tests/if_test.sheep',
-            'tests/while_test.sheep',
+            'tests/for_test.sheep',
+            // 'tests/class_test.sheep',
+            // 'tests/if_test.sheep',
+            // 'tests/while_test.sheep',
            ]
 }
 

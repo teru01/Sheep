@@ -11,10 +11,10 @@ import sheep.ast.VarExpr;
 import sheep.chap6.BasicEvaluator.ASTreeEx;
 import sheep.chap6.BasicEvaluator.BinaryEx;
 import sheep.chap6.Environment;
-import sheep.chap7.FuncEvaluator;
+import sheep.chap7.*;
 import sheep.chap7.FuncEvaluator.EnvEx;
 
-@Require({FuncEvaluator.class, VarParser.class})
+@Require({ClosureEvaluator.class, VarParser.class})
 @Reviser
 public class VarEvaluator {
     @Reviser

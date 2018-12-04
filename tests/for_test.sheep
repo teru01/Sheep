@@ -1,3 +1,16 @@
-for(var i=0; i<3; i=i+1) {
-    print i
+var i = 10
+j = 1
+for(var i=0; i<2; i=i+1) {
+    for(var j=0; j<2; j=j+1) {
+        print(i+j)
+    }
+    for(var j=2; j>0;) {
+        print(j)
+        j = j - 1
+    }
+    for(; j>0;) {
+        print(j)
+        j = j - 1
+    }
 }
+print i

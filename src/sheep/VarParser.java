@@ -1,8 +1,6 @@
 package sheep;
 import javassist.gluonj.Reviser;
-import sheep.FuncParser;
 import static sheep.Parser.rule;
-import sheep.*;
 import sheep.ast.*;
 
 /**

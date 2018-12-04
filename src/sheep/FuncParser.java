@@ -9,7 +9,7 @@ public class FuncParser extends BasicParser {
                         .ast(this.param)
                         .repeat(rule().sep(",").ast(this.param));
     Parser paramList = rule().sep("(").maybe(this.params).sep(")");
-    Parser NonScopedBlock = rule(NonScopedBlock.class)
+    Parser funcBody = rule(NonScopedBlock.class)
                         .sep("{")
                         .option(this.statement0)
                         .repeat(rule().sep(";", Token.EOL).option(this.statement0))
@@ -17,7 +17,7 @@ public class FuncParser extends BasicParser {
     Parser def = rule(DefStmnt.class)
                     .sep("def").identifier(this.reserved)
                     .ast(this.paramList)
-                    .ast(this.NonScopedBlock);
+                    .ast(this.funcBody);
     Parser args = rule(Arguments.class).ast(expr).repeat(rule().sep(",").ast(expr));
     Parser postfix = rule().sep("(").maybe(this.args).sep(")");
 

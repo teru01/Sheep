@@ -20,8 +20,8 @@ public class ForStmnt extends ASTList {
         return this.child(1);
     }
 
-    public Environment makeEnv() {
-        return new NestedEnv();
+    public Environment makeEnv(Environment env) {
+        return new NestedEnv(env);
     }
 
 }
