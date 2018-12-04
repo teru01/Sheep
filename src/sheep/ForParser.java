@@ -9,7 +9,7 @@ import static sheep.Parser.rule;
 public class ForParser extends BasicParser {
     Parser iterControl = rule(ForIterExpr.class)
                             .sep("(")
-                            .maybe(rule().ast(this.simple)).sep(";")
+                            .maybe(rule().ast(this.simple.repeat(rule().sep(",").option(this.simple)))).sep(";")
                             .maybe(rule().ast(this.simple)).sep(";")
                             .maybe(rule().ast(this.simple))
                             .sep(")");
@@ -24,5 +24,6 @@ public class ForParser extends BasicParser {
                         .ast(this.forBady);
     public ForParser() {
         this.statement.insertChoice(this.sheepfor);
+        this.reserved.add(",");
     }
 }

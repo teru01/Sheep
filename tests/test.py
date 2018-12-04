@@ -17,20 +17,20 @@ class Color:
 
 cmd = ["java", "-cp", "./bin/build:./lib/gluonj.jar", "sheep.chap10.ArrayRunner"]
 testfiles = [
-    # "tests/assign.sheep",
-    # "tests/class_test.sheep",
-    # "tests/if_test.sheep",
-    # "tests/while_test.sheep",
-    # "tests/closure_test.sheep",
-    "tests/for_test.sheep",
+    "tests/assign.sheep",
+    "tests/class_test.sheep",
+    "tests/if_test.sheep",
+    "tests/while_test.sheep",
+    "tests/closure_test.sheep",
+    #"tests/for_test.sheep",
 ]
 answer = [
-    # "21\n2\n9\n32\n",
-    # "21\n",
-    # "5\n",
-    # "1\n2\n3\n",
-    # "5\n3\n8\n",
-    "0\n1\n2\n10\n",
+    "21\n2\n9\n32\n",
+    "21\n",
+    "5\n",
+    "1\n2\n3\n",
+    "5\n3\n8\n",
+    #"0\n1\n2\n10\n",
 ]
 
 
