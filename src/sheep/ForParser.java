@@ -4,7 +4,7 @@ import sheep.ast.*;
 import static sheep.Parser.rule;
 
 @Reviser
-class ForParser extends BasicParser {
+public class ForParser extends BasicParser {
     Parser iterControl = rule(ForIterExpr.class)
                             .ast(this.factor)
                             .ast(this.factor)

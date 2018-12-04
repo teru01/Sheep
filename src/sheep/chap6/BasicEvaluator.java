@@ -105,6 +105,10 @@ import java.util.List;
             }
         }
 
+        public Object evalToinitFor(Environment env, Environment newEnv){
+            return null;
+        }
+
         protected Object computeAssign(Environment env, Object rvalue) {
             ASTree l = left();
             // 左辺値は変数でなくてはならない
@@ -207,7 +211,7 @@ import java.util.List;
         public Object eval(Environment env) {
             Object result = 0;
             // While文を抜ける直前の最後に評価された値を返す
-            for(;;) {
+            while(true) {
                 Object c = ((ASTreeEx)condition()).eval(env);
                 if(c instanceof Integer && ((Integer)c).intValue() == FALSE) {
                     return result;
