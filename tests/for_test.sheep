@@ -1,6 +1,6 @@
 var i = 10
-j = 1
-for(var i=0; i<2; i=i+1) {
+var j = 1
+for(var i=0; i<1; i=i+1) {
     for(var j=0; j<2; j=j+1) {
         print(i+j)
     }
@@ -8,6 +8,7 @@ for(var i=0; i<2; i=i+1) {
         print(j)
         print(k)
         j = j - 1
+        k = k + 1
     }
     for(; j>0;) {
         print(j)
@@ -15,3 +16,4 @@ for(var i=0; i<2; i=i+1) {
     }
 }
 print i
+

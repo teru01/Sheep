@@ -24,4 +24,9 @@ public class ForStmnt extends ASTList {
         return new NestedEnv(env);
     }
 
+    @Override
+    public String toString() {
+        return "(for" + iterExpr() + iterBody() + ")";
+    }
+
 }

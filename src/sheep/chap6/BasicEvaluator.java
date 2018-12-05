@@ -18,6 +18,7 @@ import java.util.List;
 
     @Reviser public static abstract class ASTreeEx extends ASTree {
         public abstract Object eval(Environment env);
+        public abstract Object evalForAnotherScope(Environment currentScope, Environment anotherScope);
     }
 
     @Reviser public static class ASTListEx extends ASTList {
@@ -30,6 +31,10 @@ import java.util.List;
     @Reviser public static class ASTLeafEx extends ASTLeaf {
         public ASTLeafEx(Token t) { super(t); }
         public Object eval(Environment env) {
+            throw new SheepException("cannot eval: " + toString(), this);
+        }
+
+        public Object evalForAnotherScope(Environment currentScope, Environment anotherScope) {
             throw new SheepException("cannot eval: " + toString(), this);
         }
     }

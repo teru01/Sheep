@@ -15,7 +15,6 @@ public class ForIterExpr extends ASTList{
 
     /**
      * for条件式
-     * @return
      */
     public ASTree conditionExpr() {
         return this.child(1);
@@ -23,7 +22,6 @@ public class ForIterExpr extends ASTList{
 
     /**
      * for更新式
-     * @return
      */
     public ASTree updateExpr() {
         return this.child(2);

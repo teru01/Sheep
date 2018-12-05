@@ -1,6 +1,19 @@
 class hoge {
-    var name = 3
+    var n = 3
+    var name = 2
+    def method(i, j) {
+        i+j+n
+    }
 }
-s = hoge.new
+class foo extends hoge {
+    var n = -6
+    def method(i, j) {
+        i-j+n
+    }
+}
+var s = hoge.new
 s.name = 21
 print s.name
+f = foo.new
+print(s.method(7,8)) //18
+print(f.method(7,8)) //-7

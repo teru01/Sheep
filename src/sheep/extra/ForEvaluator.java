@@ -2,17 +2,11 @@ package sheep.extra;
 
 import java.util.List;
 
-import javassist.gluonj.Require;
-import javassist.gluonj.Reviser;
-import sheep.ForParser;
-import sheep.SheepException;
-import sheep.ast.ASTree;
-import sheep.ast.BlockStmnt;
-import sheep.ast.ForIterExpr;
-import sheep.ast.ForStmnt;
+import javassist.gluonj.*;
+import sheep.*;
+import sheep.ast.*;
 import sheep.chap6.BasicEvaluator.*;
-import static sheep.chap6.BasicEvaluator.FALSE;
-import static sheep.chap6.BasicEvaluator.TRUE;
+import static sheep.chap6.BasicEvaluator.*;
 import sheep.chap6.Environment;
 import sheep.chap7.*;
 
@@ -42,9 +36,10 @@ public class ForEvaluator {
          * for文の外の環境で初期化式を評価し返す。
          */
         public void init(Environment env, Environment newEnv) {
-            if((this.initExpr().numChildren()) != 0){
-                ((BinaryEx) this.initExpr()).evalToinitFor(env, newEnv);
+            if((this.initExpr().numChildren()) == 0) {
+                return;
             }
+            ((ASTreeEx) this.initExpr()).evalForAnotherScope(env, newEnv);
         }
 
         public Object eval(Environment newEnv, Object body) {
@@ -77,8 +72,7 @@ public class ForEvaluator {
         /**
          * 右辺はfor文が書かれた環境、左辺のassignはfor文の中の環境で行う
          */
-        @Override
-        public Object evalToinitFor(Environment env, Environment newEnv) {
+        public Object evalForAnotherScope(Environment env, Environment newEnv) {
             String op = operator();
             if ("=".equals(op)) {
                 Object right = ((ASTreeEx) right()).eval(env);
@@ -88,6 +82,17 @@ public class ForEvaluator {
                 Object right = ((ASTreeEx) right()).eval(env);
                 return computeOp(left, op, right);
             }
+        }
+    }
+
+    @Reviser
+    public static class ASTListFor extends ASTList {
+        public ASTListFor(List<ASTree> c) { super(c); }
+        public Object evalForAnotherScope(Environment currentScope, Environment anotherScope) {
+            for(ASTree expr:this.children) {
+                ((ASTListFor) expr).evalForAnotherScope(currentScope, anotherScope);
+            }
+            return null;
         }
     }
 
