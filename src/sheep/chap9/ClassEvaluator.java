@@ -45,7 +45,7 @@ public class ClassEvaluator {
                     // クラス定義された環境の中にクラスの環境を作成
                     NestedEnv e = new NestedEnv(ci.environment());
                     SheepObject so = new SheepObject(e);
-                    e.putNew("this", so);
+                    e.putInCurrentEnv("this", so);
                     this.initObject(ci, e);
                     return so;
                 }

@@ -28,7 +28,7 @@ public class VarEvaluator {
             if(!(symbol instanceof Name)) {
                 throw new SheepException("bad definition", this);
             }
-            ((EnvEx) env).putNew(((Name)symbol).name(), null);
+            ((EnvEx) env).putInCurrentEnv(((Name)symbol).name(), null);
             return null;
         }
     }
@@ -40,19 +40,6 @@ public class VarEvaluator {
         }
 
         @Override
-        public Object eval(Environment env) {
-            String op = operator();
-            if ("=".equals(op)) {
-                Object right = ((ASTreeEx) right()).eval(env);
-                return computeAssign(env, right);
-            } else {
-                Object left = ((ASTreeEx) left()).eval(env);
-                Object right = ((ASTreeEx) right()).eval(env);
-                return computeOp(left, op, right);
-            }
-        }
-
-        @Override
         protected Object computeAssign(Environment env, Object right) {
             ASTree left = this.left();
             if(this.left() instanceof VarExpr) {
@@ -60,7 +47,7 @@ public class VarEvaluator {
                 if (!(leftVar.getVariable() instanceof Name)) {
                     throw new SheepException("bad assignment", this);
                 }
-                ((EnvEx) env).putNew(((Name) leftVar.getVariable()).name(), right);
+                ((EnvEx) env).putInCurrentEnv(((Name) leftVar.getVariable()).name(), right);
                 return right;
             }
             return super.computeAssign(env, right);

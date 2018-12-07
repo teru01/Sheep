@@ -18,7 +18,7 @@ public class SheepObject {
     }
 
     public void write(String member, Object value) throws AccessException{
-        ((EnvEx)this.getEnv(member)).putNew(member, value);
+        ((EnvEx)this.getEnv(member)).putInCurrentEnv(member, value);
     }
 
     /**
