@@ -1,0 +1,11 @@
+const a = 2
+if(a > 1) {
+    const a = 20
+    print a
+}
+print a
+class Ho{
+    const c = 11
+}
+const h = Ho.new
+print h.c
