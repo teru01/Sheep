@@ -1,10 +1,13 @@
 package sheep.chap7;
-import java.util.HashMap;
+import java.util.*;
+
+import sheep.SheepConstException;
 import sheep.chap6.Environment;
 import sheep.chap7.FuncEvaluator.EnvEx;
 
 public class NestedEnv implements Environment {
     protected HashMap<String, Object> values;
+    protected ArrayList<String> constans;
     protected Environment outer;
 
     public NestedEnv() {
@@ -13,6 +16,7 @@ public class NestedEnv implements Environment {
 
     public NestedEnv(Environment e) {
         this.values = new HashMap<>();
+        this.constans = new ArrayList<>();
         this.outer = e;
     }
 
@@ -35,8 +39,19 @@ public class NestedEnv implements Environment {
     /**
      * 現在の環境に新規追加/上書きを行う。
      */
-    public void putNew(String name, Object value) {
+    public void putInCurrentEnv(String name, Object value) throws SheepConstException{
+        if(this.constans.contains(name)) {
+            throw new SheepConstException();
+        }
         this.values.put(name, value);
+    }
+
+    /**
+     * 定数を格納する。上書きしようとすれば例外を投げる
+     */
+    public void putConst(String name, Object value) {
+        this.putInCurrentEnv(name, value);
+        this.constans.add(name);
     }
 
     /**
@@ -48,7 +63,7 @@ public class NestedEnv implements Environment {
         if(e == null) {
             e = getOutermostEnv();
         }
-        ((EnvEx)e).putNew(name, value);
+        ((EnvEx)e).putInCurrentEnv(name, value);
     }
 
     /**

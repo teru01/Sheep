@@ -13,7 +13,8 @@ import sheep.chap6.BasicEvaluator.BlockEx;
 public class FuncEvaluator {
     @Reviser
     public static interface EnvEx extends Environment {
-        void putNew(String name, Object value);
+        void putInCurrentEnv(String name, Object value);
+        void putConst(String name, Object value);
         Environment where(String name);
         void setOuter(Environment e);
         Environment getOutermostEnv();
@@ -25,7 +26,7 @@ public class FuncEvaluator {
 
         // Functionオブジェクトを作成し、関数名とオブジェクトを環境に追加する
         public Object eval(Environment env) {
-            ((EnvEx)env).putNew(name(), new Function(this.parameters(), this.body(), env));
+            ((EnvEx)env).putInCurrentEnv(name(), new Function(this.parameters(), this.body(), env));
             return name();
         }
     }
@@ -114,7 +115,7 @@ public class FuncEvaluator {
         public ParamsEx(List<ASTree> c) { super(c); }
         // 仮引数の計算（代入）。関数ブロック内の環境に追加する
         public void eval(Environment env, int index, Object value) {
-            ((EnvEx)env).putNew(name(index), value);
+            ((EnvEx)env).putInCurrentEnv(name(index), value);
         }
     }
 
