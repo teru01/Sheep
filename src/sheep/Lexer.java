@@ -26,7 +26,7 @@ public class Lexer {
      * 先頭のトークンをDequeueする。
      */
     public Token read() throws ParseException {
-        if (this.canDequeueElement(0)) {
+        if (canDequeueElement(0)) {
             return this.queue.remove(0);
         } else {
             return Token.EOF;
@@ -37,7 +37,7 @@ public class Lexer {
      * 任意のインデックスのトークンを返す。queueから削除はしない。
      */
     public Token peek(int i) throws ParseException {
-        if (this.canDequeueElement(i)) {
+        if (canDequeueElement(i)) {
             return this.queue.get(i);
         } else {
             return Token.EOF;
@@ -50,7 +50,7 @@ public class Lexer {
     private boolean canDequeueElement(int i) throws ParseException {
         while (i >= this.queue.size()) {
             if (this.hasMore) {
-                this.readLine();
+                readLine();
             } else {
                 return false;
             }
@@ -70,7 +70,7 @@ public class Lexer {
         while (pos < endPos) {
             matcher.region(pos, endPos);
             if (matcher.lookingAt()) {
-                this.addToken(lineNo, matcher);
+                addToken(lineNo, matcher);
                 pos = matcher.end();
             } else {
                 throw new ParseException("bad token at the line " + lineNo);
@@ -117,7 +117,7 @@ public class Lexer {
             this.hasMore = false;
             return;
         }
-        this.fillQueue(line);
+        fillQueue(line);
     }
 
     protected String toStringLiteral(String s) {

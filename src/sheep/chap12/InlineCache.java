@@ -23,7 +23,7 @@ public class InlineCache {
             if(value instanceof OptSheepObject) {
                 OptSheepObject target = (OptSheepObject)value;
                 if(target.classInfo() != this.savedClassInfo) {
-                    this.updateCache(target);
+                    updateCache(target);
                 }
                 if(this.isField) {
                     return target.read(this.index);
@@ -36,7 +36,7 @@ public class InlineCache {
         }
 
         protected void updateCache(OptSheepObject target) {
-            String member = this.name();
+            String member = name();
             this.savedClassInfo = target.classInfo();
             Integer i = this.savedClassInfo.fieldIndex(member);
             if(i != null) {

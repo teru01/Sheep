@@ -50,7 +50,7 @@ public class NestedEnv implements Environment {
      * 定数を格納する。上書きしようとすれば例外を投げる
      */
     public void putConst(String name, Object value) {
-        this.putInCurrentEnv(name, value);
+        putInCurrentEnv(name, value);
         this.constans.add(name);
     }
 
@@ -59,7 +59,7 @@ public class NestedEnv implements Environment {
      */
     @Override
     public void put(String name, Object value) {
-        Environment e = this.where(name);
+        Environment e = where(name);
         if(e == null) {
             e = getOutermostEnv();
         }

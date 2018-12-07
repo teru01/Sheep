@@ -26,7 +26,7 @@ public class FuncEvaluator {
 
         // Functionオブジェクトを作成し、関数名とオブジェクトを環境に追加する
         public Object eval(Environment env) {
-            ((EnvEx)env).putInCurrentEnv(name(), new Function(this.parameters(), this.body(), env));
+            ((EnvEx)env).putInCurrentEnv(name(), new Function(parameters(), body(), env));
             return name();
         }
     }

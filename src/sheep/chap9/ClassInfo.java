@@ -39,7 +39,7 @@ public class ClassInfo {
     }
     @Override
     public String toString() {
-        return "<class " + this.name() + ">";
+        return "<class " + name() + ">";
     }
 
 }

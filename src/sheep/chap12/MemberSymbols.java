@@ -28,9 +28,9 @@ public class MemberSymbols extends Symbols {
 
     @Override
     public Location put(String key) {
-        Location loc = this.get(key, 0);
+        Location loc = get(key, 0);
         if(loc == null) {
-            return new Location(this.type, this.add(key));
+            return new Location(this.type, add(key));
         } else {
             return loc;
         }

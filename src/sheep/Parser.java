@@ -327,7 +327,7 @@ public class Parser {
     }
 
     public Parser(Class<? extends ASTree> clazz) {
-        this.reset(clazz);
+        reset(clazz);
     }
 
     protected Parser(Parser p) {

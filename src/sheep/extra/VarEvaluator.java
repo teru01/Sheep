@@ -24,7 +24,7 @@ public class VarEvaluator {
         }
 
         public Object eval(Environment env) {
-            ASTree symbol = this.getVariable();
+            ASTree symbol = getVariable();
             if(!(symbol instanceof Name)) {
                 throw new SheepException("bad definition", this);
             }
@@ -41,8 +41,8 @@ public class VarEvaluator {
 
         @Override
         protected Object computeAssign(Environment env, Object right) {
-            ASTree left = this.left();
-            if(this.left() instanceof VarExpr) {
+            ASTree left = left();
+            if(left() instanceof VarExpr) {
                 VarExpr leftVar = (VarExpr)left;
                 if (!(leftVar.getVariable() instanceof Name)) {
                     throw new SheepException("bad assignment", this);

@@ -20,10 +20,10 @@ public class ForEvaluator {
         }
 
         public Object eval(Environment env) {
-            Environment newEnv = this.makeEnv(env);
-            ForIterExprEx iterExpr = (ForIterExprEx) this.iterExpr();
+            Environment newEnv = makeEnv(env);
+            ForIterExprEx iterExpr = (ForIterExprEx) iterExpr();
             iterExpr.init(env, newEnv);
-            return iterExpr.eval(newEnv, this.iterBody());
+            return iterExpr.eval(newEnv, iterBody());
         }
     }
 
@@ -37,20 +37,20 @@ public class ForEvaluator {
          * for文の外の環境で初期化式を評価し返す。
          */
         public void init(Environment env, Environment newEnv) {
-            if((this.initExpr().numChildren()) == 0) {
+            if((initExpr().numChildren()) == 0) {
                 return;
             }
-            ((ASTreeEx) this.initExpr()).evalForAnotherScope(env, newEnv);
+            ((ASTreeEx) initExpr()).evalForAnotherScope(env, newEnv);
         }
 
         public Object eval(Environment newEnv, Object body) {
             Object result = 0;
             Object c = TRUE;
-            boolean conditionExists = (this.conditionExpr().numChildren()) != 0;
-            boolean updateExists = (this.updateExpr().numChildren()) != 0;
+            boolean conditionExists = (conditionExpr().numChildren()) != 0;
+            boolean updateExists = (updateExpr().numChildren()) != 0;
             while (true) {
                 if(conditionExists) {
-                    c = ((ASTreeEx) this.conditionExpr()).eval(newEnv);
+                    c = ((ASTreeEx) conditionExpr()).eval(newEnv);
                 }
                 if (c instanceof Integer && ((Integer) c).intValue() == FALSE) {
                     return result;
@@ -58,7 +58,7 @@ public class ForEvaluator {
                     result = ((ASTreeEx) body).eval(newEnv);
                 }
                 if(updateExists) {
-                    ((ASTreeEx)this.updateExpr()).eval(newEnv);
+                    ((ASTreeEx)updateExpr()).eval(newEnv);
                 }
             }
         }

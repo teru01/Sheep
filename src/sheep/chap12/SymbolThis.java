@@ -8,7 +8,7 @@ public class SymbolThis extends Symbols {
 
     public SymbolThis(Symbols outer) {
         super(outer);
-        this.add(NAME);
+        add(NAME);
     }
 
     @Override

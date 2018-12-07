@@ -46,7 +46,7 @@ public class ClassEvaluator {
                     NestedEnv e = new NestedEnv(ci.environment());
                     SheepObject so = new SheepObject(e);
                     e.putInCurrentEnv("this", so);
-                    this.initObject(ci, e);
+                    initObject(ci, e);
                     return so;
                 }
             }
@@ -91,7 +91,7 @@ public class ClassEvaluator {
             if(!(t instanceof SheepObject)) {
                 return super.computeAssign(env, rvalue);
             }
-            return this.setField((SheepObject) t, (Dot) p.postfix(0), rvalue);
+            return setField((SheepObject) t, (Dot) p.postfix(0), rvalue);
         }
 
         protected Object setField(SheepObject obj, Dot expr, Object rvalue) {

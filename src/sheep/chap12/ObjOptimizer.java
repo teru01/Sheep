@@ -116,7 +116,7 @@ public class ObjOptimizer {
                     ArrayEnv newEnv = new ArrayEnv(1, ci.environment());
                     OptSheepObject so = new OptSheepObject(ci, ci.size());
                     newEnv.put(0, 0, so);
-                    this.initObject(ci, so, newEnv);
+                    initObject(ci, so, newEnv);
                     return so;
                 }
             } else if(value instanceof OptSheepObject) {
@@ -148,9 +148,9 @@ public class ObjOptimizer {
             if(this.index == UNKNOWN) {
                 return env.get(name());
             } else if(this.nest == MemberSymbols.FIELD) {
-                return this.getThis(env).read(this.index);
+                return getThis(env).read(this.index);
             } else if(this.nest == MemberSymbols.METHOD) {
-                return this.getThis(env).method(this.index);
+                return getThis(env).method(this.index);
             } else {
                 return ((EnvEx2)env).get(this.nest, this.index);
             }
@@ -161,7 +161,7 @@ public class ObjOptimizer {
             if(this.index == UNKNOWN) {
                 env.put(name(), value);
             } else if(this.nest == MemberSymbols.FIELD) {
-                this.getThis(env).write(this.index, value);
+                getThis(env).write(this.index, value);
             } else if(this.nest == MemberSymbols.METHOD) {
                 throw new SheepException("cannot update a method: " + name(), this);
             } else {
@@ -194,7 +194,7 @@ public class ObjOptimizer {
             if (!(t instanceof OptSheepObject)) {
                 return super.computeAssign(env, rvalue);
             }
-            return this.setField((OptSheepObject) t, (Dot) p.postfix(0), rvalue);
+            return setField((OptSheepObject) t, (Dot) p.postfix(0), rvalue);
         }
 
         protected Object setField(OptSheepObject obj, Dot expr, Object rvalue) {

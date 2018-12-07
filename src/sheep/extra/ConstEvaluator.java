@@ -37,8 +37,8 @@ public class ConstEvaluator {
 
         @Override
         protected Object computeAssign(Environment env, Object right) {
-            ASTree left = this.left();
-            if (this.left() instanceof ConstExpr) {
+            ASTree left = left();
+            if (left() instanceof ConstExpr) {
                 ConstExpr leftConst = (ConstExpr) left;
                 if (!(leftConst.getConstant() instanceof Name)) {
                     throw new SheepException("bad assignment", this);

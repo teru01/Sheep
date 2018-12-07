@@ -13,7 +13,7 @@ public class CodeDialog extends Reader {
 
     public int read(char[] cbuf, int off, int len) throws IOException {
         if (buffer == null) {
-            String in = this.showDialog();
+            String in = showDialog();
             if (in == null) {
                 return -1;
             } else {

@@ -58,9 +58,9 @@ public class Symbols {
      * オブジェクトが存在しなければ作成してインデックスを返す
      */
     public int putNew(String key) {
-        Integer i = this.find(key);
+        Integer i = find(key);
         if(i == null) {
-            return this.add(key);
+            return add(key);
         } else {
             return i;
         }
@@ -70,7 +70,7 @@ public class Symbols {
      * オブジェクトが存在しなければ作成して位置オブジェクトを返す
      */
     public Location put(String key) {
-        Location loc = this.get(key, 0);
+        Location loc = get(key, 0);
         if(loc == null) {
             return new Location(0, add(key));
         } else {

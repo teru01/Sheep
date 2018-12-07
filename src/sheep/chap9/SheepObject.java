@@ -14,11 +14,11 @@ public class SheepObject {
     }
 
     public Object read(String member) throws AccessException{
-        return this.getEnv(member).get(member);
+        return getEnv(member).get(member);
     }
 
     public void write(String member, Object value) throws AccessException{
-        ((EnvEx)this.getEnv(member)).putInCurrentEnv(member, value);
+        ((EnvEx)getEnv(member)).putInCurrentEnv(member, value);
     }
 
     /**
