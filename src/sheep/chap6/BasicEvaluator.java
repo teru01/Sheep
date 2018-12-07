@@ -1,5 +1,6 @@
 package sheep.chap6;
 import javassist.gluonj.*;
+import sheep.SheepConstException;
 import sheep.SheepException;
 import sheep.ast.ASTLeaf;
 import sheep.ast.ASTree;
@@ -102,7 +103,11 @@ import java.util.List;
             // 代入式に対しては左辺値にevalを呼んではならない
             if("=".equals(op)) {
                 Object right = ((ASTreeEx)right()).eval(env);
-                return computeAssign(env, right);
+                try {
+                    return computeAssign(env, right);
+                } catch(SheepConstException e) {
+                    throw new SheepConstException("cannot assign to constant", this);
+                }
             } else {
                 Object left = ((ASTreeEx)left()).eval(env);
                 Object right = ((ASTreeEx)right()).eval(env);
@@ -114,7 +119,7 @@ import java.util.List;
             return null;
         }
 
-        protected Object computeAssign(Environment env, Object rvalue) {
+        protected Object computeAssign(Environment env, Object rvalue) throws SheepConstException {
             ASTree l = left();
             // 左辺値は変数でなくてはならない
             if(l instanceof Name) {
