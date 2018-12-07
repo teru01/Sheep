@@ -10,21 +10,21 @@ public class ForIterExpr extends ASTList{
      * forの初期化式
      */
     public ASTree initExpr() {
-        return this.child(0);
+        return child(0);
     }
 
     /**
      * for条件式
      */
     public ASTree conditionExpr() {
-        return this.child(1);
+        return child(1);
     }
 
     /**
      * for更新式
      */
     public ASTree updateExpr() {
-        return this.child(2);
+        return child(2);
     }
 
     @Override

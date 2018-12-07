@@ -17,6 +17,6 @@ public class DefStmnt extends ASTList {
     }
 
     public String toString() {
-        return "(def " + this.name() + " " + this.parameters() + " " + this.body() + ")";
+        return "(def " + name() + " " + parameters() + " " + body() + ")";
     }
 }

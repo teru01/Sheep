@@ -11,11 +11,11 @@ public class ConstExpr extends ASTList {
      * const shep = 10 と言う文のshepを取得する
      */
     public ASTree getConstant() {
-        return this.child(0);
+        return child(0);
     }
 
     @Override
     public String toString() {
-        return "const " + this.getConstant();
+        return "const " + getConstant();
     }
 }

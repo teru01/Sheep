@@ -109,14 +109,14 @@ import java.util.List;
                     throw new SheepConstException("cannot assign to constant", this);
                 }
             } else {
-                Object left = ((ASTreeEx)left()).eval(env);
-                Object right = ((ASTreeEx)right()).eval(env);
-                return computeOp(left, op, right);
+                return evalCalcurate(env, op);
             }
         }
 
-        public Object evalToinitFor(Environment env, Environment newEnv){
-            return null;
+        protected Object evalCalcurate(Environment env, String op) {
+            Object left = ((ASTreeEx) left()).eval(env);
+            Object right = ((ASTreeEx) right()).eval(env);
+            return computeOp(left, op, right);
         }
 
         protected Object computeAssign(Environment env, Object rvalue) throws SheepConstException {

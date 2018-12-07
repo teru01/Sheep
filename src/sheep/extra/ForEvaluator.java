@@ -21,8 +21,9 @@ public class ForEvaluator {
 
         public Object eval(Environment env) {
             Environment newEnv = this.makeEnv(env);
-            ((ForIterExprEx) this.iterExpr()).init(env, newEnv);
-            return ((ForIterExprEx) this.iterExpr()).eval(newEnv, this.iterBody());
+            ForIterExprEx iterExpr = (ForIterExprEx) this.iterExpr();
+            iterExpr.init(env, newEnv);
+            return iterExpr.eval(newEnv, this.iterBody());
         }
     }
 
@@ -78,9 +79,7 @@ public class ForEvaluator {
                 Object right = ((ASTreeEx) right()).eval(env);
                 return computeAssign(newEnv, right);
             } else {
-                Object left = ((ASTreeEx) left()).eval(env);
-                Object right = ((ASTreeEx) right()).eval(env);
-                return computeOp(left, op, right);
+                return evalCalcurate(env, op);
             }
         }
     }

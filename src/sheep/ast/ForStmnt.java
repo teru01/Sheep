@@ -13,11 +13,11 @@ public class ForStmnt extends ASTList {
      * for(var i=0; i<10; i=i+1)の括弧を取得
      */
     public ASTree iterExpr() {
-        return this.child(0);
+        return child(0);
     }
 
     public ASTree iterBody() {
-        return this.child(1);
+        return child(1);
     }
 
     public Environment makeEnv(Environment env) {

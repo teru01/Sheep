@@ -84,7 +84,7 @@ public class EnvOptimizer {
         }
 
         public void lookup(Symbols syms) {
-            this.size = this.lookup(syms, parameters(), body());
+            this.size = lookup(syms, parameters(), body());
         }
 
         /**

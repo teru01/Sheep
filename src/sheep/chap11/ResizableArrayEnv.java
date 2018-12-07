@@ -49,7 +49,7 @@ public class ResizableArrayEnv extends ArrayEnv {
 
     @Override
     public void putNew(String name, Object value) {
-        this.assign(this.names.putNew(name), value);
+        assign(this.names.putNew(name), value);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ResizableArrayEnv extends ArrayEnv {
     @Override
     public void put(int nest, int index, Object value) {
         if(nest == 0) {
-            this.assign(index, value);
+            assign(index, value);
         } else {
             super.put(nest, index, value);
         }
