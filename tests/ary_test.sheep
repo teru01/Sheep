@@ -1,0 +1,10 @@
+class Hoge {
+    var name = "teru"
+}
+h = Hoge.new
+a = [2, "hoge", 11, h]
+print(a[0])
+print(a[1])
+a[0] = "bar"
+print(a[0])
+print(a[3].name)
