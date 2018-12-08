@@ -1,0 +1,17 @@
+a = 10
+j = 1
+if a > 0 {
+    var a = 7
+    print(a)
+    j = 5
+} else {
+    j = -2
+}
+print j
+print(a)
+if 0 {
+
+} else {
+    j = 99
+}
+print(j)

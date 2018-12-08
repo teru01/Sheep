@@ -15,9 +15,7 @@ public class ClassInterpreter extends BasicInterpreter {
         } else if(args[0].equals("lexer")) {
             checkLexer();
         } else {
-            for (int i=1; i<args.length; i++) {
-                run(new ClassParser(), new Natives().environment(new NestedEnv()), args[i]);
-            }
+            run(new ClassParser(), new Natives().environment(new NestedEnv()), args[0]);
         }
     }
 }

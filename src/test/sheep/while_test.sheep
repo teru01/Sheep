@@ -1,0 +1,8 @@
+var a = 0
+var c = 2
+while a < 3 {
+    var c = -1
+    print a
+    a = a + 1
+}
+print(c)

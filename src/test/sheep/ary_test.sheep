@@ -1,5 +1,5 @@
 class Hoge {
-    var name = "teru"
+    var name = "ter"
 }
 h = Hoge.new
 a = [2, "hoge", 11, h]

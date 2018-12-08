@@ -30,6 +30,7 @@ dependencies {
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
+    compile 'junit:junit:4.12'
 }
 
 ext.mode = project.hasProperty('mode') ? project.getProperty('mode') : 'undefined'
@@ -56,7 +57,17 @@ sourceSets {
         java.outputDir = file('bin/build')
     }
 }
+task showDirs {
+    doLast {
+        logger.quiet(rootDir.toPath().relativize(project.reportsDir.toPath()).toString())
+        logger.quiet(rootDir.toPath().relativize(project.testResultsDir.toPath()).toString())
+    }
+}
 
+test {
+    useJUnit()
+    maxHeapSize = '1G'
+}
 jar {
     manifest {
         attributes 'Main-Class': 'sheep.chap12.ObjOptRunner'

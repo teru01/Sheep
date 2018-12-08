@@ -44,7 +44,6 @@ public class BasicInterpreter {
             ASTree t = bp.parse(lexer);
             if (!(t instanceof NullStmnt)) {
                 Object r = ((BasicEvaluator.ASTreeEx) t).eval(env);
-                System.out.println("=> " + r);
             }
         }
     }
