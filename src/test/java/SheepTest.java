@@ -79,7 +79,7 @@ public class SheepTest {
 
         @Test
         public void testIf() throws Throwable {
-            String fileName = SheepTest.testPath + "/if_test.sheep";
+            String fileName = SheepTest.testPath + "/if/if_test.sheep";
             String[] expected = { "7", "5", "10", "99" };
             ArrayRunner.run(new String[] { fileName });
             System.out.flush();
@@ -109,8 +109,8 @@ public class SheepTest {
 
         @Test
         public void testElseif() throws Throwable {
-            String fileName = SheepTest.testPath + "/elif_test.sheep";
-            String[] expected = { "a>5", "a>3"};
+            String fileName = SheepTest.testPath + "/if/elif_test.sheep";
+            String[] expected = {"a>5", "a>3", "else", "a>0"};
             ArrayRunner.run(new String[] { fileName });
             System.out.flush();
             String result = this.baos.toString();

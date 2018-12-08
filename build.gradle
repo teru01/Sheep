@@ -37,7 +37,7 @@ ext.mode = project.hasProperty('mode') ? project.getProperty('mode') : 'undefine
 run {
     args = [
             mode,
-            'src/test/sheep/for_test.sheep',
+            'src/test/sheep/elif_test.sheep',
            ]
 }
 
