@@ -32,7 +32,7 @@ public class BasicInterpreter {
         while(lexer.peek(0) != Token.EOF) {
             ASTree t = bp.parse(lexer);
             if(!(t instanceof NullStmnt)) {
-                Object r = ((BasicEvaluator.ASTreeEx)t).eval(env);
+                ((BasicEvaluator.ASTreeEx)t).eval(env);
                 //System.out.println("=> " + r);
             }
         }
@@ -43,7 +43,7 @@ public class BasicInterpreter {
         while (lexer.peek(0) != Token.EOF) {
             ASTree t = bp.parse(lexer);
             if (!(t instanceof NullStmnt)) {
-                Object r = ((BasicEvaluator.ASTreeEx) t).eval(env);
+                ((BasicEvaluator.ASTreeEx) t).eval(env);
             }
         }
     }

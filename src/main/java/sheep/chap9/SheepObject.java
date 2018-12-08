@@ -4,6 +4,7 @@ import sheep.chap7.FuncEvaluator.EnvEx;
 
 // インスタンスオブジェクトを表す
 public class SheepObject {
+    @SuppressWarnings("serial")
     public static class AccessException extends Exception {}
     // インスタンスフィールドの環境
     protected Environment env;

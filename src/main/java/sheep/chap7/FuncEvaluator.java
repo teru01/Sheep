@@ -6,7 +6,6 @@ import sheep.ast.*;
 import sheep.chap6.BasicEvaluator;
 import sheep.chap6.Environment;
 import sheep.chap6.BasicEvaluator.ASTreeEx;
-import sheep.chap6.BasicEvaluator.BlockEx;
 
 @Require(BasicEvaluator.class)
 @Reviser

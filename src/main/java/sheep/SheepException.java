@@ -1,6 +1,7 @@
 package sheep;
 import sheep.ast.ASTree;
 
+@SuppressWarnings("serial")
 public class SheepException extends RuntimeException {
     public SheepException(){}
     public SheepException(String m) { super(m); }
