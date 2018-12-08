@@ -1,6 +1,7 @@
 package sheep;
 import java.io.IOException;
 
+@SuppressWarnings("serial")
 public class ParseException extends Exception {
     public ParseException(Token t) {
         this("", t);

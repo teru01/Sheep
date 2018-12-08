@@ -8,7 +8,6 @@ import sheep.VarParser;
 import sheep.ast.ASTree;
 import sheep.ast.Name;
 import sheep.ast.VarExpr;
-import sheep.chap6.BasicEvaluator.ASTreeEx;
 import sheep.chap6.BasicEvaluator.BinaryEx;
 import sheep.chap6.Environment;
 import sheep.chap7.*;
