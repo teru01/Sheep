@@ -1,7 +1,7 @@
 package sheep.chap7;
 import java.util.*;
 
-import sheep.SheepConstException;
+import sheep.SheepException;
 import sheep.chap6.Environment;
 import sheep.chap7.FuncEvaluator.EnvEx;
 
@@ -39,9 +39,9 @@ public class NestedEnv implements Environment {
     /**
      * 現在の環境に新規追加/上書きを行う。
      */
-    public void putInCurrentEnv(String name, Object value) throws SheepConstException{
+    public void putInCurrentEnv(String name, Object value) throws SheepException{
         if(this.constans.contains(name)) {
-            throw new SheepConstException();
+            throw new SheepException("cannot assign to a constant");
         }
         this.values.put(name, value);
     }

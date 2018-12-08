@@ -5,7 +5,6 @@ import java.util.List;
 import javassist.gluonj.Require;
 import javassist.gluonj.Reviser;
 import sheep.ConstParser;
-import sheep.SheepConstException;
 import sheep.SheepException;
 import sheep.ast.ASTree;
 import sheep.ast.ConstExpr;
@@ -24,7 +23,7 @@ public class ConstEvaluator {
             super(c);
         }
 
-        public Object eval(Environment evn) {
+        public Object eval(Environment evn) throws SheepException{
             throw new SheepException("const variable must have an initializer", this);
         }
     }

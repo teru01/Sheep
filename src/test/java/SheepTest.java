@@ -1,6 +1,6 @@
 package test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,9 +12,10 @@ import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
+import sheep.SheepException;
 import sheep.chap10.ArrayRunner;
-import sheep.*;
 
+@RunWith(Enclosed.class)
 public class SheepTest {
     private static final String testPath = "src/test/sheep";
     public static class StandardOut {
@@ -58,7 +59,7 @@ public class SheepTest {
 
         @Test
         public void testConst() throws Throwable {
-            String fileName = SheepTest.testPath + "/const_test.sheep";
+            String fileName = SheepTest.testPath + "/const/const_test.sheep";
             String[] expected = { "20", "2", "11" };
             ArrayRunner.run(new String[] { fileName });
             System.out.flush();
@@ -107,11 +108,27 @@ public class SheepTest {
         }
     }
 
-    // public static class RaiseExceptionOfSheep {
-    //     @Test(expected = SheepConstException.class)
-    //     public void testConstException() throws Throwable{
-    //         String fileName = SheepTest.testPath + "/const_exception.sheep";
-    //         ArrayRunner.run(new String[] { fileName });
-    //     }
-    // }
+    public static class RaiseExceptionOfSheep {
+        @Test
+        public void testConstAssignException() {
+            String fileName = SheepTest.testPath + "/const/assign_exception.sheep";
+            try {
+                ArrayRunner.run(new String[] { fileName });
+                fail();
+            } catch(Throwable e) {
+                assertEquals("cannot assign to a constant at line 2", e.getMessage());
+            }
+        }
+
+        @Test
+        public void testConstWithoutInitializeException() {
+            String fileName = SheepTest.testPath + "/const/noinit_exception.sheep";
+            try {
+                ArrayRunner.run(new String[] { fileName });
+                fail();
+            } catch (Throwable e) {
+                assertEquals("const variable must have an initializer at line 2", e.getMessage());
+            }
+        }
+    }
 }
