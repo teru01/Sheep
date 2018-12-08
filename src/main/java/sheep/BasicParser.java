@@ -36,8 +36,11 @@ public class BasicParser {
 
     Parser simple = rule(PrimaryExpr.class).ast(this.expr);
 
+    Parser elif = rule(ElifStmnt.class).repeat(rule().sep("elif").ast(this.expr).ast(this.block));
+
     Parser statement = this.statement0
             .or(rule(IfStmnt.class).sep("if").ast(this.expr).ast(this.block)
+                                   .maybe(this.elif)
                                    .option(rule().sep("else").ast(this.block)),
                 rule(WhileStmnt.class).sep("while").ast(this.expr).ast(this.block),
                 this.simple
