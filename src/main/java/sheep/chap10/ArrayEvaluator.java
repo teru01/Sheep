@@ -8,7 +8,7 @@ import sheep.chap6.BasicEvaluator.ASTreeEx;
 import sheep.chap7.*;
 import sheep.chap7.FuncEvaluator.PrimaryEx;
 
-@Require({FuncEvaluator.class, ArrayParser.class})
+@Require(FuncEvaluator.class)
 @Reviser
 public class ArrayEvaluator {
     @Reviser

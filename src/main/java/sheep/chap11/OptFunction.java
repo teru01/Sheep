@@ -2,9 +2,8 @@ package sheep.chap11;
 
 import sheep.ast.BlockStmnt;
 import sheep.ast.NonScopedBlock;
-import sheep.ast.ParameterList;
+import sheep.ast.*;
 import sheep.chap6.Environment;
-import sheep.chap7.Function;
 
 public class OptFunction extends Function {
     protected int size;

@@ -10,7 +10,7 @@ import static sheep.chap6.BasicEvaluator.*;
 import sheep.chap6.Environment;
 import sheep.chap7.*;
 
-@Require({ClosureEvaluator.class, ForParser.class })
+@Require(ClosureEvaluator.class)
 @Reviser
 public class ForEvaluator {
     @Reviser

@@ -11,7 +11,7 @@ import sheep.ast.*;
 public class EnvOptInterpreter {
     public static void main(String[] args) throws ParseException, FileNotFoundException {
         String fileName = args[0];
-        run(new ClosureParser(), new Natives().environment(new ResizableArrayEnv()), fileName);
+        run(new BasicParser(), new Natives().environment(new ResizableArrayEnv()), fileName);
     }
 
     public static void run(BasicParser bp, Environment env, String fileName) throws ParseException, FileNotFoundException {

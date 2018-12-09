@@ -4,7 +4,6 @@ import java.util.List;
 
 import javassist.gluonj.Require;
 import javassist.gluonj.Reviser;
-import sheep.ConstParser;
 import sheep.SheepException;
 import sheep.ast.ASTree;
 import sheep.ast.ConstExpr;
@@ -14,7 +13,7 @@ import sheep.chap6.Environment;
 import sheep.chap7.ClosureEvaluator;
 import sheep.chap7.FuncEvaluator.EnvEx;
 
-@Require({ClosureEvaluator.class, ConstParser.class})
+@Require(ClosureEvaluator.class)
 @Reviser
 public class ConstEvaluator {
     @Reviser
