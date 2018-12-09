@@ -12,14 +12,6 @@ import sheep.ast.ASTree;
 import sheep.ast.NullStmnt;
 
 public class BasicInterpreter {
-    public static void main(String[] args) throws Exception {
-        String fileName = args[0];
-        run(new BasicParser(), new BasicEnv(), fileName);
-    }
-
-    /**
-     * bp: 複数の部分構文木(factorやexpr)の情報をelementsの中にもつ
-     */
     public static void run(BasicParser bp, Environment env, String fileName) throws ParseException {
         Reader reader = null;
         try {
@@ -33,7 +25,6 @@ public class BasicInterpreter {
             ASTree t = bp.parse(lexer);
             if(!(t instanceof NullStmnt)) {
                 ((BasicEvaluator.ASTreeEx)t).eval(env);
-                //System.out.println("=> " + r);
             }
         }
     }

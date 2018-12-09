@@ -1,7 +1,6 @@
-package sheep.chap7;
-import sheep.ast.*;
+package sheep.ast;
 import sheep.chap6.Environment;
-
+import sheep.chap7.*;
 
 public class Function {
     protected ParameterList parameters;
