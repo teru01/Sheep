@@ -166,6 +166,10 @@ import java.util.List;
                 return a > b ? TRUE : FALSE;
             else if (op.equals("<"))
                 return a < b ? TRUE : FALSE;
+            else if (op.equals("&&"))
+                return (a != 0 && b != 0) ? TRUE : FALSE;
+            else if (op.equals("||"))
+                return (a != 0 || b != 0) ? TRUE : FALSE;
             else throw new SheepException("bad operator", this);
         }
     }

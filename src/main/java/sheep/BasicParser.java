@@ -146,6 +146,8 @@ public class BasicParser {
         this.operators.add("*", 4, Operators.LEFT);
         this.operators.add("/", 4, Operators.LEFT);
         this.operators.add("%", 4, Operators.LEFT);
+        this.operators.add("&&", 3, Operators.LEFT);
+        this.operators.add("||", 2, Operators.LEFT);
 
         functionParser();
         classParser();

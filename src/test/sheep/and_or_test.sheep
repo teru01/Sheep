@@ -1,0 +1,19 @@
+var a = 3
+var b = 0
+if(a && b) {
+    print("true")
+} else {
+    print("false")
+}
+if(a || b) {
+    print("true")
+} else {
+    print("false")
+}
+var c = -2
+if(b || a && c) {
+    print("true")
+} else {
+    print("false")
+}
+// false true true
