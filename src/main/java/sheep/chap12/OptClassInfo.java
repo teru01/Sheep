@@ -1,11 +1,11 @@
 package sheep.chap12;
 import java.util.*;
 import sheep.ast.*;
-import sheep.chap11.*;
-import sheep.chap11.EnvOptimizer.DefStmntEx;
+import sheep.optimizer.*;
+import sheep.optimizer.EnvOptimizer.DefStmntEx;
 import sheep.chap12.ObjOptimizer.DefStmntEx2;
-import sheep.chap6.*;
-import sheep.chap9.*;
+import sheep.core.*;
+import sheep.object.*;
 
 public class OptClassInfo extends ClassInfo {
     protected Symbols methods, fields;

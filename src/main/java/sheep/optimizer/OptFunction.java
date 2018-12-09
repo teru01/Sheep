@@ -1,9 +1,9 @@
-package sheep.chap11;
+package sheep.optimizer;
 
 import sheep.ast.BlockStmnt;
 import sheep.ast.NonScopedBlock;
 import sheep.ast.*;
-import sheep.chap6.Environment;
+import sheep.core.Environment;
 
 public class OptFunction extends Function {
     protected int size;

@@ -1,8 +1,8 @@
-package sheep.chap8;
+package sheep.javanative;
 import java.lang.reflect.*;
 import javax.swing.JOptionPane;
 import sheep.*;
-import sheep.chap6.*;
+import sheep.core.*;
 
 public class Natives {
     public Environment environment(Environment env) {
@@ -23,12 +23,12 @@ public class Natives {
         try {
             m = clazz.getMethod(methodName, params);
         } catch (Exception e) {
-            throw new SheepException("cannot find a native function: " + methodName);
+            throw new SheepException("cannot find a javanative function: " + methodName);
         }
         env.put(name, new NativeFunction(methodName, m));
     }
 
-    // native methods
+    // javanative methods
     public static int print(Object obj) {
         System.out.println(obj.toString());
         return 0;

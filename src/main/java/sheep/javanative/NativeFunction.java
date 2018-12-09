@@ -1,4 +1,4 @@
-package sheep.chap8;
+package sheep.javanative;
 import java.lang.reflect.*;
 import sheep.*;
 import sheep.ast.*;
@@ -16,7 +16,7 @@ public class NativeFunction {
 
     @Override
     public String toString() {
-        return "<native:" + hashCode() + ">";
+        return "<javanative:" + hashCode() + ">";
     }
 
     public int numOfParameters() {
@@ -27,7 +27,7 @@ public class NativeFunction {
         try {
             return this.method.invoke(null, args);
         } catch(Exception e) {
-            throw new SheepException("bad native function call:" + this.name, tree);
+            throw new SheepException("bad javanative function call:" + this.name, tree);
         }
     }
 }

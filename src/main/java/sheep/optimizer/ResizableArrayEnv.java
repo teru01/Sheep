@@ -1,7 +1,7 @@
-package sheep.chap11;
+package sheep.optimizer;
 import java.util.*;
-import sheep.chap6.*;
-import sheep.chap11.EnvOptimizer.EnvEx2;
+import sheep.core.*;
+import sheep.optimizer.EnvOptimizer.EnvEx2;
 
 /**
  * 大域変数のための環境。格納できる変数は可変

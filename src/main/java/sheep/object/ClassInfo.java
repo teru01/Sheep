@@ -1,8 +1,8 @@
-package sheep.chap9;
+package sheep.object;
 import sheep.*;
 import sheep.ast.ClassBody;
 import sheep.ast.ClassStmnt;
-import sheep.chap6.*;
+import sheep.core.*;
 /**
  * クラスの情報を保持する
  */

@@ -1,8 +1,8 @@
-package sheep.chap11;
+package sheep.optimizer;
 import javassist.compiler.ast.Symbol;
 import sheep.SheepException;
-import sheep.chap11.EnvOptimizer.EnvEx2;
-import sheep.chap6.Environment;
+import sheep.optimizer.EnvOptimizer.EnvEx2;
+import sheep.core.Environment;
 
 /**
  * 配列で変数を管理するための環境。外側のスコープに対する参照を持つ(Envと同じ)

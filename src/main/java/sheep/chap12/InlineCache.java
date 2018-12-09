@@ -2,7 +2,7 @@ package sheep.chap12;
 import java.util.*;
 import sheep.*;
 import sheep.ast.*;
-import sheep.chap6.*;
+import sheep.core.*;
 import javassist.gluonj.*;
 
 @Require(ObjOptimizer.class)

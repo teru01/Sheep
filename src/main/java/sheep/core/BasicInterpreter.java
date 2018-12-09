@@ -1,4 +1,4 @@
-package sheep.chap6;
+package sheep.core;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;

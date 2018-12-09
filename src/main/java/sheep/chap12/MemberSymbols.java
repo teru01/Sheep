@@ -1,5 +1,5 @@
 package sheep.chap12;
-import sheep.chap11.*;
+import sheep.optimizer.*;
 
 /**
  * lookupの時classブロック内部にあるフィールド、メソッドの位置を決めるためのシンボルテーブル

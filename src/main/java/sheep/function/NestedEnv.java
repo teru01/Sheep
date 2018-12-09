@@ -1,9 +1,9 @@
-package sheep.chap7;
+package sheep.function;
 import java.util.*;
 
 import sheep.SheepException;
-import sheep.chap6.Environment;
-import sheep.chap7.FuncEvaluator.EnvEx;
+import sheep.core.Environment;
+import sheep.function.FuncEvaluator.EnvEx;
 
 public class NestedEnv implements Environment {
     protected HashMap<String, Object> values;

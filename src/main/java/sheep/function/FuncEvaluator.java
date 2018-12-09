@@ -1,11 +1,11 @@
-package sheep.chap7;
+package sheep.function;
 import java.util.List;
 import javassist.gluonj.*;
 import sheep.SheepException;
 import sheep.ast.*;
-import sheep.chap6.BasicEvaluator;
-import sheep.chap6.Environment;
-import sheep.chap6.BasicEvaluator.ASTreeEx;
+import sheep.core.BasicEvaluator;
+import sheep.core.Environment;
+import sheep.core.BasicEvaluator.ASTreeEx;
 
 @Require(BasicEvaluator.class)
 @Reviser

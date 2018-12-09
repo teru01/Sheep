@@ -1,8 +1,8 @@
-package sheep.chap7;
+package sheep.function;
 import java.util.List;
 import javassist.gluonj.*;
 import sheep.ast.*;
-import sheep.chap6.Environment;
+import sheep.core.Environment;
 
 @Require(FuncEvaluator.class)
 @Reviser

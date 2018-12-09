@@ -1,14 +1,14 @@
-package sheep.chap9;
+package sheep.object;
 import java.util.*;
 import sheep.*;
 import javassist.gluonj.*;
 import sheep.ast.*;
-import sheep.chap6.*;
-import sheep.chap6.BasicEvaluator.ASTreeEx;
-import sheep.chap7.*;
-import sheep.chap7.FuncEvaluator.EnvEx;
-import sheep.chap7.FuncEvaluator.PrimaryEx;
-import sheep.chap9.SheepObject.AccessException;
+import sheep.core.*;
+import sheep.core.BasicEvaluator.ASTreeEx;
+import sheep.function.*;
+import sheep.function.FuncEvaluator.EnvEx;
+import sheep.function.FuncEvaluator.PrimaryEx;
+import sheep.object.SheepObject.AccessException;
 
 @Require(FuncEvaluator.class)
 @Reviser

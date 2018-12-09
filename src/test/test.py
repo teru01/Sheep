@@ -15,7 +15,7 @@ class Color:
     INVISIBLE = '\033[08m'
     REVERCE   = '\033[07m'
 
-cmd = ["java", "-cp", "./bin/build:./lib/gluonj.jar", "sheep.chap10.ArrayRunner"]
+cmd = ["java", "-cp", "./bin/build:./lib/gluonj.jar", "sheep.array.ArrayRunner"]
 testfiles = [
     "tests/assign.sheep",
     "tests/class_test.sheep",

@@ -1,8 +1,8 @@
-package sheep.chap11;
+package sheep.optimizer;
 
 import javassist.gluonj.util.Loader;
 import sheep.chap12.InlineCache;
-import sheep.chap8.NativeEvaluator;
+import sheep.javanative.NativeEvaluator;
 
 public class EnvOptRunner {
     public static void main(String[] args) throws Throwable {

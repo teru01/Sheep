@@ -1,8 +1,8 @@
 package sheep.ast;
 import java.util.*;
 
-import sheep.chap7.NestedEnv;
-import sheep.chap6.Environment;
+import sheep.function.NestedEnv;
+import sheep.core.Environment;
 
 public class ForStmnt extends ASTList {
     public ForStmnt(List<ASTree> c) {

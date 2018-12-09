@@ -1,4 +1,4 @@
-package sheep.chap6;
+package sheep.core;
 import javassist.gluonj.*;
 import sheep.SheepException;
 import sheep.ast.ASTLeaf;

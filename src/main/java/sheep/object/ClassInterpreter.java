@@ -1,10 +1,10 @@
-package sheep.chap9;
+package sheep.object;
 import java.io.FileNotFoundException;
 
 import sheep.*;
-import sheep.chap6.*;
-import sheep.chap7.*;
-import sheep.chap8.*;
+import sheep.core.*;
+import sheep.function.*;
+import sheep.javanative.*;
 
 public class ClassInterpreter {
     public static void main(String[] args) throws ParseException, FileNotFoundException, SheepException{

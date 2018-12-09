@@ -1,8 +1,8 @@
 package sheep.chap12;
 
 import javassist.gluonj.util.Loader;
-import sheep.chap10.ArrayEvaluator;
-import sheep.chap8.NativeEvaluator;
+import sheep.array.ArrayEvaluator;
+import sheep.javanative.NativeEvaluator;
 
 public class ObjOptRunner {
     public static void main(String[] args) throws Throwable {

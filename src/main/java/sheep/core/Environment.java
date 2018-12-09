@@ -1,4 +1,4 @@
-package sheep.chap6;
+package sheep.core;
 
 public interface Environment {
     void put(String name, Object value);

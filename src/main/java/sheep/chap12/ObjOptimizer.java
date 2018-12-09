@@ -4,15 +4,15 @@ import static javassist.gluonj.GluonJ.revise;
 import javassist.gluonj.*;
 import sheep.*;
 import sheep.ast.*;
-import sheep.chap6.*;
-import sheep.chap6.BasicEvaluator.ASTreeEx;
-import sheep.chap7.FuncEvaluator.PrimaryEx;
-import sheep.chap9.ClassEvaluator.ClassBodyEx;
-import sheep.chap11.*;
-import sheep.chap11.EnvOptimizer.ASTreeOptEx;
-import sheep.chap11.EnvOptimizer.DefStmntEx;
-import sheep.chap11.EnvOptimizer.EnvEx2;
-import sheep.chap11.EnvOptimizer.ParamsEx;
+import sheep.core.*;
+import sheep.core.BasicEvaluator.ASTreeEx;
+import sheep.function.FuncEvaluator.PrimaryEx;
+import sheep.object.ClassEvaluator.ClassBodyEx;
+import sheep.optimizer.*;
+import sheep.optimizer.EnvOptimizer.ASTreeOptEx;
+import sheep.optimizer.EnvOptimizer.DefStmntEx;
+import sheep.optimizer.EnvOptimizer.EnvEx2;
+import sheep.optimizer.EnvOptimizer.ParamsEx;
 import sheep.chap12.OptSheepObject.AccessException;
 
 

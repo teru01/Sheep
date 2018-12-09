@@ -1,7 +1,7 @@
 package sheep.chap12;
 import sheep.ast.*;
-import sheep.chap11.*;
-import sheep.chap6.*;
+import sheep.optimizer.*;
+import sheep.core.*;
 
 public class OptMethod extends OptFunction {
     OptSheepObject self;

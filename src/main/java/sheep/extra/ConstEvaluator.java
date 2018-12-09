@@ -8,10 +8,10 @@ import sheep.SheepException;
 import sheep.ast.ASTree;
 import sheep.ast.ConstExpr;
 import sheep.ast.Name;
-import sheep.chap6.BasicEvaluator.BinaryEx;
-import sheep.chap6.Environment;
-import sheep.chap7.ClosureEvaluator;
-import sheep.chap7.FuncEvaluator.EnvEx;
+import sheep.core.BasicEvaluator.BinaryEx;
+import sheep.core.Environment;
+import sheep.function.ClosureEvaluator;
+import sheep.function.FuncEvaluator.EnvEx;
 
 @Require(ClosureEvaluator.class)
 @Reviser

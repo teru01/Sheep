@@ -1,6 +1,6 @@
 package sheep.chap12;
 import sheep.*;
-import sheep.chap11.*;
+import sheep.optimizer.*;
 
 public class SymbolThis extends Symbols {
     //thisは局所変数と解釈される

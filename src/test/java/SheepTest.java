@@ -13,7 +13,7 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 import sheep.SheepException;
-import sheep.chap10.ArrayRunner;
+import sheep.array.ArrayRunner;
 
 @RunWith(Enclosed.class)
 public class SheepTest {

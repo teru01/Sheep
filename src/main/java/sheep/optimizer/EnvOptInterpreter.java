@@ -1,11 +1,11 @@
-package sheep.chap11;
-import sheep.chap6.*;
+package sheep.optimizer;
+import sheep.core.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import sheep.*;
-import sheep.chap8.*;
+import sheep.javanative.*;
 import sheep.ast.*;
 
 public class EnvOptInterpreter {

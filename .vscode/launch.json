@@ -22,7 +22,7 @@
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
-            "mainClass": "sheep.chap10.ArrayRunner",
+            "mainClass": "sheep.array.ArrayRunner",
             "args": ["${workspaceFolder}/tests/class_test.sheep"],
             "classPaths": [
                 "lib/gluonj.jar",
@@ -36,7 +36,7 @@
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
-            "mainClass": "sheep.chap10.ArrayRunner",
+            "mainClass": "sheep.array.ArrayRunner",
             "args": ["run", "${workspaceFolder}/tests/const_test.sheep"],
             "classPaths": [
                 "lib/gluonj.jar",
@@ -51,7 +51,7 @@
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             "stopOnEntry": false,
-            "mainClass": "sheep.chap6.Runner",
+            "mainClass": "sheep.core.Runner",
             "args": [
                 "${workspaceFolder}/tests/assign.sheep"
             ],

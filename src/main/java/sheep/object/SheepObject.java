@@ -1,6 +1,6 @@
-package sheep.chap9;
-import sheep.chap6.*;
-import sheep.chap7.FuncEvaluator.EnvEx;
+package sheep.object;
+import sheep.core.*;
+import sheep.function.FuncEvaluator.EnvEx;
 
 // インスタンスオブジェクトを表す
 public class SheepObject {

@@ -5,10 +5,10 @@ import java.util.List;
 import javassist.gluonj.*;
 import sheep.*;
 import sheep.ast.*;
-import sheep.chap6.BasicEvaluator.*;
-import static sheep.chap6.BasicEvaluator.*;
-import sheep.chap6.Environment;
-import sheep.chap7.*;
+import sheep.core.BasicEvaluator.*;
+import static sheep.core.BasicEvaluator.*;
+import sheep.core.Environment;
+import sheep.function.*;
 
 @Require(ClosureEvaluator.class)
 @Reviser

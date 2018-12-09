@@ -7,10 +7,10 @@ import javassist.gluonj.Reviser;
 import sheep.ast.ASTree;
 import sheep.ast.BlockStmnt;
 import sheep.ast.NullStmnt;
-import sheep.chap6.BasicEvaluator.ASTreeEx;
-import sheep.chap6.*;
-import sheep.chap7.ClosureEvaluator;
-import sheep.chap7.NestedEnv;
+import sheep.core.BasicEvaluator.ASTreeEx;
+import sheep.core.*;
+import sheep.function.ClosureEvaluator;
+import sheep.function.NestedEnv;
 
 @Require(ClosureEvaluator.class)
 @Reviser

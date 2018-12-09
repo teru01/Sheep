@@ -1,4 +1,4 @@
-package sheep.chap11;
+package sheep.optimizer;
 import static javassist.gluonj.GluonJ.revise;
 
 import javassist.compiler.ast.Symbol;
@@ -6,10 +6,10 @@ import javassist.gluonj.*;
 import java.util.List;
 import sheep.*;
 import sheep.ast.*;
-import sheep.chap11.Symbols.Location;
-import sheep.chap6.Environment;
-import sheep.chap6.BasicEvaluator;
-import sheep.chap7.ClosureEvaluator;
+import sheep.optimizer.Symbols.Location;
+import sheep.core.Environment;
+import sheep.core.BasicEvaluator;
+import sheep.function.ClosureEvaluator;
 
 /**
  * 変数の値を配列で管理するためのクラス。ここにはハッシュテーブルは出てこない
