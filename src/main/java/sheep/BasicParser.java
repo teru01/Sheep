@@ -9,9 +9,8 @@ import sheep.ast.*;
 
 public class BasicParser {
     private HashSet<String> reserved = new HashSet<>();
-
     Operators operators = new Operators();
-    // exprの定義が循環しているため。
+
     Parser expr0 = rule();
     Parser primary = rule(PrimaryExpr.class)
             .or(rule().sep("(").ast(this.expr0).sep(")"),
@@ -21,7 +20,7 @@ public class BasicParser {
                );
 
     Parser factor = rule().or(rule(NegativeExpr.class).sep("-").ast(this.primary), this.primary);
-    // expr0と同じ（そうでないとprimaryやfactorと異なるものになる）
+
     Parser expr = this.expr0.expression(BinaryExpr.class, this.factor, this.operators);
 
     Parser statement0 = rule();
@@ -33,11 +32,9 @@ public class BasicParser {
 
     Parser simple = rule(PrimaryExpr.class).ast(this.expr);
 
-    Parser elif = rule(ElifStmnt.class).repeat(rule().sep("elif").ast(this.expr).ast(this.block));
-
     Parser statement = this.statement0
             .or(rule(IfStmnt.class).sep("if").ast(this.expr).ast(this.block)
-                                   .maybe(this.elif)
+                                   .maybe(rule(ElifStmnt.class).repeat(rule().sep("elif").ast(this.expr).ast(this.block)))
                                    .option(rule().sep("else").ast(this.block)),
                 rule(WhileStmnt.class).sep("while").ast(this.expr).ast(this.block),
                 this.simple
@@ -151,7 +148,11 @@ public class BasicParser {
         this.operators.add("%", 4, Operators.LEFT);
 
         functionParser();
-
+        classParser();
+        arrayParser();
+        varParser();
+        forParser();
+        constParser();
     }
 
     public ASTree parse(Lexer lexer) throws ParseException {
