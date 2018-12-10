@@ -167,7 +167,7 @@ public class BasicParser {
                                     },
                                     {
                                         new Operator("==", Operators.LEFT),
-                                        // new Operator("!=", Operators.LEFT),
+                                        new Operator("!=", Operators.LEFT),
                                     },
                                     {
                                         new Operator(">", Operators.LEFT),

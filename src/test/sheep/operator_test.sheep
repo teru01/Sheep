@@ -1,0 +1,12 @@
+var a = 10
+var b = -2
+var c = 3
+if(a != 2) {
+    print("true")
+}
+if(a != 2 && c != 3 || b != -2 && c > 3) {
+    print("true")
+} else {
+    print("false")
+}
+if(a != )

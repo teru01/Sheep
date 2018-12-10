@@ -11,7 +11,7 @@ public class Lexer {
     // this matches comment(begin with "//"), number, string(wrapped by ") and identifier.
     public String regexPat
         = "\\s*((//.*)|([0-9]+)|(\"(\\\\\"|\\\\\\\\|\\\\n|[^\"])*\")"
-        + "|[A-Z_a-z][A-Z_a-z0-9]*|==|\\+=|-=|\\*=|/=|<=|>=|&&|\\|\\||\\p{Punct})?";
+        + "|[A-Z_a-z][A-Z_a-z0-9]*|==|!=|\\+=|-=|\\*=|/=|<=|>=|&&|\\|\\||\\p{Punct})?";
     private Pattern pattern = Pattern.compile(this.regexPat);
     private ArrayList<Token> queue = new ArrayList<>();
     private boolean hasMore;

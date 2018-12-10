@@ -155,6 +155,12 @@ import sheep.core.BasicEvaluator.ASTreeEx;
                     } else {
                         return left.equals(right) ? TRUE : FALSE;
                     }
+                } else if(op.equals("!=")) {
+                    if(left == null) {
+                        return right != null ? TRUE : FALSE;
+                    } else {
+                        return left.equals(right) ? FALSE : TRUE;
+                    }
                 } else {
                     throw new SheepException("bad type", this);
                 }
