@@ -20,12 +20,13 @@ import sheep.ast.NumberLiteral;
 import sheep.ast.StringLiteral;
 import sheep.ast.WhileStmnt;
 import sheep.core.BasicEvaluator.ASTreeEx;
+import sheep.operator.Operator;
 
 @Reviser public class BasicEvaluator {
     public static final int TRUE = 1;
     public static final int FALSE = 0;
 
-    @Reviser public static abstract class ASTreeEx extends ASTree {
+    @Reviser public interface ASTreeEx extends ASTree {
         public abstract Object eval(Environment env);
         public abstract Object evalForAnotherScope(Environment currentScope, Environment anotherScope);
     }
@@ -107,23 +108,24 @@ import sheep.core.BasicEvaluator.ASTreeEx;
         public BinaryEx(List<ASTree> c) { super(c); }
 
         public Object eval(Environment env) {
-            String op = operator();
-            String[] AssignOperators = {"+=", "-=", "*=", "/=", "="};
-            // 代入を伴わない
-            if(!Arrays.asList(AssignOperators).contains(op)) {
-                return evalCalcurate(env, op);
-            }
-            Object newValue;
-            if(op.equals("=")) {
-                newValue = ((ASTreeEx)right()).eval(env);
-            } else {
-                newValue = computeOp(((ASTreeEx)left()).eval(env), op.substring(0, 1), ((ASTreeEx)right()).eval(env));
-            }
-            try {
-                return computeAssign(env, newValue);
-            } catch(SheepException e) {
-                throw new SheepException(e.getMessage(), this);
-            }
+            Operator op = operator();
+            return op.calc(left(), right(), env);
+            // String[] AssignOperators = {"+=", "-=", "*=", "/=", "="};
+            // // 代入を伴わない
+            // if(!Arrays.asList(AssignOperators).contains(op)) {
+            //     return evalCalcurate(env, op);
+            // }
+            // Object newValue;
+            // if(op.equals("=")) {
+            //     newValue = ((ASTreeEx)right()).eval(env);
+            // } else {
+            //     newValue = computeOp(((ASTreeEx)left()).eval(env), op.substring(0, 1), ((ASTreeEx)right()).eval(env));
+            // }
+            // try {
+            //     return computeAssign(env, newValue);
+            // } catch(SheepException e) {
+            //     throw new SheepException(e.getMessage(), this);
+            // }
         }
 
         protected Object evalCalcurate(Environment env, String op) {

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.lang.reflect.Method;
 import java.lang.reflect.Constructor;
 import sheep.ast.ASTree;
+import sheep.operator.*;
 import sheep.ast.ASTLeaf;
 import sheep.ast.ASTList;
 
@@ -214,7 +215,7 @@ public class Parser {
         {
             ArrayList<ASTree> list = new ArrayList<ASTree>();
             list.add(left);
-            list.add(new ASTLeaf(lexer.read()));
+            list.add(createOpClass(lexer.read()));
             ASTree right = factor.parse(lexer);
             Precedence next;
             while ((next = nextOperator(lexer)) != null
@@ -239,6 +240,15 @@ public class Parser {
         }
         protected boolean match(Lexer lexer) throws ParseException {
             return factor.match(lexer);
+        }
+        private Operator createOpClass(Token opToken) throws ParseException{
+            String op = opToken.getText();
+            if(op.equals("+"))
+                return new PlusOperator(opToken);
+            else if(op.equals("="))
+                return new AssignOperator(opToken);
+            else
+                throw new ParseException("bad operator", opToken);
         }
     }
 
