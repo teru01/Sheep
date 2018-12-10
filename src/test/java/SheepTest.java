@@ -136,6 +136,16 @@ public class SheepTest {
             String result = this.baos.toString();
             assertEquals(makeString(expected), result);
         }
+
+        @Test
+        public void testOperator() throws Throwable {
+            String fileName = SheepTest.testPath + "/operator_test.sheep";
+            String[] expected = {"true", "false"};
+            ArrayRunner.run(new String[] { fileName });
+            System.out.flush();
+            String result = this.baos.toString();
+            assertEquals(makeString(expected), result);
+        }
     }
 
     public static class RaiseExceptionOfSheep {

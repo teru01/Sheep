@@ -9,4 +9,4 @@ if(a != 2 && c != 3 || b != -2 && c > 3) {
 } else {
     print("false")
 }
-if(a != )
+

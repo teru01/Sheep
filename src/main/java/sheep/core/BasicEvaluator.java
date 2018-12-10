@@ -182,6 +182,8 @@ import sheep.core.BasicEvaluator.ASTreeEx;
                 return a % b;
             else if (op.equals("=="))
                 return a == b ? TRUE : FALSE;
+            else if (op.equals("!="))
+                return a != b ? TRUE : FALSE;
             else if (op.equals(">"))
                 return a > b ? TRUE : FALSE;
             else if (op.equals("<"))
