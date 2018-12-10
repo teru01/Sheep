@@ -3,6 +3,7 @@ package sheep;
 import static sheep.Parser.rule;
 
 import java.util.HashSet;
+import java.util.stream.IntStream;
 
 import sheep.Parser.Operators;
 import sheep.ast.*;
@@ -132,22 +133,63 @@ public class BasicParser {
         program.insertChoice(defclass);
     }
 
+    public void defineOperators(Operator[] operators, int priority) {
+        for(Operator op: operators) {
+            this.operators.add(op.token, priority, op.bind);
+        }
+    }
+
+    public class Operator {
+        private String token;
+        private boolean bind;
+        Operator(String token, boolean bind) {
+            this.token = token;
+            this.bind = bind;
+        }
+    }
+
     public BasicParser() {
         this.reserved.add(";");
         this.reserved.add("}");
         this.reserved.add(Token.EOL);
-
-        this.operators.add("=", 1, Operators.RIGHT);
-        this.operators.add("==", 2, Operators.LEFT);
-        this.operators.add(">", 2, Operators.LEFT);
-        this.operators.add("<", 2, Operators.LEFT);
-        this.operators.add("+", 3, Operators.LEFT);
-        this.operators.add("-", 3, Operators.LEFT);
-        this.operators.add("*", 4, Operators.LEFT);
-        this.operators.add("/", 4, Operators.LEFT);
-        this.operators.add("%", 4, Operators.LEFT);
-        this.operators.add("&&", 3, Operators.LEFT);
-        this.operators.add("||", 2, Operators.LEFT);
+        Operator[][] operators = {
+                                    {   new Operator("=", Operators.RIGHT),
+                                        new Operator("+=", Operators.RIGHT),
+                                        new Operator("-=", Operators.RIGHT),
+                                        new Operator("*=", Operators.RIGHT),
+                                        new Operator("/=", Operators.RIGHT),
+                                    },
+                                    {
+                                        new Operator("||", Operators.LEFT)
+                                    },
+                                    {
+                                        new Operator("&&", Operators.LEFT)
+                                    },
+                                    {
+                                        new Operator("==", Operators.LEFT),
+                                        // new Operator("!=", Operators.LEFT),
+                                    },
+                                    {
+                                        new Operator(">", Operators.LEFT),
+                                        new Operator("<", Operators.LEFT),
+                                        // new Operator(">=", Operators.LEFT),
+                                        // new Operator("<=", Operators.LEFT),
+                                    },
+                                    {
+                                        new Operator("+", Operators.LEFT),
+                                        new Operator("-", Operators.LEFT),
+                                    },
+                                    {
+                                        new Operator("*", Operators.LEFT),
+                                        new Operator("/", Operators.LEFT),
+                                        new Operator("%", Operators.LEFT),
+                                    }
+                                 };
+        int i = 1;
+        for(Operator[] op: operators) {
+            defineOperators(op, i);
+            i++;
+        }
 
         functionParser();
         classParser();

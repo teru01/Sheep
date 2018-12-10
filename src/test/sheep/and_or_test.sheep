@@ -1,5 +1,6 @@
 var a = 3
 var b = 0
+var c = -2
 if(a && b) {
     print("true")
 } else {
@@ -10,10 +11,14 @@ if(a || b) {
 } else {
     print("false")
 }
-var c = -2
 if(b || a && c) {
     print("true")
 } else {
     print("false")
 }
-// false true true
+if((b < 3 || c > 0) && (a > 0 || b < -1)) {
+    print("true")
+} else {
+    print("false")
+}
+// false true true true

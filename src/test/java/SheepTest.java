@@ -120,7 +120,7 @@ public class SheepTest {
         @Test
         public void testAndOr() throws Throwable {
             String fileName = SheepTest.testPath + "/and_or_test.sheep";
-            String[] expected = {"false", "true", "true"};
+            String[] expected = {"false", "true", "true", "true"};
             ArrayRunner.run(new String[] { fileName });
             System.out.flush();
             String result = this.baos.toString();
