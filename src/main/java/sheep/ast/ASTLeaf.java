@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import sheep.*;
+import sheep.core.Environment;
 
-public class ASTLeaf extends ASTree {
+public class ASTLeaf implements ASTree {
     private static ArrayList<ASTree> empty = new ArrayList<>();
     protected Token token;
 
@@ -24,7 +25,7 @@ public class ASTLeaf extends ASTree {
     }
 
     @Override
-    public Iterator<ASTree> children() {
+    public Iterator<ASTree> iterator() {
         return empty.iterator();
     }
 
@@ -35,6 +36,11 @@ public class ASTLeaf extends ASTree {
     @Override
     public String location() {
         return "at line " + this.token.getLineNumber();
+    }
+
+    @Override
+    public Object computeAssign(Object right, Environment env) {
+        throw new SheepException("bad assignment", this);
     }
 
     public Token getToken() {
