@@ -1,14 +1,12 @@
-var b = 32
-def hoge() {
-    var b = 2
-    if(1) {
-        var b = 21
-        print b
-        b = 8
-    }
-    print b
-    b = 9
-    print b
-}
-hoge()
+var b = 0
+b += 1
 print b
+b *= 3
+print b
+b -= -2
+print b
+b /= 2
+print b
+for(var i=0; i<3; i+=1) {
+    print i
+}

@@ -1,16 +1,25 @@
 package sheep.core;
-import javassist.gluonj.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+import javassist.gluonj.Reviser;
 import sheep.SheepException;
+import sheep.Token;
 import sheep.ast.ASTLeaf;
+import sheep.ast.ASTList;
 import sheep.ast.ASTree;
 import sheep.ast.BinaryExpr;
 import sheep.ast.BlockStmnt;
 import sheep.ast.IfStmnt;
+import sheep.ast.Name;
+import sheep.ast.NegativeExpr;
+import sheep.ast.NonScopedBlock;
 import sheep.ast.NullStmnt;
+import sheep.ast.NumberLiteral;
+import sheep.ast.StringLiteral;
 import sheep.ast.WhileStmnt;
-import sheep.Token;
-import sheep.ast.*;
-import java.util.List;
+import sheep.core.BasicEvaluator.ASTreeEx;
 
 @Reviser public class BasicEvaluator {
     public static final int TRUE = 1;
@@ -99,16 +108,21 @@ import java.util.List;
 
         public Object eval(Environment env) {
             String op = operator();
-            // 代入式に対しては左辺値にevalを呼んではならない
-            if("=".equals(op)) {
-                Object right = ((ASTreeEx)right()).eval(env);
-                try {
-                    return computeAssign(env, right);
-                } catch(SheepException e) {
-                    throw new SheepException(e.getMessage(), this);
-                }
-            } else {
+            String[] AssignOperators = {"+=", "-=", "*=", "/=", "="};
+            // 代入を伴わない
+            if(!Arrays.asList(AssignOperators).contains(op)) {
                 return evalCalcurate(env, op);
+            }
+            Object newValue;
+            if(op.equals("=")) {
+                newValue = ((ASTreeEx)right()).eval(env);
+            } else {
+                newValue = computeOp(((ASTreeEx)left()).eval(env), op.substring(0, 1), ((ASTreeEx)right()).eval(env));
+            }
+            try {
+                return computeAssign(env, newValue);
+            } catch(SheepException e) {
+                throw new SheepException(e.getMessage(), this);
             }
         }
 
