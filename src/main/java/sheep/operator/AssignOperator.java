@@ -6,7 +6,7 @@ import sheep.core.BasicEvaluator.BinaryEx;
 import sheep.core.*;
 import sheep.ast.*;
 
-public class AssignOperator extends Operator {
+public class AssignOperator extends ASTLeaf {
     public AssignOperator(Token t) {
         super(t);
     }

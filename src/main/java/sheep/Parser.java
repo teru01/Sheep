@@ -241,7 +241,7 @@ public class Parser {
         protected boolean match(Lexer lexer) throws ParseException {
             return factor.match(lexer);
         }
-        private Operator createOpClass(Token opToken) throws ParseException{
+        private ASTLeaf createOpClass(Token opToken) throws ParseException{
             String op = opToken.getText();
             if(op.equals("+"))
                 return new PlusOperator(opToken);

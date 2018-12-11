@@ -8,8 +8,8 @@ public class BinaryExpr extends ASTList {
 
     public ASTree left() { return child(0); }
 
-    public Operator operator() {
-        return (Operator)child(1);
+    public ASTLeaf operator() {
+        return (ASTLeaf)child(1);
     }
 
     public ASTree right() { return child(2); }

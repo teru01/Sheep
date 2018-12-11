@@ -4,7 +4,7 @@ import sheep.Token;
 import sheep.ast.ASTree;
 import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.core.Environment;
-public class PlusOperator extends Operator {
+public class PlusOperator extends BinaryOperator {
     public PlusOperator(Token t) {
         super(t);
     }
