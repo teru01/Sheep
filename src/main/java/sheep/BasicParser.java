@@ -98,14 +98,14 @@ public class BasicParser {
                             .sep("const")
                             .identifier(Name.class, this.reserved);
 
-        this.factor.insertChoice(constant);
+        this.primary.insertChoice(constant);
     }
 
     private void varParser() {
         Parser var = rule(VarExpr.class)
                         .sep("var")
                         .identifier(Name.class, this.reserved);
-        this.factor.insertChoice(var);
+        this.primary.insertChoice(var);
     }
 
     private void arrayParser() {
