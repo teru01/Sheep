@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import sheep.*;
+import sheep.core.Environment;
 
 public class ASTLeaf implements ASTree {
     private static ArrayList<ASTree> empty = new ArrayList<>();
@@ -39,5 +40,10 @@ public class ASTLeaf implements ASTree {
 
     public Token getToken() {
         return this.token;
+    }
+
+    @Override
+    public Object assign(Object right, Environment e) {
+        throw new SheepException("bad assignment.", this);
     }
 }

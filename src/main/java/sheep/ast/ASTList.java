@@ -1,7 +1,8 @@
 package sheep.ast;
 
 import java.util.*;
-
+import sheep.*;
+import sheep.core.Environment;
 
 public class ASTList implements ASTree {
     protected List<ASTree> children;
@@ -47,5 +48,10 @@ public class ASTList implements ASTree {
             }
         }
         return null;
+    }
+
+    @Override
+    public Object assign(Object right, Environment e) {
+        throw new SheepException("bad assignment.", this);
     }
 }

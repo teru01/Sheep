@@ -1,10 +1,11 @@
 package sheep.ast;
 
 import java.util.Iterator;
-
+import sheep.core.*;
 public interface ASTree extends Iterable<ASTree> {
-    public abstract ASTree child(int i);
-    public abstract int numChildren();
-    public abstract Iterator<ASTree> iterator();
-    public abstract String location();
+    public ASTree child(int i);
+    public int numChildren();
+    public Iterator<ASTree> iterator();
+    public String location();
+    public Object assign(Object r, Environment e);
 }
