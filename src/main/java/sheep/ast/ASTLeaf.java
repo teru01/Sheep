@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import sheep.*;
 
-public class ASTLeaf extends ASTree {
+public class ASTLeaf implements ASTree {
     private static ArrayList<ASTree> empty = new ArrayList<>();
     protected Token token;
 
@@ -24,7 +24,7 @@ public class ASTLeaf extends ASTree {
     }
 
     @Override
-    public Iterator<ASTree> children() {
+    public Iterator<ASTree> iterator() {
         return empty.iterator();
     }
 

@@ -3,7 +3,7 @@ package sheep.ast;
 import java.util.*;
 
 
-public class ASTList extends ASTree {
+public class ASTList implements ASTree {
     protected List<ASTree> children;
 
     public ASTList(List<ASTree> list) {
@@ -21,7 +21,7 @@ public class ASTList extends ASTree {
     }
 
     @Override
-    public Iterator<ASTree> children() {
+    public Iterator<ASTree> iterator() {
         return this.children.iterator();
     }
 
