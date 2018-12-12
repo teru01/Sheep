@@ -87,7 +87,7 @@ public class ClassEvaluator {
             if(!(p.hasPostfix(0) && p.postfix(0) instanceof Dot)) {
                 return super.computeAssign(env, rvalue);
             }
-            Object t = ((PrimaryEx)le).evalSubExpr(env, 1);
+            Object t = p.evalSubExpr(env, 1);
             if(!(t instanceof SheepObject)) {
                 return super.computeAssign(env, rvalue);
             }

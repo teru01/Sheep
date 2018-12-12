@@ -1,11 +1,25 @@
 package sheep.function;
 import java.util.List;
-import javassist.gluonj.*;
+
+import javassist.gluonj.Require;
+import javassist.gluonj.Reviser;
 import sheep.SheepException;
-import sheep.ast.*;
+import sheep.ast.ASTree;
+import sheep.ast.Arguments;
+import sheep.ast.ArrayRef;
+import sheep.ast.DefStmnt;
+import sheep.ast.Dot;
+import sheep.ast.Function;
+import sheep.ast.NonScopedBlock;
+import sheep.ast.NullStmnt;
+import sheep.ast.ParameterList;
+import sheep.ast.Postfix;
+import sheep.ast.PrimaryExpr;
 import sheep.core.BasicEvaluator;
-import sheep.core.Environment;
 import sheep.core.BasicEvaluator.ASTreeEx;
+import sheep.core.Environment;
+import sheep.object.SheepObject;
+import sheep.object.SheepObject.AccessException;
 
 @Require(BasicEvaluator.class)
 @Reviser
@@ -57,6 +71,43 @@ public class FuncEvaluator {
                 return ((PostfixEx)postfix(nest)).eval(env, target);
             } else {
                 return ((ASTreeEx)operand()).eval(env);
+            }
+        }
+
+        @Override
+        public Object assign(Object right, Environment env) {
+            if(!hasPostfix(0)) {
+                throw new SheepException("bad assign", this);
+            }
+            Object subExpr = evalSubExpr(env, 1);
+            Postfix postfix = postfix(0);
+            if(postfix instanceof Dot) {
+                if(!(subExpr instanceof SheepObject)) {
+                    throw new SheepException("bad assign", this);
+                }
+                return setField((SheepObject) subExpr, (Dot)postfix, right);
+            } else if(postfix instanceof ArrayRef) {
+                if(!(subExpr instanceof Object[])) {
+                    throw new SheepException("bad array access", this);
+                }
+                ArrayRef aref = (ArrayRef)postfix;
+                Object index = ((ASTreeEx)aref.index()).eval(env);
+                if(!(index instanceof Integer)) {
+                    throw new SheepException("bad array access", this);
+                }
+                ((Object[])subExpr)[(Integer)index] = right;
+                return right;
+            }
+            throw new SheepException("bad assign", this);
+        }
+
+        protected Object setField(SheepObject obj, Dot expr, Object rvalue) {
+            String name = expr.name();
+            try {
+                obj.write(name, rvalue);
+                return rvalue;
+            } catch(AccessException e) {
+                throw new SheepException("bad member access " + location() + ": " + name);
             }
         }
     }

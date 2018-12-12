@@ -7,10 +7,12 @@ import sheep.SheepException;
 import sheep.ast.ASTree;
 import sheep.ast.Name;
 import sheep.ast.VarExpr;
-import sheep.core.BasicEvaluator.BinaryEx;
+import sheep.core.BasicEvaluator.*;
 import sheep.core.Environment;
 import sheep.function.*;
 import sheep.function.FuncEvaluator.EnvEx;
+import sheep.function.FuncEvaluator.PrimaryEx;
+
 
 @Require(ClosureEvaluator.class)
 @Reviser
@@ -28,6 +30,15 @@ public class VarEvaluator {
             }
             ((EnvEx) env).putInCurrentEnv(((Name)symbol).name(), null);
             return null;
+        }
+
+        @Override
+        public Object assign(Object right, Environment env) {
+            if (!(getVariable() instanceof Name)) {
+                throw new SheepException("bad assignment", this);
+            }
+            ((EnvEx) env).putInCurrentEnv(((Name)getVariable()).name(), right);
+            return right;
         }
     }
 

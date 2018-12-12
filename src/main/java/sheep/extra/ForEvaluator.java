@@ -9,6 +9,7 @@ import sheep.core.BasicEvaluator.*;
 import static sheep.core.BasicEvaluator.*;
 import sheep.core.Environment;
 import sheep.function.*;
+import sheep.operator.*;
 
 @Require(ClosureEvaluator.class)
 @Reviser
@@ -74,13 +75,13 @@ public class ForEvaluator {
          * 右辺はfor文が書かれた環境、左辺のassignはfor文の中の環境で行う
          */
         public Object evalForAnotherScope(Environment env, Environment newEnv) {
-            String op = operator();
-            if ("=".equals(op)) {
-                Object right = ((ASTreeEx) right()).eval(env);
-                return computeAssign(newEnv, right);
-            } else {
-                return evalCalcurate(env, op);
+            ASTLeaf op = operator();
+            if(op instanceof BinaryOperator) {
+                return ((BinaryOperator)op).calc(left(), right(), env);
+            } else if(op instanceof AssignOperator) {
+                return ((AssignOperator)op).assignObject(left(), ((ASTreeEx)right()).eval(env), newEnv);
             }
+            throw new SheepException("bad operator", this);
         }
     }
 

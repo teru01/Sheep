@@ -20,7 +20,7 @@ import sheep.ast.NumberLiteral;
 import sheep.ast.StringLiteral;
 import sheep.ast.WhileStmnt;
 import sheep.core.BasicEvaluator.ASTreeEx;
-import sheep.operator.Operator;
+import sheep.operator.*;
 
 @Reviser public class BasicEvaluator {
     public static final int TRUE = 1;
@@ -85,6 +85,12 @@ import sheep.operator.Operator;
             else
                 return value;
         }
+
+        @Override
+        public Object assign(Object right, Environment env) {
+            env.put(name(), right);
+            return right;
+        }
     }
 
     @Reviser
@@ -108,8 +114,13 @@ import sheep.operator.Operator;
         public BinaryEx(List<ASTree> c) { super(c); }
 
         public Object eval(Environment env) {
-            Operator op = operator();
-            return op.calc(left(), right(), env);
+            ASTLeaf op = operator();
+            if(op instanceof BinaryOperator) {
+                return ((BinaryOperator)op).calc(left(), right(), env);
+            } else if(op instanceof AssignOperator) {
+                return ((AssignOperator)op).assign(left(), right(), env);
+            }
+            throw new SheepException("bad operator", this);
             // String[] AssignOperators = {"+=", "-=", "*=", "/=", "="};
             // // 代入を伴わない
             // if(!Arrays.asList(AssignOperators).contains(op)) {
