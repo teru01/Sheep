@@ -41,25 +41,4 @@ public class VarEvaluator {
             return right;
         }
     }
-
-    @Reviser
-    public static class AssignExForBlockScope extends BinaryEx {
-        public AssignExForBlockScope(List<ASTree> c) {
-            super(c);
-        }
-
-        @Override
-        protected Object computeAssign(Environment env, Object right) {
-            ASTree left = left();
-            if(!(left() instanceof VarExpr)) {
-                return super.computeAssign(env, right);
-            }
-            VarExpr leftVar = (VarExpr)left;
-            if (!(leftVar.getVariable() instanceof Name)) {
-                throw new SheepException("bad assignment", this);
-            }
-            ((EnvEx) env).putInCurrentEnv(((Name) leftVar.getVariable()).name(), right);
-            return right;
-        }
-    }
 }

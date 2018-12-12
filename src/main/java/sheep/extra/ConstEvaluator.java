@@ -35,25 +35,4 @@ public class ConstEvaluator {
             return right;
         }
     }
-
-    @Reviser
-    public static class AssignExForConst extends BinaryEx {
-        public AssignExForConst(List<ASTree> c) {
-            super(c);
-        }
-
-        @Override
-        protected Object computeAssign(Environment env, Object right) {
-            ASTree left = left();
-            if (left() instanceof ConstExpr) {
-                ConstExpr leftConst = (ConstExpr) left;
-                if (!(leftConst.getConstant() instanceof Name)) {
-                    throw new SheepException("bad assignment", this);
-                }
-                ((EnvEx) env).putConst(((Name) leftConst.getConstant()).name(), right);
-                return right;
-            }
-            return super.computeAssign(env, right);
-        }
-    }
 }

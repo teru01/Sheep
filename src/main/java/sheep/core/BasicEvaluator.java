@@ -145,17 +145,6 @@ import sheep.operator.*;
             return computeOp(left, op, right);
         }
 
-        protected Object computeAssign(Environment env, Object rvalue) throws SheepException {
-            ASTree l = left();
-            // 左辺値は変数でなくてはならない
-            if(l instanceof Name) {
-                env.put(((Name)l).name(), rvalue);
-                return rvalue;
-            } else {
-                throw new SheepException("bad assignment", this);
-            }
-        }
-
         protected Object computeOp(Object left, String op, Object right) {
             if(left instanceof Integer && right instanceof Integer) {
                 return computeNumber((Integer)left, op, (Integer)right);

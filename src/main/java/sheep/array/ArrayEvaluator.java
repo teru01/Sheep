@@ -43,33 +43,4 @@ public class ArrayEvaluator {
             throw new SheepException("bad array access", this);
         }
     }
-    @Reviser
-    public static class AssignEx extends BasicEvaluator.BinaryEx {
-        public AssignEx(List<ASTree> c) {
-            super(c);
-        }
-
-        @Override
-        protected Object computeAssign(Environment env, Object rvalue) {
-            ASTree le = left();
-            if(!(le instanceof PrimaryExpr)) {
-                return super.computeAssign(env, rvalue);
-            }
-            PrimaryEx p = (PrimaryEx)le;
-            if(!(p.hasPostfix(0) && p.postfix(0) instanceof ArrayRef)) {
-                return super.computeAssign(env, rvalue);
-            }
-            Object ary = ((PrimaryEx)le).evalSubExpr(env, 1);
-            if(!(ary instanceof Object[])) {
-                throw new SheepException("bad array access", this);
-            }
-            ArrayRef aref = (ArrayRef)p.postfix(0);
-            Object index = ((ASTreeEx)aref.index()).eval(env);
-            if(!(index instanceof Integer)) {
-                throw new SheepException("bad array access", this);
-            }
-            ((Object[])ary)[(Integer)index] = rvalue;
-            return rvalue;
-        }
-    }
 }

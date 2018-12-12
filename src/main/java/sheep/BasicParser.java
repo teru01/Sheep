@@ -3,7 +3,6 @@ package sheep;
 import static sheep.Parser.rule;
 
 import java.util.HashSet;
-import java.util.stream.IntStream;
 
 import sheep.Parser.Operators;
 import sheep.ast.*;

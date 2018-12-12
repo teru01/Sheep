@@ -180,23 +180,6 @@ public class ObjOptimizer {
             super(c);
         }
 
-        @Override
-        protected Object computeAssign(Environment env, Object rvalue) {
-            ASTree le = left();
-            if (!(le instanceof PrimaryExpr)) {
-                return super.computeAssign(env, rvalue);
-            }
-            PrimaryEx p = (PrimaryEx) le;
-            if (!(p.hasPostfix(0) && p.postfix(0) instanceof Dot)) {
-                return super.computeAssign(env, rvalue);
-            }
-            Object t = ((PrimaryEx) le).evalSubExpr(env, 1);
-            if (!(t instanceof OptSheepObject)) {
-                return super.computeAssign(env, rvalue);
-            }
-            return setField((OptSheepObject) t, (Dot) p.postfix(0), rvalue);
-        }
-
         protected Object setField(OptSheepObject obj, Dot expr, Object rvalue) {
             String name = expr.name();
             try {

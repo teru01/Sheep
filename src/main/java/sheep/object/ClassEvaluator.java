@@ -70,38 +70,4 @@ public class ClassEvaluator {
             ((ClassBodyEx) ci.body()).eval(env);
         }
     }
-    @Reviser
-    public static class AssignEx extends BasicEvaluator.BinaryEx {
-        public AssignEx(List<ASTree> c) {
-            super(c);
-        }
-
-        // インスタンスに対してdotでアクセスして書き込み
-        @Override
-        protected Object computeAssign(Environment env, Object rvalue) {
-            ASTree le = left();
-            if(!(le instanceof PrimaryExpr)) {
-                return super.computeAssign(env, rvalue);
-            }
-            PrimaryEx p = (PrimaryEx)le;
-            if(!(p.hasPostfix(0) && p.postfix(0) instanceof Dot)) {
-                return super.computeAssign(env, rvalue);
-            }
-            Object t = p.evalSubExpr(env, 1);
-            if(!(t instanceof SheepObject)) {
-                return super.computeAssign(env, rvalue);
-            }
-            return setField((SheepObject) t, (Dot) p.postfix(0), rvalue);
-        }
-
-        protected Object setField(SheepObject obj, Dot expr, Object rvalue) {
-            String name = expr.name();
-            try {
-                obj.write(name, rvalue);
-                return rvalue;
-            } catch(AccessException e) {
-                throw new SheepException("bad member access " + location() + ": " + name);
-            }
-        }
-    }
 }
