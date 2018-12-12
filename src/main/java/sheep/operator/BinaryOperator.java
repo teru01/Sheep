@@ -35,10 +35,10 @@ public abstract class BinaryOperator extends ASTLeaf {
             return new LessOperator(t);
         else if (op.equals("<="))
             return new LessOrEqualOperator(t);
-        // else if (op.equals("&&"))
-        //     return (a != 0 && b != 0) ? TRUE : FALSE;
-        // else if (op.equals("||"))
-        //     return (a != 0 || b != 0) ? TRUE : FALSE;
+        else if (op.equals("&&"))
+            return new AndOperator(t);
+        else if (op.equals("||"))
+            return new OrOperator(t);
         throw new SheepException("Unsupported operator", t.getLineNumber());
     }
     public abstract Object calc(ASTree left, ASTree right, Environment env);
