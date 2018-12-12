@@ -1,5 +1,4 @@
 package sheep.operator;
-import sheep.Lexer;
 import sheep.Token;
 import sheep.core.Environment;
 import sheep.ast.*;

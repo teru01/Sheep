@@ -23,14 +23,18 @@ public abstract class BinaryOperator extends ASTLeaf {
             return new QuotientOperator(t);
         else if (op.equals("%"))
             return new SurplusOperator(t);
-        // else if (op.equals("=="))
-        //     return a == b ? TRUE : FALSE;
-        // else if (op.equals("!="))
-        //     return a != b ? TRUE : FALSE;
-        // else if (op.equals(">"))
-        //     return a > b ? TRUE : FALSE;
-        // else if (op.equals("<"))
-        //     return a < b ? TRUE : FALSE;
+        else if (op.equals("=="))
+            return new EqualityOperator(t);
+        else if (op.equals("!="))
+            return new NonEqualityOperator(t);
+        else if (op.equals(">"))
+            return new MoreOperator(t);
+        else if (op.equals(">="))
+            return new MoreOrEqualOperator(t);
+        else if (op.equals("<"))
+            return new LessOperator(t);
+        else if (op.equals("<="))
+            return new LessOrEqualOperator(t);
         // else if (op.equals("&&"))
         //     return (a != 0 && b != 0) ? TRUE : FALSE;
         // else if (op.equals("||"))
