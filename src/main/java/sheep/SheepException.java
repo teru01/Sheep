@@ -8,4 +8,7 @@ public class SheepException extends RuntimeException {
     public SheepException(String m, ASTree t) {
         super(m + " " + t.location());
     }
+    public SheepException(String m, int n) {
+        super(m + " " + "at line " + n);
+    }
 }
