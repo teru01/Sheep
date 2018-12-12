@@ -14,7 +14,7 @@ public class AssignOperator extends ASTLeaf {
         return left.assign(rightObj, env);
     }
 
-    public Object assign(ASTree left, ASTree right, Environment env) {
+    public Object assignTree(ASTree left, ASTree right, Environment env) {
         return assignObject(left, ((ASTreeEx)right).eval(env), env);
     }
 }

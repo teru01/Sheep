@@ -1,9 +1,6 @@
 package sheep;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Constructor;
 import sheep.ast.ASTree;
@@ -215,7 +212,7 @@ public class Parser {
         {
             ArrayList<ASTree> list = new ArrayList<ASTree>();
             list.add(left);
-            list.add(createOpClass(lexer.read()));
+            list.add(createOperator(lexer.read()));
             ASTree right = factor.parse(lexer);
             Precedence next;
             while ((next = nextOperator(lexer)) != null
@@ -241,14 +238,16 @@ public class Parser {
         protected boolean match(Lexer lexer) throws ParseException {
             return factor.match(lexer);
         }
-        private ASTLeaf createOpClass(Token opToken) throws ParseException{
+        private ASTLeaf createOperator(Token opToken) throws ParseException{
             String op = opToken.getText();
-            if(op.equals("+"))
-                return new PlusOperator(opToken);
-            else if(op.equals("="))
+            String[] AssignOperators = {"+=", "-=", "*=", "/="};
+            if(Arrays.asList(AssignOperators).contains(op)) {
+                return new CompoundAssignOperator(opToken);
+            } else if(op.equals("=")){
                 return new AssignOperator(opToken);
-            else
-                throw new ParseException("bad operator", opToken);
+            } else {
+                return BinaryOperator.createOperator(opToken);
+            }
         }
     }
 

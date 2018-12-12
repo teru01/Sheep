@@ -5,7 +5,7 @@ public abstract class Token {
     public static final String EOL = "\\n";
     private int lineNumber;
 
-    protected Token(int line){
+    public Token(int line){
         this.lineNumber = line;
     }
 

@@ -118,7 +118,7 @@ import sheep.operator.*;
             if(op instanceof BinaryOperator) {
                 return ((BinaryOperator)op).calc(left(), right(), env);
             } else if(op instanceof AssignOperator) {
-                return ((AssignOperator)op).assign(left(), right(), env);
+                return ((AssignOperator)op).assignTree(left(), right(), env);
             }
             throw new SheepException("bad operator", this);
             // String[] AssignOperators = {"+=", "-=", "*=", "/=", "="};
