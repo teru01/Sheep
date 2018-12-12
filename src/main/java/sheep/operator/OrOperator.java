@@ -15,13 +15,13 @@ public class OrOperator extends BinaryOperator {
     public Object calc(ASTree left, ASTree right, Environment env) {
         Object leftObj = ((ASTreeEx)left).eval(env);
         if(isTrue(leftObj)) {
-            return TRUE;
+            return true;
         }
         Object rightObj = ((ASTreeEx)right).eval(env);
         if(isTrue(rightObj)) {
-            return TRUE;
+            return true;
         } else {
-            return FALSE;
+            return false;
         }
     }
 }

@@ -16,8 +16,8 @@ import sheep.operator.*;
 public class ForEvaluator {
     @Reviser
     public static class ForStmntEx extends ForStmnt {
-        public ForStmntEx(List<ASTree> c) {
-            super(c);
+        public ForStmntEx(List<ASTree> iterCondition) {
+            super(iterCondition);
         }
 
         public Object eval(Environment env) {
@@ -30,8 +30,8 @@ public class ForEvaluator {
 
     @Reviser
     public static class ForIterExprEx extends ForIterExpr {
-        public ForIterExprEx(List<ASTree> c) {
-            super(c);
+        public ForIterExprEx(List<ASTree> iterCondition) {
+            super(iterCondition);
         }
 
         /**
@@ -46,14 +46,14 @@ public class ForEvaluator {
 
         public Object eval(Environment newEnv, Object body) {
             Object result = 0;
-            Object c = TRUE;
+            boolean iterCondition = true;
             boolean conditionExists = (conditionExpr().numChildren()) != 0;
             boolean updateExists = (updateExpr().numChildren()) != 0;
             while (true) {
                 if(conditionExists) {
-                    c = ((ASTreeEx) conditionExpr()).eval(newEnv);
+                    iterCondition = (boolean)((ASTreeEx) conditionExpr()).eval(newEnv);
                 }
-                if (c instanceof Integer && ((Integer) c).intValue() == FALSE) {
+                if (!iterCondition) {
                     return result;
                 } else {
                     result = ((ASTreeEx) body).eval(newEnv);
@@ -67,8 +67,8 @@ public class ForEvaluator {
 
     @Reviser
     public static class VarAssignIterFor extends BinaryEx {
-        public VarAssignIterFor(List<ASTree> c) {
-            super(c);
+        public VarAssignIterFor(List<ASTree> iterCondition) {
+            super(iterCondition);
         }
 
         /**
@@ -87,7 +87,7 @@ public class ForEvaluator {
 
     @Reviser
     public static class ASTListFor extends ASTList {
-        public ASTListFor(List<ASTree> c) { super(c); }
+        public ASTListFor(List<ASTree> iterCondition) { super(iterCondition); }
         public Object evalForAnotherScope(Environment currentScope, Environment anotherScope) {
             for(ASTree expr:this.children) {
                 ((ASTListFor) expr).evalForAnotherScope(currentScope, anotherScope);

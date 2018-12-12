@@ -36,8 +36,8 @@ dependencies {
 ext.mode = project.hasProperty('mode') ? project.getProperty('mode') : 'undefined'
 run {
     args = [
-            mode,
-            'src/test/sheep/for_test.sheep',
+            // mode,
+            'src/test/sheep/assign.sheep',
            ]
 }
 

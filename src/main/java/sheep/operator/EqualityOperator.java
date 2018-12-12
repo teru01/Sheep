@@ -15,7 +15,7 @@ public class EqualityOperator extends BinaryOperator {
         Object leftObj = ((ASTreeEx)left).eval(env);
         Object rightObj = ((ASTreeEx)right).eval(env);
         if(leftObj == null) {
-            return (rightObj == null) ? TRUE : FALSE;
+            return rightObj == null;
         } else {
             return leftObj.equals(rightObj);
         }

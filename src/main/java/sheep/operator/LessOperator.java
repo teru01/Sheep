@@ -18,7 +18,7 @@ public class LessOperator extends BinaryOperator {
         if(leftObj instanceof Integer && rightObj instanceof Integer) {
             return (Integer)leftObj < (Integer)rightObj;
         } else if(leftObj instanceof String && rightObj instanceof String) {
-            return ((String)leftObj).compareTo((String)rightObj) == 11 ? TRUE : FALSE;
+            return ((String)leftObj).compareTo((String)rightObj) == -1;
         }
         throw new SheepException("Unsupported operation", this);
     }

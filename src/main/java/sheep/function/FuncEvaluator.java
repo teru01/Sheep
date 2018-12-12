@@ -39,7 +39,11 @@ public class FuncEvaluator {
 
         // Functionオブジェクトを作成し、関数名とオブジェクトを環境に追加する
         public Object eval(Environment env) {
-            ((EnvEx)env).putInCurrentEnv(name(), new Function(parameters(), body(), env));
+            try {
+                ((EnvEx)env).putInCurrentEnv(name(), new Function(parameters(), body(), env));
+            } catch(SheepException e) {
+                throw new SheepException(e.getMessage(), this);
+            }
             return name();
         }
     }
@@ -165,7 +169,11 @@ public class FuncEvaluator {
         public ParamsEx(List<ASTree> c) { super(c); }
         // 仮引数の計算（代入）。関数ブロック内の環境に追加する
         public void eval(Environment env, int index, Object value) {
-            ((EnvEx)env).putInCurrentEnv(name(index), value);
+            try {
+                ((EnvEx)env).putInCurrentEnv(name(index), value);
+            } catch(SheepException e) {
+                throw new SheepException(e.getMessage(), this);
+            }
         }
     }
 

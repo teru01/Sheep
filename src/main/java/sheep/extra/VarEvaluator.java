@@ -28,7 +28,11 @@ public class VarEvaluator {
             if(!(symbol instanceof Name)) {
                 throw new SheepException("bad definition", this);
             }
-            ((EnvEx) env).putInCurrentEnv(((Name)symbol).name(), null);
+            try {
+                ((EnvEx) env).putInCurrentEnv(((Name)symbol).name(), null);
+            } catch(SheepException e) {
+                throw new SheepException(e.getMessage(), this);
+            }
             return null;
         }
 
@@ -37,7 +41,11 @@ public class VarEvaluator {
             if (!(getVariable() instanceof Name)) {
                 throw new SheepException("bad assignment", this);
             }
-            ((EnvEx) env).putInCurrentEnv(((Name)getVariable()).name(), right);
+            try {
+                ((EnvEx) env).putInCurrentEnv(((Name)getVariable()).name(), right);
+            } catch(SheepException e) {
+                throw new SheepException(e.getMessage(), this);
+            }
             return right;
         }
     }

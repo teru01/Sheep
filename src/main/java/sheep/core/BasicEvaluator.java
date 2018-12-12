@@ -21,11 +21,9 @@ import sheep.ast.StringLiteral;
 import sheep.ast.WhileStmnt;
 import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.operator.*;
+import static sheep.util.SheepUtil.*;
 
 @Reviser public class BasicEvaluator {
-    public static final int TRUE = 1;
-    public static final int FALSE = 0;
-
     @Reviser public abstract static class ASTreeEx extends ASTree {
         public abstract Object eval(Environment env);
         public abstract Object evalForAnotherScope(Environment currentScope, Environment anotherScope);
@@ -88,7 +86,11 @@ import sheep.operator.*;
 
         @Override
         public Object assign(Object right, Environment env) {
-            env.put(name(), right);
+            try {
+                env.put(name(), right);
+            } catch(SheepException e) {
+                throw new SheepException(e.getMessage(), this);
+            }
             return right;
         }
     }
@@ -138,64 +140,33 @@ import sheep.operator.*;
             //     throw new SheepException(e.getMessage(), this);
             // }
         }
-
-        protected Object evalCalcurate(Environment env, String op) {
-            Object left = ((ASTreeEx) left()).eval(env);
-            Object right = ((ASTreeEx) right()).eval(env);
-            return computeOp(left, op, right);
-        }
-
-        protected Object computeOp(Object left, String op, Object right) {
-            if(left instanceof Integer && right instanceof Integer) {
-                return computeNumber((Integer)left, op, (Integer)right);
-            } else {
-                if(op.equals("+")) {
-                    return String.valueOf(left) + String.valueOf(right);
-                } else if(op.equals("==")) {
-                    if(left == null) {
-                        return right == null ? TRUE : FALSE;
-                    } else {
-                        return left.equals(right) ? TRUE : FALSE;
-                    }
-                } else if(op.equals("!=")) {
-                    if(left == null) {
-                        return right != null ? TRUE : FALSE;
-                    } else {
-                        return left.equals(right) ? FALSE : TRUE;
-                    }
-                } else {
-                    throw new SheepException("bad type", this);
-                }
-            }
-        }
-
-        protected Object computeNumber(Integer left, String op, Integer right) {
-            int a = left.intValue();
-            int b = right.intValue();
-            if (op.equals("+"))
-                return a + b;
-            else if (op.equals("-"))
-                return a - b;
-            else if (op.equals("*"))
-                return a * b;
-            else if (op.equals("/"))
-                return a / b;
-            else if (op.equals("%"))
-                return a % b;
-            else if (op.equals("=="))
-                return a == b ? TRUE : FALSE;
-            else if (op.equals("!="))
-                return a != b ? TRUE : FALSE;
-            else if (op.equals(">"))
-                return a > b ? TRUE : FALSE;
-            else if (op.equals("<"))
-                return a < b ? TRUE : FALSE;
-            else if (op.equals("&&"))
-                return (a != 0 && b != 0) ? TRUE : FALSE;
-            else if (op.equals("||"))
-                return (a != 0 || b != 0) ? TRUE : FALSE;
-            else throw new SheepException("bad operator", this);
-        }
+        // protected Object computeNumber(Integer left, String op, Integer right) {
+        //     int a = left.intValue();
+        //     int b = right.intValue();
+        //     if (op.equals("+"))
+        //         return a + b;
+        //     else if (op.equals("-"))
+        //         return a - b;
+        //     else if (op.equals("*"))
+        //         return a * b;
+        //     else if (op.equals("/"))
+        //         return a / b;
+        //     else if (op.equals("%"))
+        //         return a % b;
+        //     else if (op.equals("=="))
+        //         return a == b ? TRUE : FALSE;
+        //     else if (op.equals("!="))
+        //         return a != b ? TRUE : FALSE;
+        //     else if (op.equals(">"))
+        //         return a > b ? TRUE : FALSE;
+        //     else if (op.equals("<"))
+        //         return a < b ? TRUE : FALSE;
+        //     else if (op.equals("&&"))
+        //         return (a != 0 && b != 0) ? TRUE : FALSE;
+        //     else if (op.equals("||"))
+        //         return (a != 0 || b != 0) ? TRUE : FALSE;
+        //     else throw new SheepException("bad operator", this);
+        // }
     }
 
     @Reviser
@@ -233,14 +204,14 @@ import sheep.operator.*;
         public Object eval(Environment env) {
             // if文条件に合致
             Object c = ((ASTreeEx) condition()).eval(env);
-            if (c instanceof Integer && ((Integer) c).intValue() != FALSE) {
+            if (isTrue(c)) {
                 return ((ASTreeEx) thenBlock()).eval(env);
             }
             // elif文条件に合致
             int k = getElseIfNum();
             for(int i = 0; i < k; i++) {
                 c = ((ASTreeEx)(elifStmnt().getElifCondition(i))).eval(env);
-                if(c instanceof Integer && ((Integer)c).intValue() != FALSE) {
+                if(isTrue(c)) {
                     return ((ASTreeEx)(elifStmnt().getElifBlock(i))).eval(env);
                 }
             }
@@ -262,7 +233,7 @@ import sheep.operator.*;
             // While文を抜ける直前の最後に評価された値を返す
             while(true) {
                 Object c = ((ASTreeEx)condition()).eval(env);
-                if(c instanceof Integer && ((Integer)c).intValue() == FALSE) {
+                if(!isTrue(c)) {
                     return result;
                 } else {
                     result = ((ASTreeEx)body()).eval(env);

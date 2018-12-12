@@ -13,7 +13,7 @@ public class NonEqualityOperator extends BinaryOperator {
         Object leftObj = ((ASTreeEx)left).eval(env);
         Object rightObj = ((ASTreeEx)right).eval(env);
         if(leftObj == null) {
-            return (rightObj == null) ? FALSE : TRUE;
+            return !(rightObj == null);
         } else {
             return !(leftObj.equals(rightObj));
         }
