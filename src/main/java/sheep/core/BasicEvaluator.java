@@ -26,7 +26,7 @@ import sheep.operator.*;
     public static final int TRUE = 1;
     public static final int FALSE = 0;
 
-    @Reviser public interface ASTreeEx extends ASTree {
+    @Reviser public abstract static class ASTreeEx extends ASTree {
         public abstract Object eval(Environment env);
         public abstract Object evalForAnotherScope(Environment currentScope, Environment anotherScope);
     }

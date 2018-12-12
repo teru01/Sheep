@@ -49,7 +49,7 @@ public class NestedEnv implements Environment {
     /**
      * 定数を格納する。上書きしようとすれば例外を投げる
      */
-    public void putConst(String name, Object value) {
+    public void putConst(String name, Object value) throws SheepException{
         putInCurrentEnv(name, value);
         this.constans.add(name);
     }

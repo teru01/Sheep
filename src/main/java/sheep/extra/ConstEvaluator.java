@@ -31,7 +31,11 @@ public class ConstEvaluator {
             if (!(getConstant() instanceof Name)) {
                 throw new SheepException("bad assignment", this);
             }
-            ((EnvEx) env).putConst(((Name)getConstant()).name(), right);
+            try{
+                ((EnvEx) env).putConst(((Name)getConstant()).name(), right);
+            } catch(SheepException e) {
+                throw new SheepException(e.getMessage(), this);
+            }
             return right;
         }
     }

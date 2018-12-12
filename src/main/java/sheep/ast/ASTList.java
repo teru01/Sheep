@@ -4,7 +4,7 @@ import java.util.*;
 import sheep.*;
 import sheep.core.Environment;
 
-public class ASTList implements ASTree {
+public class ASTList extends ASTree {
     protected List<ASTree> children;
 
     public ASTList(List<ASTree> list) {

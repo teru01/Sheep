@@ -33,8 +33,8 @@ public class EnvOptimizer {
     }
 
     @Reviser
-    public interface ASTreeOptEx extends ASTree {
-        public void lookup(Symbols syms);
+    public abstract class ASTreeOptEx extends ASTree {
+        public void lookup(Symbols syms){};
     }
 
     @Reviser

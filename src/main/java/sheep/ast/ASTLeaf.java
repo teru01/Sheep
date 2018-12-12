@@ -6,7 +6,7 @@ import java.util.Iterator;
 import sheep.*;
 import sheep.core.Environment;
 
-public class ASTLeaf implements ASTree {
+public class ASTLeaf extends ASTree {
     private static ArrayList<ASTree> empty = new ArrayList<>();
     protected Token token;
 
