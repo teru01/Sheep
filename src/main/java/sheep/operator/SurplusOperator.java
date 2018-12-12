@@ -1,11 +1,12 @@
 package sheep.operator;
 
+import sheep.SheepException;
 import sheep.Token;
 import sheep.ast.ASTree;
 import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.core.Environment;
-public class PlusOperator extends BinaryOperator {
-    public PlusOperator(Token t) {
+public class SurplusOperator extends BinaryOperator {
+    public SurplusOperator(Token t) {
         super(t);
     }
 
@@ -15,8 +16,8 @@ public class PlusOperator extends BinaryOperator {
         Object rightObj = ((ASTreeEx)right).eval(env);
 
         if(leftObj instanceof Integer && rightObj instanceof Integer) {
-            return (Integer)leftObj + (Integer)rightObj;
+            return (Integer)leftObj % (Integer)rightObj;
         }
-        return String.valueOf(leftObj) + String.valueOf(rightObj);
+        throw new SheepException("Unsupported operation", this);
     }
 }

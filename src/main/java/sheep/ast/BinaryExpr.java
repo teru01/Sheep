@@ -1,6 +1,6 @@
 package sheep.ast;
+
 import java.util.List;
-import sheep.operator.*;
 
 //2項演算子のクラス
 public class BinaryExpr extends ASTList {

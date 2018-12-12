@@ -14,4 +14,5 @@ class C {
 }
 print(hoge()[2])
 co = C.new
-print(co.aryy[1])
+print(co + hoge)
+print("hoge" * 4)
