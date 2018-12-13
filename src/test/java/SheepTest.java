@@ -80,7 +80,7 @@ public class SheepTest {
         @Test
         public void testIf() throws Throwable {
             String fileName = SheepTest.testPath + "/if/if_test.sheep";
-            String[] expected = { "7", "5", "10", "99" };
+            String[] expected = { "7", "5", "10", "99", "true", "false"};
             ArrayRunner.run(new String[] { fileName });
             System.out.flush();
             String result = this.baos.toString();

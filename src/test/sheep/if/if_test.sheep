@@ -15,3 +15,16 @@ if 0 {
     j = 99
 }
 print(j)
+class Hoge {
+    var k = 2
+}
+var h = Hoge.new
+if h {
+    print("true")
+}
+var l
+if l {
+
+} else {
+    print("false")
+}

@@ -77,11 +77,7 @@ import static sheep.util.SheepUtil.*;
         }
 
         public Object eval(Environment env) {
-            Object value = env.get(name());
-            if (value == null)
-                throw new SheepException("undefined name: " + name(), this);
-            else
-                return value;
+            return env.get(name());
         }
 
         @Override
