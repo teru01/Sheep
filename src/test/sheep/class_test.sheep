@@ -1,3 +1,4 @@
+var c = 3
 class hoge {
     var n = 3
     var name = 2
@@ -7,6 +8,7 @@ class hoge {
 }
 class foo extends hoge {
     var n = -6
+    var c
     def method(i, j) {
         i-j+n
     }
@@ -17,3 +19,5 @@ print s.name
 f = foo.new
 print(s.method(7,8)) //18
 print(f.method(7,8)) //-7
+f.c = "property"
+print(f.c)

@@ -30,7 +30,6 @@ public class FuncEvaluator {
         void putConst(String name, Object value);
         Environment where(String name);
         void setOuter(Environment e);
-        Environment getOutermostEnv();
     }
 
     @Reviser

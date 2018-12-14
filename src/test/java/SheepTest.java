@@ -100,7 +100,7 @@ public class SheepTest {
         @Test
         public void testClass() throws Throwable {
             String fileName = SheepTest.testPath + "/class_test.sheep";
-            String[] expected = { "21", "18", "-7" };
+            String[] expected = { "21", "18", "-7", "property" };
             ArrayRunner.run(new String[] { fileName });
             System.out.flush();
             String result = this.baos.toString();

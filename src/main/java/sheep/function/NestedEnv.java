@@ -60,9 +60,6 @@ public class NestedEnv implements Environment {
     @Override
     public void put(String name, Object value) {
         Environment e = where(name);
-        if(e == null) {
-            e = getOutermostEnv();
-        }
         ((EnvEx)e).putInCurrentEnv(name, value);
     }
 
@@ -77,13 +74,6 @@ public class NestedEnv implements Environment {
         } else if(this.outer != null) {
             return ((EnvEx)this.outer).where(name);
         }
-        return null;
-    }
-
-    public Environment getOutermostEnv() {
-        if(this.outer == null) {
-            return this;
-        }
-        return ((EnvEx)this.outer).getOutermostEnv();
+        return this;
     }
 }
