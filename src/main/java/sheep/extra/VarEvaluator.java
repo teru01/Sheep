@@ -29,7 +29,7 @@ public class VarEvaluator {
                 throw new SheepException("bad definition", this);
             }
             try {
-                ((EnvEx) env).putInCurrentEnv(((Name)symbol).name(), null);
+                ((EnvEx) env).putInCurrentEnv(((Name)symbol).name(), 0);
             } catch(SheepException e) {
                 throw new SheepException(e.getMessage(), this);
             }
