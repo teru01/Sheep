@@ -2,14 +2,22 @@ package sheep.extra;
 
 import java.util.List;
 
-import javassist.gluonj.*;
-import sheep.*;
-import sheep.ast.*;
-import sheep.core.BasicEvaluator.*;
-import static sheep.core.BasicEvaluator.*;
+import javassist.gluonj.Require;
+import javassist.gluonj.Reviser;
+import sheep.SheepException;
+import sheep.ast.ASTLeaf;
+import sheep.ast.ASTList;
+import sheep.ast.ASTree;
+import sheep.ast.ForIterExpr;
+import sheep.ast.ForStmnt;
+import sheep.core.BasicEvaluator.ASTreeEx;
+import sheep.core.BasicEvaluator.BinaryEx;
 import sheep.core.Environment;
-import sheep.function.*;
-import sheep.operator.*;
+import sheep.core.ReturnObject;
+import sheep.function.ClosureEvaluator;
+import sheep.operator.AssignOperator;
+import sheep.operator.BinaryOperator;
+import sheep.util.Statements;
 
 @Require(ClosureEvaluator.class)
 @Reviser
@@ -54,9 +62,16 @@ public class ForEvaluator {
                     iterCondition = (boolean)((ASTreeEx) conditionExpr()).eval(newEnv);
                 }
                 if (!iterCondition) {
-                    return result;
+                    return null;
                 } else {
                     result = ((ASTreeEx) body).eval(newEnv);
+                    if(result == Statements.CONTINUE) {
+                        continue;
+                    } else if(result == Statements.BREAK) {
+                        return null;
+                    } else if(result instanceof ReturnObject) {
+                        return result;
+                    }
                 }
                 if(updateExists) {
                     ((ASTreeEx)updateExpr()).eval(newEnv);
