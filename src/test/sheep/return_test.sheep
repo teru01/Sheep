@@ -9,7 +9,7 @@ def hoge() {
     return k
 }
 var c = hoge()
-print("ret:"c)
+print("ret:" + c)
 
 class Hoge {
     def w() {

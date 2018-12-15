@@ -212,7 +212,7 @@ import sheep.util.Statements;
                 if(!isTrue(c)) {
                     return null;
                 } else {
-                    result = ((ASTreeEx)body()).eval(env);
+                    result = ((ASTreeEx)body()).eval(new NestedEnv(env));
                     if(result == Statements.CONTINUE) {
                         continue;
                     } else if(result == Statements.BREAK) {

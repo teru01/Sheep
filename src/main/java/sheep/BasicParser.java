@@ -135,7 +135,7 @@ public class BasicParser {
     public void controlParser() {
         Parser sheepbreak = rule(BreakStmnt.class).sep("break");
         Parser sheepcontinue = rule(ContinueStmnt.class).sep("continue");
-        Parser sheepreturn = rule(ReturnStmnt.class).sep("return").ast(this.factor);
+        Parser sheepreturn = rule(ReturnStmnt.class).sep("return").ast(this.expr);
         this.statement.insertChoice(sheepbreak);
         this.statement.insertChoice(sheepcontinue);
         this.statement.insertChoice(sheepreturn);
