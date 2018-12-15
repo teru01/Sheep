@@ -120,50 +120,7 @@ import static sheep.util.SheepUtil.*;
                 return ((AssignOperator)op).assignTree(left(), right(), env);
             }
             throw new SheepException("bad operator", this);
-            // String[] AssignOperators = {"+=", "-=", "*=", "/=", "="};
-            // // 代入を伴わない
-            // if(!Arrays.asList(AssignOperators).contains(op)) {
-            //     return evalCalcurate(env, op);
-            // }
-            // Object newValue;
-            // if(op.equals("=")) {
-            //     newValue = ((ASTreeEx)right()).eval(env);
-            // } else {
-            //     newValue = computeOp(((ASTreeEx)left()).eval(env), op.substring(0, 1), ((ASTreeEx)right()).eval(env));
-            // }
-            // try {
-            //     return computeAssign(env, newValue);
-            // } catch(SheepException e) {
-            //     throw new SheepException(e.getMessage(), this);
-            // }
         }
-        // protected Object computeNumber(Integer left, String op, Integer right) {
-        //     int a = left.intValue();
-        //     int b = right.intValue();
-        //     if (op.equals("+"))
-        //         return a + b;
-        //     else if (op.equals("-"))
-        //         return a - b;
-        //     else if (op.equals("*"))
-        //         return a * b;
-        //     else if (op.equals("/"))
-        //         return a / b;
-        //     else if (op.equals("%"))
-        //         return a % b;
-        //     else if (op.equals("=="))
-        //         return a == b ? TRUE : FALSE;
-        //     else if (op.equals("!="))
-        //         return a != b ? TRUE : FALSE;
-        //     else if (op.equals(">"))
-        //         return a > b ? TRUE : FALSE;
-        //     else if (op.equals("<"))
-        //         return a < b ? TRUE : FALSE;
-        //     else if (op.equals("&&"))
-        //         return (a != 0 && b != 0) ? TRUE : FALSE;
-        //     else if (op.equals("||"))
-        //         return (a != 0 || b != 0) ? TRUE : FALSE;
-        //     else throw new SheepException("bad operator", this);
-        // }
     }
 
     @Reviser
