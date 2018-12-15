@@ -28,12 +28,12 @@ public class BasicInterpreter {
             ASTree t = bp.parse(lexer);
             if(t instanceof NullStmnt) {
                 continue;
-            } else if(t instanceof ContinueStmnt || t instanceof BreakStmnt) {
-                throw new SheepException("This statement is not permitted here", t);
             }
             Object r = ((BasicEvaluator.ASTreeEx)t).eval(env);
             if(r instanceof ReturnObject) {
                 return;
+            } else if(r instanceof ContinueStmnt || r instanceof BreakStmnt) {
+                throw new SheepException("This statement is not permitted here", t);
             }
         }
     }

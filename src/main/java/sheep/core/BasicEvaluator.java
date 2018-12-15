@@ -134,17 +134,31 @@ import sheep.util.Statements;
             for(ASTree t: this) {
                 if (t instanceof NullStmnt) {
                     continue;
-                } else if(t instanceof ContinueStmnt) {
-                    return Statements.CONTINUE;
-                } else if(t instanceof BreakStmnt) {
-                    return Statements.BREAK;
                 }
                 Object r = ((ASTreeEx) t).eval(env);
-                if(r instanceof ReturnObject) {
+                if(r instanceof ReturnObject || r == Statements.CONTINUE || r == Statements.BREAK) {
                     return r;
                 }
             }
             return null;
+        }
+    }
+
+    @Reviser static class ContinueEx extends ContinueStmnt {
+        public ContinueEx(List<ASTree> c) {
+            super(c);
+        }
+        public Object eval(Environment env) {
+            return Statements.CONTINUE;
+        }
+    }
+
+    @Reviser static class BreakEx extends BreakStmnt {
+        public BreakEx(List<ASTree> c) {
+            super(c);
+        }
+        public Object eval(Environment env) {
+            return Statements.BREAK;
         }
     }
 
