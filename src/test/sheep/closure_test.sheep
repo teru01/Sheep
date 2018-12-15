@@ -1,6 +1,6 @@
 def hoge(r) {
     var b = 2
-    var cl = fun(n){ var b = -3; r = n+b+r }
+    var cl = fun(n){ var b = -3; return r = n+b+r; }
     cl
 }
 var cl = hoge(3)

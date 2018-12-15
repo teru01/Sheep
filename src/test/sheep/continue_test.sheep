@@ -1,0 +1,23 @@
+for(var k=0; k<1000; k+=1) {
+    if 1 {
+        if(k == 1) {
+            continue
+        }
+    }
+    print(k)
+    if(k >= 2) {
+        break
+    }
+}
+
+var j = 0
+while(1) {
+    j += 1
+    if(j == 2) {
+        continue
+    }
+    print(j)
+    if(j >= 2) {
+        break
+    }
+}

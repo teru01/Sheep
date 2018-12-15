@@ -146,6 +146,36 @@ public class SheepTest {
             String result = this.baos.toString();
             assertEquals(makeString(expected), result);
         }
+
+        @Test
+        public void testReturn() throws Throwable {
+            String fileName = SheepTest.testPath + "/return_test.sheep";
+            String[] expected = {"0", "1", "ret:2", "32"};
+            ArrayRunner.run(new String[] { fileName });
+            System.out.flush();
+            String result = this.baos.toString();
+            assertEquals(makeString(expected), result);
+        }
+
+        @Test
+        public void testBreak() throws Throwable {
+            String fileName = SheepTest.testPath + "/break_test.sheep";
+            String[] expected = {"0", "1", "2", "0", "1", "2", "3"};
+            ArrayRunner.run(new String[] { fileName });
+            System.out.flush();
+            String result = this.baos.toString();
+            assertEquals(makeString(expected), result);
+        }
+
+        @Test
+        public void testContinue() throws Throwable {
+            String fileName = SheepTest.testPath + "/continue_test.sheep";
+            String[] expected = {"0", "2", "1", "3"};
+            ArrayRunner.run(new String[] { fileName });
+            System.out.flush();
+            String result = this.baos.toString();
+            assertEquals(makeString(expected), result);
+        }
     }
 
     public static class RaiseExceptionOfSheep {

@@ -3,14 +3,14 @@ class hoge {
     var n = 3
     var name = 2
     def method(i, j) {
-        i+j+n
+        return i+j+n
     }
 }
 class foo extends hoge {
     var n = -6
     var c
     def method(i, j) {
-        i-j+n
+        return i-j+n
     }
 }
 var s = hoge.new

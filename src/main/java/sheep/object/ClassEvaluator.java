@@ -1,14 +1,22 @@
 package sheep.object;
-import java.util.*;
-import sheep.*;
-import javassist.gluonj.*;
-import sheep.ast.*;
-import sheep.core.*;
+
+import java.util.List;
+
+import javassist.gluonj.Require;
+import javassist.gluonj.Reviser;
+import sheep.SheepException;
+import sheep.ast.ASTree;
+import sheep.ast.ClassBody;
+import sheep.ast.ClassStmnt;
+import sheep.ast.Dot;
 import sheep.core.BasicEvaluator.ASTreeEx;
-import sheep.function.*;
+import sheep.core.Environment;
+import sheep.core.ReturnObject;
+import sheep.function.FuncEvaluator;
 import sheep.function.FuncEvaluator.EnvEx;
-import sheep.function.FuncEvaluator.PrimaryEx;
+import sheep.function.NestedEnv;
 import sheep.object.SheepObject.AccessException;
+import sheep.util.Statements;
 
 @Require(FuncEvaluator.class)
 @Reviser

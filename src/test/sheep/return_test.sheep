@@ -1,8 +1,27 @@
+def hoge() {
+    var k = 1
+    for(var i=0; i<100; i+=1) {
+        if(i == 2) {
+            return i
+        }
+        print(i)
+    }
+    return k
+}
+var c = hoge()
+print("ret:"c)
+
+class Hoge {
+    def w() {
+        return 32
+    }
+}
+h = Hoge.new
+print(h.w())
+
 if 1 {
     if 1 {
-        print("will print")
         if 1 {
-            print("will return")
             return 0
             print("not print")
         }
