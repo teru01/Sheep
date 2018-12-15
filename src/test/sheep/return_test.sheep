@@ -1,0 +1,13 @@
+if 1 {
+    if 1 {
+        print("will print")
+        if 1 {
+            print("will return")
+            return 0
+            print("not print")
+        }
+        print("not print1")
+    }
+    print("not print2")
+}
+print("not print3")

@@ -7,8 +7,11 @@ import sheep.BasicParser;
 import sheep.CodeDialog;
 import sheep.Lexer;
 import sheep.ParseException;
+import sheep.SheepException;
 import sheep.Token;
 import sheep.ast.ASTree;
+import sheep.ast.BreakStmnt;
+import sheep.ast.ContinueStmnt;
 import sheep.ast.NullStmnt;
 
 public class BasicInterpreter {
@@ -23,8 +26,14 @@ public class BasicInterpreter {
         Lexer lexer = new Lexer(reader);
         while(lexer.peek(0) != Token.EOF) {
             ASTree t = bp.parse(lexer);
-            if(!(t instanceof NullStmnt)) {
-                ((BasicEvaluator.ASTreeEx)t).eval(env);
+            if(t instanceof NullStmnt) {
+                continue;
+            } else if(t instanceof ContinueStmnt || t instanceof BreakStmnt) {
+                throw new SheepException("This statement is not permitted here", t);
+            }
+            Object r = ((BasicEvaluator.ASTreeEx)t).eval(env);
+            if(r instanceof ReturnObject) {
+                return;
             }
         }
     }

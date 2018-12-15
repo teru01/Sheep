@@ -1,6 +1,7 @@
 package sheep.core;
 
-import java.util.Arrays;
+import static sheep.util.SheepUtil.isTrue;
+
 import java.util.List;
 
 import javassist.gluonj.Reviser;
@@ -11,20 +12,21 @@ import sheep.ast.ASTList;
 import sheep.ast.ASTree;
 import sheep.ast.BinaryExpr;
 import sheep.ast.BlockStmnt;
+import sheep.ast.BreakStmnt;
+import sheep.ast.ContinueStmnt;
 import sheep.ast.IfStmnt;
 import sheep.ast.Name;
 import sheep.ast.NegativeExpr;
-import sheep.ast.BlockStmnt;
 import sheep.ast.NullStmnt;
 import sheep.ast.NumberLiteral;
+import sheep.ast.ReturnStmnt;
 import sheep.ast.StringLiteral;
 import sheep.ast.WhileStmnt;
 import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.function.NestedEnv;
-import sheep.operator.*;
+import sheep.operator.AssignOperator;
+import sheep.operator.BinaryOperator;
 import sheep.util.Statements;
-
-import static sheep.util.SheepUtil.*;
 
 @Reviser public class BasicEvaluator {
     @Reviser public abstract static class ASTreeEx extends ASTree {
@@ -129,19 +131,30 @@ import static sheep.util.SheepUtil.*;
     public static class BlockEx extends BlockStmnt {
         public BlockEx(List<ASTree> c) { super(c); }
         public Object eval(Environment env) {
-            Object result = 0;
             for(ASTree t: this) {
-                if (!(t instanceof NullStmnt)) {
-                    result = ((ASTreeEx) t).eval(newEnv);
+                if (t instanceof NullStmnt) {
+                    continue;
                 } else if(t instanceof ContinueStmnt) {
-                    return null;
+                    return Statements.CONTINUE;
                 } else if(t instanceof BreakStmnt) {
-                    return BreakStmnt.class;
-                } else if(t instanceof ReturnStmnt) {
-                    return ((ASTreeEx)(((ReturnStmnt)t).returnValue())).eval(env);
+                    return Statements.BREAK;
+                }
+                Object r = ((ASTreeEx) t).eval(env);
+                if(r instanceof ReturnObject) {
+                    return r;
                 }
             }
-            return result;
+            return null;
+        }
+    }
+
+    @Reviser
+    public static class ReturnEx extends ReturnStmnt {
+        public ReturnEx(List<ASTree> c) {
+            super(c);
+        }
+        public Object eval(Environment env) {
+            return new ReturnObject(((ASTreeEx)returnValue()).eval(env));
         }
     }
 
@@ -152,14 +165,24 @@ import static sheep.util.SheepUtil.*;
             // if文条件に合致
             Object c = ((ASTreeEx) condition()).eval(env);
             if (isTrue(c)) {
-                return ((ASTreeEx) thenBlock()).eval(new NestedEnv(env));
+                Object v = ((ASTreeEx) thenBlock()).eval(new NestedEnv(env));
+                throwExceptionIfNotPermitted(v);
+                if(v instanceof ReturnObject) {
+                    return v;
+                }
+                return null;
             }
             // elif文条件に合致
             int k = getElseIfNum();
             for(int i = 0; i < k; i++) {
                 c = ((ASTreeEx)(elifStmnt().getElifCondition(i))).eval(env);
                 if(isTrue(c)) {
-                    return ((ASTreeEx)(elifStmnt().getElifBlock(i))).eval(new NestedEnv(env));
+                    Object v = ((ASTreeEx)(elifStmnt().getElifBlock(i))).eval(new NestedEnv(env));
+                    throwExceptionIfNotPermitted(v);
+                    if(v instanceof ReturnObject) {
+                        return v;
+                    }
+                    return null;
                 }
             }
             // else文に合致
@@ -167,7 +190,18 @@ import static sheep.util.SheepUtil.*;
             if(b == null) {
                 return 0;
             } else {
-                return ((ASTreeEx)b).eval(new NestedEnv(env));
+                Object v =  ((ASTreeEx)b).eval(new NestedEnv(env));
+                throwExceptionIfNotPermitted(v);
+                if(v instanceof ReturnObject) {
+                    return v;
+                }
+                return null;
+            }
+        }
+
+        protected void throwExceptionIfNotPermitted(Object v) {
+            if(v == Statements.CONTINUE || v == Statements.BREAK) {
+                throw new SheepException("This statement is not permitted here", this);
             }
         }
     }

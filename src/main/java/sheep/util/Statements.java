@@ -1,4 +1,4 @@
 package sheep.util;
 public enum Statements {
-    BREAK,CONTINUE
+    BREAK,CONTINUE,RETURN
 }
