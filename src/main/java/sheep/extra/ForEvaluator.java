@@ -66,6 +66,9 @@ public class ForEvaluator {
                 } else {
                     result = ((ASTreeEx) body).eval(newEnv);
                     if(result == Statements.CONTINUE) {
+                        if(updateExists) {
+                            updateForIteration(newEnv);
+                        }
                         continue;
                     } else if(result == Statements.BREAK) {
                         return null;
@@ -74,9 +77,13 @@ public class ForEvaluator {
                     }
                 }
                 if(updateExists) {
-                    ((ASTreeEx)updateExpr()).eval(newEnv);
+                    updateForIteration(newEnv);
                 }
             }
+        }
+
+        protected void updateForIteration(Environment env) {
+            ((ASTreeEx)updateExpr()).eval(env);
         }
     }
 

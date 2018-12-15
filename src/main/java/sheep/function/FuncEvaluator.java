@@ -17,8 +17,10 @@ import sheep.core.BasicEvaluator;
 import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.core.BasicEvaluator.BlockEx;
 import sheep.core.Environment;
+import sheep.core.ReturnObject;
 import sheep.object.SheepObject;
 import sheep.object.SheepObject.AccessException;
+import sheep.util.Statements;
 
 @Require(BasicEvaluator.class)
 @Reviser
@@ -144,7 +146,13 @@ public class FuncEvaluator {
             for(ASTree a: this) {
                 ((ParamsEx)params).eval(newEnv, num++, ((ASTreeEx)a).eval(callerEnv));
             }
-            return ((BlockEx)func.body()).eval(newEnv);
+            Object result = ((BlockEx)func.body()).eval(newEnv);
+            if(result instanceof ReturnObject) {
+                return ((ReturnObject)result).getValue();
+            } else if(result == Statements.BREAK || result == Statements.CONTINUE) {
+                throw new SheepException("This statement is not permitted here", this);
+            }
+            return null;
         }
     }
 
