@@ -179,24 +179,14 @@ import sheep.util.Statements;
             // if文条件に合致
             Object c = ((ASTreeEx) condition()).eval(env);
             if (isTrue(c)) {
-                Object v = ((ASTreeEx) thenBlock()).eval(new NestedEnv(env));
-                throwExceptionIfNotPermitted(v);
-                if(v instanceof ReturnObject) {
-                    return v;
-                }
-                return null;
+                return ((ASTreeEx) thenBlock()).eval(new NestedEnv(env));
             }
             // elif文条件に合致
             int k = getElseIfNum();
             for(int i = 0; i < k; i++) {
                 c = ((ASTreeEx)(elifStmnt().getElifCondition(i))).eval(env);
                 if(isTrue(c)) {
-                    Object v = ((ASTreeEx)(elifStmnt().getElifBlock(i))).eval(new NestedEnv(env));
-                    throwExceptionIfNotPermitted(v);
-                    if(v instanceof ReturnObject) {
-                        return v;
-                    }
-                    return null;
+                    return ((ASTreeEx)(elifStmnt().getElifBlock(i))).eval(new NestedEnv(env));
                 }
             }
             // else文に合致
@@ -204,18 +194,7 @@ import sheep.util.Statements;
             if(b == null) {
                 return 0;
             } else {
-                Object v =  ((ASTreeEx)b).eval(new NestedEnv(env));
-                throwExceptionIfNotPermitted(v);
-                if(v instanceof ReturnObject) {
-                    return v;
-                }
-                return null;
-            }
-        }
-
-        protected void throwExceptionIfNotPermitted(Object v) {
-            if(v == Statements.CONTINUE || v == Statements.BREAK) {
-                throw new SheepException("This statement is not permitted here", this);
+                return ((ASTreeEx)b).eval(new NestedEnv(env));
             }
         }
     }
@@ -235,9 +214,11 @@ import sheep.util.Statements;
                 } else {
                     result = ((ASTreeEx)body()).eval(env);
                     if(result == Statements.CONTINUE) {
-                        return result;
-                    } else if(result instanceof BreakStmnt) {
+                        continue;
+                    } else if(result == Statements.BREAK) {
                         return null;
+                    } else if(result instanceof ReturnObject) {
+                        return result;
                     }
                 }
             }
