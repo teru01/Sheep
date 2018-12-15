@@ -10,13 +10,12 @@ import sheep.ast.ArrayRef;
 import sheep.ast.DefStmnt;
 import sheep.ast.Dot;
 import sheep.ast.Function;
-import sheep.ast.NonScopedBlock;
-import sheep.ast.NullStmnt;
 import sheep.ast.ParameterList;
 import sheep.ast.Postfix;
 import sheep.ast.PrimaryExpr;
 import sheep.core.BasicEvaluator;
 import sheep.core.BasicEvaluator.ASTreeEx;
+import sheep.core.BasicEvaluator.BlockEx;
 import sheep.core.Environment;
 import sheep.object.SheepObject;
 import sheep.object.SheepObject.AccessException;
@@ -122,20 +121,6 @@ public class FuncEvaluator {
     }
 
     @Reviser
-    public static class NonScopedBlockEx extends NonScopedBlock {
-        public NonScopedBlockEx(List<ASTree> c) { super(c); }
-
-        public Object eval(Environment env) {
-            Object result = 0;
-            for (ASTree t : this) {
-                if (!(t instanceof NullStmnt))
-                    result = ((ASTreeEx) t).eval(env);
-            }
-            return result;
-        }
-    }
-
-    @Reviser
     public static class ArgumentsEx extends Arguments {
         public ArgumentsEx(List<ASTree> c) { super(c); }
         /**
@@ -159,7 +144,7 @@ public class FuncEvaluator {
             for(ASTree a: this) {
                 ((ParamsEx)params).eval(newEnv, num++, ((ASTreeEx)a).eval(callerEnv));
             }
-            return ((NonScopedBlockEx)func.body()).eval(newEnv);
+            return ((BlockEx)func.body()).eval(newEnv);
         }
     }
 
@@ -175,5 +160,4 @@ public class FuncEvaluator {
             }
         }
     }
-
 }

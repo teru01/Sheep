@@ -6,8 +6,8 @@ public class Fun extends ASTList {
     public ParameterList parameters() {
         return (ParameterList)child(0);
     }
-    public NonScopedBlock body() {
-        return (NonScopedBlock)child(1);
+    public BlockStmnt body() {
+        return (BlockStmnt)child(1);
     }
     @Override
     public String toString() {

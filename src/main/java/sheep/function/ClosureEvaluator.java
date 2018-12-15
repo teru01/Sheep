@@ -12,6 +12,7 @@ public class ClosureEvaluator {
         public FunEx(List<ASTree> c) { super(c); }
         public Object eval(Environment env) {
             // このクロージャが定義されている環境を渡す
+            // BlockStmnt b = body();
             return new Function(parameters(), body(), env);
         }
     }

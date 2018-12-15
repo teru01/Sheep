@@ -1,14 +1,13 @@
 package sheep.optimizer;
 
 import sheep.ast.BlockStmnt;
-import sheep.ast.NonScopedBlock;
 import sheep.ast.*;
 import sheep.core.Environment;
 
 public class OptFunction extends Function {
     protected int size;
 
-    public OptFunction(ParameterList parameters, NonScopedBlock body, Environment env, int memorySize) {
+    public OptFunction(ParameterList parameters, BlockStmnt body, Environment env, int memorySize) {
         super(parameters, body, env);
         this.size = memorySize;
     }

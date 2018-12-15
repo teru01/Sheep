@@ -4,10 +4,10 @@ import sheep.function.*;
 
 public class Function {
     protected ParameterList parameters;
-    protected NonScopedBlock body;
+    protected BlockStmnt body;
     protected Environment env;
 
-    public Function(ParameterList parameters, NonScopedBlock body, Environment env) {
+    public Function(ParameterList parameters, BlockStmnt body, Environment env) {
         this.parameters = parameters;
         this.body = body;
         this.env = env;
@@ -16,7 +16,7 @@ public class Function {
         return this.parameters;
     }
 
-    public NonScopedBlock body() {
+    public BlockStmnt body() {
         return body;
     }
 

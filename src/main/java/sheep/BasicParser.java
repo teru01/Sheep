@@ -52,7 +52,7 @@ public class BasicParser {
                             .ast(param)
                             .repeat(rule().sep(",").ast(param));
         Parser paramList = rule().sep("(").maybe(params).sep(")");
-        Parser funcBody = rule(NonScopedBlock.class)
+        Parser funcBody = rule(BlockStmnt.class)
                             .sep("{")
                             .option(this.statement0)
                             .repeat(rule().sep(";", Token.EOL).option(this.statement0))
@@ -79,7 +79,7 @@ public class BasicParser {
                                 .maybe(rule().ast(this.simple)).sep(";")
                                 .maybe(rule().ast(this.simple))
                                 .sep(")");
-        Parser forBady = rule(NonScopedBlock.class)
+        Parser forBady = rule(BlockStmnt.class)
                                 .sep("{")
                                 .option(this.statement0)
                                 .repeat(rule().sep(";", Token.EOL).option(this.statement0))

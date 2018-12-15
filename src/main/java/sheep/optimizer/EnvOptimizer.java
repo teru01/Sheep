@@ -97,7 +97,7 @@ public class EnvOptimizer {
         /**
          * 新たなSymbolを作成して関数内部のシンボル数を返す。
          */
-        public static int lookup(Symbols syms, ParameterList params, NonScopedBlock body) {
+        public static int lookup(Symbols syms, ParameterList params, ASTree body) {
             Symbols newSyms = new Symbols(syms);
             ((ParamsEx)params).lookup(newSyms);
             ((ASTreeOptEx)revise(body)).lookup(newSyms);

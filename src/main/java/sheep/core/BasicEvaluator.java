@@ -14,12 +14,13 @@ import sheep.ast.BlockStmnt;
 import sheep.ast.IfStmnt;
 import sheep.ast.Name;
 import sheep.ast.NegativeExpr;
-import sheep.ast.NonScopedBlock;
+import sheep.ast.BlockStmnt;
 import sheep.ast.NullStmnt;
 import sheep.ast.NumberLiteral;
 import sheep.ast.StringLiteral;
 import sheep.ast.WhileStmnt;
 import sheep.core.BasicEvaluator.ASTreeEx;
+import sheep.function.NestedEnv;
 import sheep.operator.*;
 import static sheep.util.SheepUtil.*;
 
@@ -179,36 +180,20 @@ import static sheep.util.SheepUtil.*;
     }
 
     @Reviser
-    public static class NonScopedBlockEx extends NonScopedBlock {
-        public NonScopedBlockEx(List<ASTree> c) {
-            super(c);
-        }
-
-        public Object eval(Environment env) {
-            Object result = 0;
-            for (ASTree t : this) {
-                if (!(t instanceof NullStmnt))
-                    result = ((ASTreeEx) t).eval(env);
-            }
-            return result;
-        }
-    }
-
-    @Reviser
     public static class IfEx extends IfStmnt {
         public IfEx(List<ASTree> c) { super(c); }
         public Object eval(Environment env) {
             // if文条件に合致
             Object c = ((ASTreeEx) condition()).eval(env);
             if (isTrue(c)) {
-                return ((ASTreeEx) thenBlock()).eval(env);
+                return ((ASTreeEx) thenBlock()).eval(new NestedEnv(env));
             }
             // elif文条件に合致
             int k = getElseIfNum();
             for(int i = 0; i < k; i++) {
                 c = ((ASTreeEx)(elifStmnt().getElifCondition(i))).eval(env);
                 if(isTrue(c)) {
-                    return ((ASTreeEx)(elifStmnt().getElifBlock(i))).eval(env);
+                    return ((ASTreeEx)(elifStmnt().getElifBlock(i))).eval(new NestedEnv(env));
                 }
             }
             // else文に合致
@@ -216,7 +201,7 @@ import static sheep.util.SheepUtil.*;
             if(b == null) {
                 return 0;
             } else {
-                return ((ASTreeEx)b).eval(env);
+                return ((ASTreeEx)b).eval(new NestedEnv(env));
             }
         }
     }
@@ -232,7 +217,7 @@ import static sheep.util.SheepUtil.*;
                 if(!isTrue(c)) {
                     return result;
                 } else {
-                    result = ((ASTreeEx)body()).eval(env);
+                    result = ((ASTreeEx)body()).eval(new NestedEnv(env));
                 }
             }
         }
