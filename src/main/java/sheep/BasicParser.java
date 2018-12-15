@@ -132,6 +132,15 @@ public class BasicParser {
         program.insertChoice(defclass);
     }
 
+    public void controlParser() {
+        Parser sheepbreak = rule(BreakStmnt.class).sep("break");
+        Parser sheepcontinue = rule(ContinueStmnt.class).sep("continue");
+        Parser sheepreturn = rule(ReturnStmnt.class).sep("return").ast(this.factor);
+        this.statement.insertChoice(sheepbreak);
+        this.statement.insertChoice(sheepcontinue);
+        this.statement.insertChoice(sheepreturn);
+    }
+
     public void defineOperators(Operator[] operators, int priority) {
         for(Operator op: operators) {
             this.operators.add(op.token, priority, op.bind);
@@ -196,6 +205,7 @@ public class BasicParser {
         varParser();
         forParser();
         constParser();
+        controlParser();
     }
 
     public ASTree parse(Lexer lexer) throws ParseException {
