@@ -13,6 +13,7 @@ import sheep.ast.ASTree;
 import sheep.ast.BreakStmnt;
 import sheep.ast.ContinueStmnt;
 import sheep.ast.NullStmnt;
+import sheep.util.Statements;
 
 public class BasicInterpreter {
     public static void run(BasicParser bp, Environment env, String fileName) throws ParseException {
@@ -32,8 +33,8 @@ public class BasicInterpreter {
             Object r = ((BasicEvaluator.ASTreeEx)t).eval(env);
             if(r instanceof ReturnObject) {
                 return;
-            } else if(r instanceof ContinueStmnt || r instanceof BreakStmnt) {
-                throw new SheepException("This statement is not permitted here", t);
+            } else if(r == Statements.CONTINUE || r == Statements.BREAK) {
+                throw new SheepException("This statement is not permitted: " + ((Statements)r).getValue());
             }
         }
     }
