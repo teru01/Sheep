@@ -22,6 +22,8 @@ import sheep.ast.WhileStmnt;
 import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.function.NestedEnv;
 import sheep.operator.*;
+import sheep.util.Statements;
+
 import static sheep.util.SheepUtil.*;
 
 @Reviser public class BasicEvaluator {
@@ -129,8 +131,15 @@ import static sheep.util.SheepUtil.*;
         public Object eval(Environment env) {
             Object result = 0;
             for(ASTree t: this) {
-                if(!(t instanceof NullStmnt))
-                    result = ((ASTreeEx)t).eval(env);
+                if (!(t instanceof NullStmnt)) {
+                    result = ((ASTreeEx) t).eval(newEnv);
+                } else if(t instanceof ContinueStmnt) {
+                    return null;
+                } else if(t instanceof BreakStmnt) {
+                    return BreakStmnt.class;
+                } else if(t instanceof ReturnStmnt) {
+                    return ((ASTreeEx)(((ReturnStmnt)t).returnValue())).eval(env);
+                }
             }
             return result;
         }
@@ -163,18 +172,25 @@ import static sheep.util.SheepUtil.*;
         }
     }
 
+    /**
+     * while文。デフォルトでnullを返却。
+     */
     @Reviser
     public static class WhileEx extends WhileStmnt {
         public WhileEx(List<ASTree> c) { super(c); }
         public Object eval(Environment env) {
             Object result = 0;
-            // While文を抜ける直前の最後に評価された値を返す
             while(true) {
                 Object c = ((ASTreeEx)condition()).eval(env);
                 if(!isTrue(c)) {
-                    return result;
+                    return null;
                 } else {
-                    result = ((ASTreeEx)body()).eval(new NestedEnv(env));
+                    result = ((ASTreeEx)body()).eval(env);
+                    if(result == Statements.CONTINUE) {
+                        return result;
+                    } else if(result instanceof BreakStmnt) {
+                        return null;
+                    }
                 }
             }
         }
