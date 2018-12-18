@@ -1,2 +1,3 @@
-# Sheep
-「2週間でできる！スクリプト言語の作り方」(千葉滋)で作成するstoneの拡張言語です。
+[![CircleCI](https://circleci.com/gh/teru01/Sheep.svg?style=svg)](https://circleci.com/gh/teru01/Sheep)
+# Sheep programming language
+Sheep is an extended language of stone created in "A new scripting language in 2 weeks"(Shigeru Chiba)
