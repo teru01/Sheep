@@ -1,5 +1,5 @@
 package sheep.util;
-import static sheep.core.BasicEvaluator.*;
+
 public class SheepUtil {
     public static boolean isTrue(Object obj) {
         if(obj == null

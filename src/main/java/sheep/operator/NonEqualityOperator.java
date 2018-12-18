@@ -1,7 +1,7 @@
 package sheep.operator;
 import sheep.Token;
 import sheep.ast.ASTree;
-import static sheep.core.BasicEvaluator.*;
+import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.core.Environment;
 public class NonEqualityOperator extends BinaryOperator {
     public NonEqualityOperator(Token t) {

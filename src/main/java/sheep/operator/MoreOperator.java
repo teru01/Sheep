@@ -3,7 +3,7 @@ package sheep.operator;
 import sheep.SheepException;
 import sheep.Token;
 import sheep.ast.ASTree;
-import static sheep.core.BasicEvaluator.*;
+import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.core.Environment;
 public class MoreOperator extends BinaryOperator {
     public MoreOperator(Token t) {

@@ -1,10 +1,10 @@
 package sheep.operator;
 
-import sheep.SheepException;
+import sheep.util.SheepUtil;
+
 import sheep.Token;
 import sheep.ast.ASTree;
-import static sheep.core.BasicEvaluator.*;
-import static sheep.util.SheepUtil.*;
+import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.core.Environment;
 public class OrOperator extends BinaryOperator {
     public OrOperator(Token t) {
@@ -14,11 +14,11 @@ public class OrOperator extends BinaryOperator {
     @Override
     public Object calc(ASTree left, ASTree right, Environment env) {
         Object leftObj = ((ASTreeEx)left).eval(env);
-        if(isTrue(leftObj)) {
+        if(SheepUtil.isTrue(leftObj)) {
             return true;
         }
         Object rightObj = ((ASTreeEx)right).eval(env);
-        if(isTrue(rightObj)) {
+        if(SheepUtil.isTrue(rightObj)) {
             return true;
         } else {
             return false;

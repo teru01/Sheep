@@ -1,7 +1,6 @@
 package sheep.optimizer;
 import static javassist.gluonj.GluonJ.revise;
 
-import javassist.compiler.ast.Symbol;
 import javassist.gluonj.*;
 import java.util.List;
 import sheep.*;

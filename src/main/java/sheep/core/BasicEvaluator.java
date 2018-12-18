@@ -1,6 +1,6 @@
 package sheep.core;
 
-import static sheep.util.SheepUtil.isTrue;
+import sheep.util.SheepUtil;
 
 import java.util.List;
 
@@ -22,7 +22,6 @@ import sheep.ast.NumberLiteral;
 import sheep.ast.ReturnStmnt;
 import sheep.ast.StringLiteral;
 import sheep.ast.WhileStmnt;
-import sheep.core.BasicEvaluator.ASTreeEx;
 import sheep.function.NestedEnv;
 import sheep.operator.AssignOperator;
 import sheep.operator.BinaryOperator;
@@ -178,14 +177,14 @@ import sheep.util.Statements;
         public Object eval(Environment env) {
             // if文条件に合致
             Object c = ((ASTreeEx) condition()).eval(env);
-            if (isTrue(c)) {
+            if (SheepUtil.isTrue(c)) {
                 return ((ASTreeEx) thenBlock()).eval(new NestedEnv(env));
             }
             // elif文条件に合致
             int k = getElseIfNum();
             for(int i = 0; i < k; i++) {
                 c = ((ASTreeEx)(elifStmnt().getElifCondition(i))).eval(env);
-                if(isTrue(c)) {
+                if(SheepUtil.isTrue(c)) {
                     return ((ASTreeEx)(elifStmnt().getElifBlock(i))).eval(new NestedEnv(env));
                 }
             }
@@ -209,7 +208,7 @@ import sheep.util.Statements;
             Object result = 0;
             while(true) {
                 Object c = ((ASTreeEx)condition()).eval(env);
-                if(!isTrue(c)) {
+                if(!SheepUtil.isTrue(c)) {
                     return null;
                 } else {
                     result = ((ASTreeEx)body()).eval(new NestedEnv(env));
