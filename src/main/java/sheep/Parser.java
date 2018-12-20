@@ -212,7 +212,7 @@ public class Parser {
         {
             ArrayList<ASTree> list = new ArrayList<ASTree>();
             list.add(left);
-            list.add(createOperator(lexer.read()));
+            list.add(OpFactory.createOperator(lexer.read()));
             ASTree right = factor.parse(lexer);
             Precedence next;
             while ((next = nextOperator(lexer)) != null
@@ -237,17 +237,6 @@ public class Parser {
         }
         protected boolean match(Lexer lexer) throws ParseException {
             return factor.match(lexer);
-        }
-        private ASTLeaf createOperator(Token opToken) throws ParseException{
-            String op = opToken.getText();
-            String[] AssignOperators = {"+=", "-=", "*=", "/="};
-            if(Arrays.asList(AssignOperators).contains(op)) {
-                return new CompoundAssignOperator(opToken);
-            } else if(op.equals("=")){
-                return new AssignOperator(opToken);
-            } else {
-                return BinaryOperator.createOperator(opToken);
-            }
         }
     }
 
